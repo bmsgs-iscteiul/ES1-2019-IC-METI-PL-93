@@ -2,17 +2,15 @@ package _ES._ES;
 
 
 public class ThresHold {
-//
-	private int column;
-	private int line;
+	
 	private int value;
 	private Operators operator;
+	private int column;
 	
-	public ThresHold(int column, int line, int value, Operators operator) {
-		this.column = column;
-		this.line = line;
+	public ThresHold(int column, int value, Operators operator) {
 		this.value = value;
 		this.operator=operator;	
+		this.column=column;
 	}
 
 	public Operators getOperator() {
@@ -29,14 +27,6 @@ public class ThresHold {
 
 	public void setColumn(int column) {
 		this.column = column;
-	}
-
-	public int getLine() {
-		return line;
-	}
-
-	public void setLine(int line) {
-		this.line = line;
 	}
 
 	public int getValue() {
