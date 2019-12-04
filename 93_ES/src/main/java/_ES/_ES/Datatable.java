@@ -3,6 +3,10 @@ package _ES._ES;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  * 
@@ -12,9 +16,9 @@ import javax.swing.JTable;
 
 public class Datatable {
 
-	String[][] defectMatrix; 
+	Object[][] defectMatrix; 
 
-	public Datatable(String[][] defectMatrix) {
+	public Datatable(Object[][] defectMatrix) {
 		this.defectMatrix = defectMatrix;
 	}
 	
@@ -26,7 +30,29 @@ public class Datatable {
 		columnNames[2] = "Defect Detetion Result";
 		columnNames[3] = "is_long_method";
         // Initializing the JTable 
-		return new JTable(defectMatrix, columnNames);
+		@SuppressWarnings("serial")
+		DefaultTableModel tableModel = new DefaultTableModel(defectMatrix, columnNames){
+			@Override
+            public Class<?> getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return Integer.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return String.class;
+                    default:
+                        return String.class;
+                }
+            }
+        };
+		JTable table = new JTable(tableModel);
+		//Row Sorter
+		RowSorter<TableModel> rowSorter = new TableRowSorter<TableModel>(tableModel);
+		table.setRowSorter(rowSorter);
+		
+//		return new JTable(defectMatrix, columnNames);
+		return table;
 	}
 	
 	//TESTES - APAGAR QUANDO A CLASSE ESTIVER PRONTA

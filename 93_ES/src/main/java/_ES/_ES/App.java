@@ -40,12 +40,13 @@ public class App
 		}
     }
     
-    public String[][] detectDefects(DefectDetection dd){
-    	String[][] defectMatrix = new String[matrix.length-1][4];
+    public Object[][] detectDefects(DefectDetection dd){
+    	Object[][] defectMatrix = new Object[matrix.length-1][4];
 
 		for (int i = 0; i < matrix.length-1; i++) {
 			String idString = matrix[i+1][0].toString();
-			defectMatrix[i][0] = idString.substring(0, idString.length() - 2);
+			idString = idString.substring(0, idString.length() - 2);
+			defectMatrix[i][0] = Integer.parseInt(idString);
 			defectMatrix[i][1] = matrix[i+1][3].toString();
 			
 			//defectMatrix[i][2] = dd.detection(matrix[i]);
