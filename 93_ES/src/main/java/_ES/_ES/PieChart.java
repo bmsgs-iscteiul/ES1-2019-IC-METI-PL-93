@@ -10,6 +10,13 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 
+/**
+ * 
+ * @author Catarina Garcez - 82517
+ *
+ */
+
+
 public class PieChart extends JPanel {
 
 	private TableModel tableModel;
@@ -25,8 +32,8 @@ public class PieChart extends JPanel {
 		// we put the chart into a panel
 		ChartPanel chartPanel = new ChartPanel(chart);
 		// default size
-		chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-
+		chartPanel.setPreferredSize(new java.awt.Dimension(600, 400));
+		
 
 		this.add(chartPanel);
 
@@ -45,7 +52,7 @@ public class PieChart extends JPanel {
 
 			if(object instanceof String) {
 				String value = (String) object;
-				System.out.println("Vou converter: |"+value+"|");
+				//System.out.println("Vou converter: |"+value+"|");
 				
 				boolean bool = Boolean.parseBoolean(value);
 				
@@ -60,7 +67,7 @@ public class PieChart extends JPanel {
 		double comErros = counter / rows;
 		double semErros = (rows - counter) / rows;
 
-		System.out.println(chartTitle + ": C/Erros = " + comErros + "%, S/Erros = " + semErros + "%");
+		//System.out.println(chartTitle + ": C/Erros = " + comErros + "%, S/Erros = " + semErros + "%");
 
 
 		DefaultPieDataset result = new DefaultPieDataset();
