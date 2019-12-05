@@ -244,7 +244,7 @@ public class MainFrame {
 		//WEST PANEL
 		westPanel = new JPanel();	
 		westPanel.setLayout(new BorderLayout());
-		westPanel.setPreferredSize(new Dimension(900, screenSize.height)); //700, 670
+		westPanel.setPreferredSize(new Dimension(screenSize.width-375, screenSize.height)); //700, 670
 		mainPanel.add(westPanel, BorderLayout.WEST);
 
 		String titleWestPanel = "Tables and Graphs";
