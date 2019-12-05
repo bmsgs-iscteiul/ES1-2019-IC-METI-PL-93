@@ -84,6 +84,8 @@ public class MainFrame {
 		};
 		listOfDD.addListSelectionListener(listSelectionListener);
 
+		
+		 //atualização test3
 		doFrame();
 		addFrameContent();
 	}
@@ -167,8 +169,7 @@ public class MainFrame {
 		String titleCenterPanel = "Defect Count";
 		Border borderCenterPanel = BorderFactory.createTitledBorder(titleCenterPanel);
 		centerPanel.setBorder(borderCenterPanel);
-		
-		//olá test2
+	
 
 		//SOUTH PANEL 
 		JPanel southPanel = new JPanel();
