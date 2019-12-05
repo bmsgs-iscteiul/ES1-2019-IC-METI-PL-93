@@ -3,6 +3,7 @@ package _ES._ES;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -52,8 +53,6 @@ public class MainFrame {
 		app = new App();
 		datatable = new Datatable(app.detectDefects(null));
 		table = datatable.getJTable();
-//		pieChart = new PieChart(app);
-//		barChart = new BarChart(app);
 
 	    //FALTA UPDATE DA CLASSE DO ARTEM
 //		ArrayList<DefectDetection> ddList = new ArrayList<DefectDetection>();
@@ -84,8 +83,6 @@ public class MainFrame {
 		};
 		listOfDD.addListSelectionListener(listSelectionListener);
 
-		
-		 //atualização test3
 		doFrame();
 		addFrameContent();
 	}
@@ -93,9 +90,11 @@ public class MainFrame {
 	private void doFrame() {
 		frame = new JFrame("Defect Detection In Software Projects");
 		frame.setTitle("Defect Detection In Software Projects");
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setSize(screenSize.width, screenSize.height);	
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);			
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();		
+//		frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
+//		frame.setSize(1200, 670);	
+		frame.setSize(dim.width, dim.height);
 		frame.setVisible(true);
 	}
 
@@ -105,23 +104,22 @@ public class MainFrame {
 		//MAIN PANEL
 		final JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
-		mainPanel.setSize(screenSize.width, screenSize.height);
+		mainPanel.setSize(screenSize.width, screenSize.height); //1200,670
 		frame.add(mainPanel, BorderLayout.NORTH);
 
 
 		//EAST PANEL
 		JPanel eastPanel = new JPanel();
 		eastPanel.setLayout(new GridLayout(3,1));
-		eastPanel.setPreferredSize(new Dimension(350,screenSize.height));
+		eastPanel.setPreferredSize(new Dimension(350,screenSize.height)); //350,670
 		mainPanel.add(eastPanel, BorderLayout.EAST);
 
 		//NORTH PANEL -> ADICIONAR LISTA RETIRADA DA APP
 		final JPanel northPanel = new JPanel();
 		northPanel.setLayout(new FlowLayout());
-		northPanel.setPreferredSize(new Dimension(350, 300));
 		eastPanel.add(northPanel, new GridLayout(1,1));
 
-		String titleNorthPanel = "Defect Detection";
+		String titleNorthPanel = "Defect Detections";
 		Border borderNorthPanel = BorderFactory.createTitledBorder(titleNorthPanel);
 		northPanel.setBorder(borderNorthPanel);
 
@@ -130,7 +128,7 @@ public class MainFrame {
 		northPanel.add(listOfDD);
 
 		JScrollPane listScroller = new JScrollPane(listOfDD);
-		listScroller.setPreferredSize(new Dimension(300, 150));
+		listScroller.setPreferredSize(new Dimension(300, 150)); //270, 250
 		northPanel.add(listScroller);		
 
 		JButton editButton = new JButton("Edit");
@@ -163,23 +161,34 @@ public class MainFrame {
 
 		//CENTER PANEL -> ADICIONAR A JFRAME DO MIRA -> DEFEITOS / CONTAGEM
 		JPanel centerPanel = new JPanel();
-		centerPanel.setPreferredSize(new Dimension(350, 100));
 		eastPanel.add(centerPanel, new GridLayout(2,1));
 
 		String titleCenterPanel = "Defect Count";
 		Border borderCenterPanel = BorderFactory.createTitledBorder(titleCenterPanel);
 		centerPanel.setBorder(borderCenterPanel);
-	
+		
+		DefectCount dc = new DefectCount();
+		JPanel panelCount = dc.panelBuilding();		
+		centerPanel.add(panelCount);
+		
 
 		//SOUTH PANEL 
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new FlowLayout());
-		southPanel.setPreferredSize(new Dimension(350, 40));
 		eastPanel.add(southPanel, new GridLayout(3,1));
 
 		String titleSouthPanel = "View";
 		Border borderSouthPanel = BorderFactory.createTitledBorder(titleSouthPanel);
 		southPanel.setBorder(borderSouthPanel);
+		
+		JButton importProjectButton = new JButton("Import Projects");
+		importProjectButton.setPreferredSize(new Dimension(250,50));
+		importProjectButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//METER METODO
+			}
+		});
+		southPanel.add(importProjectButton);
 
 		JButton dataTableButton = new JButton("Data Table");
 		dataTableButton.addActionListener(new ActionListener() {
@@ -229,19 +238,12 @@ public class MainFrame {
 			}
 		});
 		southPanel.add(pieChartButton);
-
-		JButton importProjectButton = new JButton("Import Projects");
-		importProjectButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//METER METODO
-			}
-		});
-		southPanel.add(importProjectButton);
+	
 
 		//WEST PANEL
 		westPanel = new JPanel();	
 		westPanel.setLayout(new BorderLayout());
-		westPanel.setPreferredSize(new Dimension(900, screenSize.height));
+		westPanel.setPreferredSize(new Dimension(900, screenSize.height)); //700, 670
 		mainPanel.add(westPanel, BorderLayout.WEST);
 
 		String titleWestPanel = "Tables and Graphs";
@@ -249,9 +251,9 @@ public class MainFrame {
 		westPanel.setBorder(borderWestPanel);
 
 		//VER SE É ADICIONADO O SCROLLPANE
-//		JScrollPane scrollPane = new JScrollPane(westPanel, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);		
-//		westPanel.add(scrollPane);
-//		frame.add(scrollPane);
+		JScrollPane scrollPane = new JScrollPane(westPanel, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);		
+		westPanel.add(scrollPane);
+		frame.add(scrollPane);
 
 		frame.add(mainPanel);
 
