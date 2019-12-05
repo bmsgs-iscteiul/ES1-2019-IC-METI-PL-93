@@ -7,6 +7,7 @@ public class ThresHold {
 	private Operators operator;
 	private int column;
 	
+	
 	public ThresHold(int column, int value, Operators operator) {
 		this.value = value;
 		this.operator=operator;	

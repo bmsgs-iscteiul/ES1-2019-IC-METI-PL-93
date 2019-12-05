@@ -18,6 +18,7 @@ public class DefectDetection {
 	
 	public boolean detection(Cell[] cell) throws Exception {
 		
+		
 		for(int i =0; i<rules.size(); i++) {						
 			
 			int column = rules.get(i).getColumn();					
