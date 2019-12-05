@@ -34,9 +34,4 @@ public class Excel {
 		return matrix;
 	}
 
-	public static void main(String args[]) throws Exception{
-		Excel excel=new Excel();
-		excel.getDataMatrix();
-
-	}
 }
