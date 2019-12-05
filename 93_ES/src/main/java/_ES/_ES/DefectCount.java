@@ -1,6 +1,6 @@
 package _ES._ES;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -20,8 +20,7 @@ public class DefectCount {
 		adii=0;
 	}
 
-
-	public JPanel defectCountTable(Object[][] matrix) {         //BIA invoca este método(devolve painel com contagem de defeitos) 
+	public JPanel defectCountTable(Object[][] matrix) {       
 		for(int i=0;i!=matrix.length;i++) {
 			if(Boolean.parseBoolean((String)matrix[i][2])==true && Boolean.parseBoolean((String)matrix[i][3])==true)
 				dci++;
@@ -38,12 +37,7 @@ public class DefectCount {
 
 	public JPanel panelBuilding() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		JLabel titulo= new JLabel("Contagem de defeitos");
-		titulo.setHorizontalAlignment(JLabel.CENTER);
-		panel.add(titulo, BorderLayout.NORTH);
-		JPanel panel2 = new JPanel();
-		panel2.setLayout(new GridLayout(5,2));
+		panel.setLayout(new GridLayout(5,2));
 		JLabel defeitos= new JLabel("Defeitos");
 		JLabel contagem= new JLabel("Contagem");
 		JLabel dci_= new JLabel("DCI");
@@ -59,25 +53,28 @@ public class DefectCount {
 		dii_cont.setHorizontalAlignment(JLabel.CENTER);
 		adci_cont.setHorizontalAlignment(JLabel.CENTER);
 		adii_cont.setHorizontalAlignment(JLabel.CENTER);
-		defeitos.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-		dci_.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-		dii_.setBorder(BorderFactory.createEmptyBorder(0,10, 0, 0));
-		adci_.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-		adii_.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-		panel2.add(defeitos);
-		panel2.add(contagem);
-		panel2.add(dci_);
-		panel2.add(dci_cont);
-		panel2.add(dii_);
-		panel2.add(dii_cont);
-		panel2.add(adci_);
-		panel2.add(adci_cont);
-		panel2.add(adii_);
-		panel2.add(adii_cont);
-		panel.add(panel2, BorderLayout.CENTER);
+		Color color= new Color(192,192,192);
+		defeitos.setBorder(BorderFactory.createMatteBorder(1,1,0,1,color));
+		dci_.setBorder(BorderFactory.createMatteBorder(1,1,0,1,color));
+		dii_.setBorder(BorderFactory.createMatteBorder(1,1,0,1,color));
+		adci_.setBorder(BorderFactory.createMatteBorder(1,1,0,1,color));
+		adii_.setBorder(BorderFactory.createMatteBorder(1,1,1,1,color));
+		contagem.setBorder(BorderFactory.createMatteBorder(1,0,0,1,color));
+		dci_cont.setBorder(BorderFactory.createMatteBorder(1,0,0,1,color));
+		dii_cont.setBorder(BorderFactory.createMatteBorder(1,0,0,1,color));
+		adci_cont.setBorder(BorderFactory.createMatteBorder(1,0,0,1,color));
+		adii_cont.setBorder(BorderFactory.createMatteBorder(1,0,1,1,color));
+		panel.add(defeitos);
+		panel.add(contagem);
+		panel.add(dci_);
+		panel.add(dci_cont);
+		panel.add(dii_);
+		panel.add(dii_cont);
+		panel.add(adci_);
+		panel.add(adci_cont);
+		panel.add(adii_);
+		panel.add(adii_cont);
 		return panel;
-
-
 	}
 
 
