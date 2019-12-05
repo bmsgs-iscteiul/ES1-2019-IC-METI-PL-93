@@ -86,7 +86,6 @@ public class MainFrame {
 		doFrame();
 		addFrameContent();
 	}
-	//HEYYYYYYYY
 
 	private void doFrame() {
 		frame = new JFrame("Defect Detection In Software Projects");
