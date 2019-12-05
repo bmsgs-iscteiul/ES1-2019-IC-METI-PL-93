@@ -9,7 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
+import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,29 +24,61 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 
 
 public class MainFrame {
 
 	private JFrame frame;
-	private JList listOfDD;
+	private JList<String> listOfDD;
 
-	//	private App app;
-	//	private DataTable dataTable;
-	//	private PieChart pieChart;
+	private JPanel westPanel;
+
+	private App app;
+	private Datatable datatable;
+	private JTable table;
+	private PieChart pieChart;
 	//	private BarChart barChart;
 
 
 	public MainFrame() throws FileSystemException, IOException {
-		//		app = new App();
+		app = new App();
 		//		app......();		
-		//		dataTable = new DataTable(app);
+		datatable = new Datatable(app.detectDefects(null));
+		table = datatable.getJTable();
 		//		pieChart = new PieChart(app);
 		//		barChart = new BarChart(app);
-
 		//		listOfDD = new JList(....);
+
+//		ArrayList<DefectDetection> ddList = new ArrayList<DefectDetection>();
+//		DefectDetection ddIPlasma = new DefectDetection("IPlasma");
+//		DefectDetection ddPMD = new DefectDetection("PMD");
+//		ddList.add(ddIPlasma);
+//		ddList.add(ddPMD);
+		
+		
 		String[] data = {"IPlasma", "PMD"};
-		listOfDD = new JList(data);
+		listOfDD = new JList<String>(data);
+		// Só permite selecionar um item de cada vez
+	    listOfDD.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+
+		ListSelectionListener listSelectionListener = new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent listSelectionEvent) {
+				boolean adjust = listSelectionEvent.getValueIsAdjusting();
+				if (!adjust) {
+					JList list = (JList) listSelectionEvent.getSource();
+					int selections[] = list.getSelectedIndices();
+					Object selectionValues[] = list.getSelectedValues();
+					for (int i = 0, n = selections.length; i < n; i++) {
+						System.out.print(selections[i] + "/" + selectionValues[i] + " ");
+					}
+					System.out.println();
+				}
+			}
+		};
+		listOfDD.addListSelectionListener(listSelectionListener);
 
 		doFrame();
 		addFrameContent();
@@ -65,8 +100,8 @@ public class MainFrame {
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setPreferredSize(new Dimension(800, 600));
 		frame.add(mainPanel, BorderLayout.NORTH);
-		
-		
+
+
 		//EAST PANEL
 		JPanel eastPanel = new JPanel();
 		eastPanel.setLayout(new GridLayout(3,1));
@@ -82,27 +117,27 @@ public class MainFrame {
 		String titleNorthPanel = "Defect Detection";
 		Border borderNorthPanel = BorderFactory.createTitledBorder(titleNorthPanel);
 		northPanel.setBorder(borderNorthPanel);
-		
+
 		listOfDD.setVisibleRowCount(10);
 		listOfDD.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		northPanel.add(listOfDD);
-		
+
 		JScrollPane listScroller = new JScrollPane(listOfDD);
 		listScroller.setPreferredSize(new Dimension(280, 130));
 		northPanel.add(listScroller);		
-		
+
 		JButton editButton = new JButton("Edit");
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String titleNorthPanel = listOfDD.getSelectedValue().toString();
 				Border borderNorthPanel = BorderFactory.createTitledBorder(titleNorthPanel);
 				mainPanel.setBorder(borderNorthPanel);
-				
+
 				addContentEditButton();			
 			}
 		});
 		northPanel.add(editButton);	
-		
+
 		JButton addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,7 +145,7 @@ public class MainFrame {
 			}
 		});
 		northPanel.add(addButton);	
-		
+
 		JButton removeButton = new JButton("Remove");
 		removeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,7 +153,7 @@ public class MainFrame {
 			}
 		});
 		northPanel.add(removeButton);	
-		
+
 		//CENTER PANEL -> ADICIONAR A JFRAME DO MIRA -> DEFEITOS / CONTAGEM
 		JPanel centerPanel = new JPanel();
 		centerPanel.setPreferredSize(new Dimension(300, 100));
@@ -138,7 +173,7 @@ public class MainFrame {
 		String titleSouthPanel = "View";
 		Border borderSouthPanel = BorderFactory.createTitledBorder(titleSouthPanel);
 		southPanel.setBorder(borderSouthPanel);
-		
+
 		JButton dataTableButton = new JButton("Data Table");
 		dataTableButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -162,7 +197,7 @@ public class MainFrame {
 			}
 		});
 		southPanel.add(barChartButton);
-		
+
 		JButton pieChartButton = new JButton("Pie Chart");
 		pieChartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -171,18 +206,37 @@ public class MainFrame {
 				String titleMainPanel = listOfDD.getSelectedValue().toString(); 
 				Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
 				mainPanel.setBorder(borderMainPanel);
+
+
+				String selectedTool = listOfDD.getSelectedValue();
+				if(selectedTool != null) {
+
+					TableModel tableModel = table.getModel();
+
+
+
+					PieChart pieChart = new PieChart(tableModel, selectedTool, 2);
+
+					//VER SE É ADICIONADO O SCROLLPANE
+					JScrollPane scrollPane = new JScrollPane(pieChart);	
+
+					scrollPane.setBorder(borderMainPanel);
+
+					westPanel.add(scrollPane);
+				}
+
 			}
 		});
 		southPanel.add(pieChartButton);
-		
+
 		JButton fileExcelButton = new JButton("Excel File Long-Method");
 		fileExcelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//IMPORTAR E VISUALIZAR O FICHEIRO EXCEL NO WESTPANEL
-				
-//				Excel excel=new Excel();
-//				JTable table = excel.getDataMatrix();
-//				westPanel.add(table);
+
+				//				Excel excel=new Excel();
+				//				JTable table = excel.getDataMatrix();
+				//				westPanel.add(table);
 
 				String titleMainPanel = "Excel File Long-Method";
 				Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
@@ -190,9 +244,9 @@ public class MainFrame {
 			}
 		});
 		southPanel.add(fileExcelButton);
-		
+
 		//WEST PANEL
-		final JPanel westPanel = new JPanel();	
+		westPanel = new JPanel();	
 		westPanel.setLayout(new BorderLayout());
 		westPanel.setPreferredSize(new Dimension(480, 540));
 		mainPanel.add(westPanel, BorderLayout.WEST);
@@ -201,10 +255,6 @@ public class MainFrame {
 		Border borderWestPanel = BorderFactory.createTitledBorder(titleWestPanel);
 		westPanel.setBorder(borderWestPanel);
 
-		//VER SE É ADICIONADO O SCROLLPANE
-		JScrollPane scrollPane = new JScrollPane(westPanel, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);		
-		westPanel.add(scrollPane);
-		frame.add(scrollPane);
 
 		frame.add(mainPanel);
 
@@ -258,7 +308,7 @@ public class MainFrame {
 		frameNew.setLocation(dim.width / 2 - frameNew.getSize().width / 2, dim.height / 2 - frameNew.getSize().height / 2);
 		frameNew.setVisible(true);
 	}
-	
+
 	public void addFrameContentRemoveButton() {		
 		final String selectedDD = listOfDD.getSelectedValue().toString();
 		final JFrame frameDelete = new JFrame("Delete");
@@ -277,9 +327,9 @@ public class MainFrame {
 		JButton confirmButton = new JButton("Confirm");
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				int index = indexOf(selectedDD);
-//				listOfDD.remove(index);
-				
+				//				int index = indexOf(selectedDD);
+				//				listOfDD.remove(index);
+
 				frameDelete.dispose();
 			}		
 		});
@@ -298,7 +348,7 @@ public class MainFrame {
 				dim.height / 2 - frameDelete.getSize().height / 2);
 		frameDelete.setVisible(true);		
 	}
-	
+
 	public void addContentEditButton() {
 		//......
 	}
