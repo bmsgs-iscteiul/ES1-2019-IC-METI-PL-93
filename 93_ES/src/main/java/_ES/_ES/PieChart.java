@@ -57,15 +57,15 @@ public class PieChart extends JPanel {
 
 		}
 
-		double acertos = counter / rows;
-		double erros = (rows - counter) / rows;
+		double comErros = counter / rows;
+		double semErros = (rows - counter) / rows;
 
-		System.out.println(chartTitle + ": Acertos = " + acertos + "%, Erros = " + erros + "%");
+		System.out.println(chartTitle + ": C/Erros = " + comErros + "%, S/Erros = " + semErros + "%");
 
 
 		DefaultPieDataset result = new DefaultPieDataset();
-		result.setValue("Acertos", acertos);
-		result.setValue("Erros", erros);
+		result.setValue("C/Erros", comErros);
+		result.setValue("S/Erros", semErros);
 		return result;
 
 	}
