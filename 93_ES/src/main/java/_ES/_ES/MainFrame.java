@@ -7,12 +7,14 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -33,23 +35,17 @@ import javax.swing.table.TableModel;
  *
  */
 
-//COMMIT TEST
 public class MainFrame {
 
 	private JFrame frame;
 //	private JList<DefectDetection> listOfDD;
 	private JList<String> listOfDD;
-
-
 	private JPanel westPanel;
-
 	private App app;
 	private Datatable datatable;
 	private JTable table;
-	private PieChart pieChart;
-//	private BarChart barChart;
 
-
+	
 	public MainFrame() throws FileSystemException, IOException {
 		app = new App();
 		datatable = new Datatable(app.detectDefects(null));
@@ -71,8 +67,10 @@ public class MainFrame {
 			public void valueChanged(ListSelectionEvent listSelectionEvent) {
 				boolean adjust = listSelectionEvent.getValueIsAdjusting();
 				if (!adjust) {
+					@SuppressWarnings("rawtypes")
 					JList list = (JList) listSelectionEvent.getSource();
 					int selections[] = list.getSelectedIndices();
+					@SuppressWarnings("deprecation")
 					Object selectionValues[] = list.getSelectedValues();
 					for (int i = 0, n = selections.length; i < n; i++) {
 						System.out.print(selections[i] + "/" + selectionValues[i] + " ");
@@ -184,7 +182,7 @@ public class MainFrame {
 		southPanel.setBorder(borderSouthPanel);
 		
 		JButton importProjectButton = new JButton("Import Excel File Long-Method");
-		importProjectButton.setPreferredSize(new Dimension(250,50));
+		importProjectButton.setPreferredSize(new Dimension(275,35));
 		importProjectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addContentImportProjectButton();
@@ -207,11 +205,21 @@ public class MainFrame {
 		JButton barChartButton = new JButton("Bar Chart");
 		barChartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ADICIONAR O BAR CHART AO WESTPANEL -> CRIAR UM BARCHART E DEPOIS METER O METODO DE SHOW
 
 				String titleMainPanel = listOfDD.getSelectedValue().toString(); 
 				Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
 				mainPanel.setBorder(borderMainPanel);
+				
+				String selectedTool = listOfDD.getSelectedValue();
+				if(selectedTool != null) {
+					TableModel tableModel = table.getModel();
+					BarChart barchart = new BarChart(tableModel, selectedTool, 2);
+
+					//VER SE É ADICIONADO O SCROLLPANE
+					JScrollPane scrollPane = new JScrollPane(barchart);	
+					scrollPane.setBorder(borderMainPanel);
+					westPanel.add(scrollPane);
+				}
 			}
 		});
 		southPanel.add(barChartButton);
@@ -237,6 +245,14 @@ public class MainFrame {
 			}
 		});
 		southPanel.add(pieChartButton);
+		
+		JButton defineButton = new JButton("Define Defect Detection Rules and Thresholds");
+		defineButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addFrameContentDefineButton();
+			}		
+		});
+		southPanel.add(defineButton);
 	
 
 		//WEST PANEL
@@ -325,8 +341,8 @@ public class MainFrame {
 		JButton confirmButton = new JButton("Confirm");
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//				int index = indexOf(selectedDD);
-				//				listOfDD.remove(index);
+//				int index = indexOf(selectedDD);
+//				listOfDD.remove(index);
 
 				frameDelete.dispose();
 			}		
@@ -342,8 +358,7 @@ public class MainFrame {
 		southPanel.add(cancelButton, BorderLayout.SOUTH);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frameDelete.setLocation(dim.width / 2 - frameDelete.getSize().width / 2,
-				dim.height / 2 - frameDelete.getSize().height / 2);
+		frameDelete.setLocation(dim.width / 2 - frameDelete.getSize().width / 2, dim.height / 2 - frameDelete.getSize().height / 2);
 		frameDelete.setVisible(true);		
 	}
 
@@ -351,25 +366,143 @@ public class MainFrame {
 		//......
 	}
 	
-	public void addContentImportProjectButton() {
-		//IMPORTAR E VISUALIZAR O FICHEIRO EXCEL NO WESTPANEL
-//		app.importExcelFile("Long-Method.xlsx");
-////		Excel excel=new Excel();
-////		JTable table = excel.getDataMatrix();
-////		westPanel.add(table);
-//
-//		String titleMainPanel = "Excel File Long-Method";
-//		Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
-//		mainPanel.setBorder(borderMainPanel);
+	public void addContentImportProjectButton() { //TODO: IMPORTAR E VISUALIZAR O FICHEIRO EXCEL NO WESTPANEL
+		File excelFile = new File("Long-Method.xlsx");
+		app.importExcelFile(excelFile);
+		
+		final JFrame frameImport = new JFrame();
+		String nameTitle = "Import Project ";
+		frameImport.setTitle(nameTitle);
+		frameImport.setSize(400, 100);
+
+		String text = "The File Long-Method is imported";
+		JLabel info = new JLabel(text);
+		frameImport.add(info);
+		
+		JPanel southPanel = new JPanel();
+		southPanel.setLayout(new GridLayout(1, 2));
+		frameImport.add(southPanel, BorderLayout.SOUTH);
+
+		JButton openButton = new JButton("Open File");
+		openButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//ADICIONAR FILE NO WESTPANEL PARA SER VISUALIZADO
+				
+				frameImport.dispose();
+			}		
+		});
+		southPanel.add(openButton);
+		
+		JButton confirmButton = new JButton("Ok");
+		confirmButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frameImport.dispose();
+			}		
+		});
+		southPanel.add(confirmButton);
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frameImport.setLocation(dim.width / 2 - frameImport.getSize().width / 2, dim.height / 2 - frameImport.getSize().height / 2);
+		frameImport.setVisible(true);		
+	}
+	
+	
+	public void addFrameContentDefineButton() {
+		
+		final JFrame frameDefine = new JFrame();
+		frameDefine.setLayout(new FlowLayout());
+		String nameTitle = "Define Defect Detection Rules and Thresholds";
+		frameDefine.setTitle(nameTitle);
+		frameDefine.setSize(530, 110);
+		
+		JPanel northPanel = new JPanel();
+		frameDefine.add(northPanel, BorderLayout.NORTH);
+
+		String[] metricsList = {"LOC", "CYCLO", "ATFD", "LAA",};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		JComboBox listOfMetrics = new JComboBox(metricsList);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		listOfMetrics.setSelectedIndex(3);
+		northPanel.add(listOfMetrics);
+		
+		String[] simbolsList = {"<", ">"};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		JComboBox listOfSimbols = new JComboBox(simbolsList);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		String simbolTitle = "Symbols";
+		listOfSimbols.setName(simbolTitle);
+		listOfSimbols.setSelectedIndex(1);
+		northPanel.add(listOfSimbols);
+		
+		//TODO
+		String titleThreshold = "Threshold Value";
+		JTextField thresholdsValues = new JTextField();
+		thresholdsValues.setText(titleThreshold);
+		northPanel.add(thresholdsValues);
+		
+		String[] operatorsList = {"AND", "OR"};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		JComboBox listOfOperators = new JComboBox(operatorsList);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		String operatorsTitle = "Logical Operators";
+		listOfOperators.setName(operatorsTitle);
+		listOfOperators.setSelectedIndex(1);
+		northPanel.add(listOfOperators);
+		
+		String[] metricsList2 = {"LOC", "CYCLO", "ATFD", "LAA"};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		JComboBox listOfMetrics2 = new JComboBox(metricsList2);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		String metricTitle2 = "Metrics";
+		listOfMetrics2.setName(metricTitle2);
+		listOfMetrics2.setSelectedIndex(3);
+		northPanel.add(listOfMetrics2);
+		
+		String[] simbolsList2 = {"<", ">"};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		JComboBox listOfSimbols2 = new JComboBox(simbolsList2);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		String simbolTitle2 = "Symbols";
+		listOfSimbols2.setName(simbolTitle2);
+		listOfSimbols2.setSelectedIndex(1);
+		northPanel.add(listOfSimbols2);
+		
+		//TODO
+		String titleThreshold2 = "Threshold Value";
+		JTextField thresholdsValues2 = new JTextField();
+		thresholdsValues2.setText(titleThreshold2);
+		northPanel.add(thresholdsValues2);
+						
+		JPanel southPanel = new JPanel();
+		southPanel.setLayout(new GridLayout(1,2));
+		frameDefine.add(southPanel, BorderLayout.SOUTH);
+		
+		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//CRIAR UM METODO PARA ADICIONAR/GUARDAR NOVAS DDs COM OS NOVOS PARAMETROS
+			
+				frameDefine.dispose();
+			}		
+		});
+		southPanel.add(saveButton);
+		
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frameDefine.dispose();
+			}		
+		});
+		southPanel.add(cancelButton);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frameDefine.setLocation(dim.width / 2 - frameDefine.getSize().width / 2, dim.height / 2 - frameDefine.getSize().height / 2);
+		frameDefine.setVisible(true);
 	}
 
 
 	public static void main(String[] args) throws IOException {
 		@SuppressWarnings("unused")
 		MainFrame mainframe = new MainFrame();
-
 	}
 }
-
-
-
