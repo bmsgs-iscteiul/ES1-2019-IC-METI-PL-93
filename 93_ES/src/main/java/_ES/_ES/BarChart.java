@@ -42,6 +42,8 @@ public class BarChart extends JPanel{
 	private TableModel tableModel;
 	private String charTitle;
 	private int row;
+	private int counterTrue;
+	private int counterFalse;
 
 
 	public BarChart(TableModel tableModel, String chartTitle, int column) {
@@ -62,16 +64,18 @@ public class BarChart extends JPanel{
 	}
 
 
-	private CategoryDataset createDataset(int column) {
+	public CategoryDataset createDataset(int column) {
 
 		int row = tableModel.getRowCount();
+		System.out.println("o row é :" +row);
 
-		int counterTrue = 0;
-		int counterFalse = 0;
+		double counterTrue = 0;
+	
 
 		for (int i = 0; i < row; i++) {
 
 			Object obj = tableModel.getValueAt(i, column);
+			System.out.println(i);
 
 
 			if(obj instanceof String) {
@@ -82,22 +86,33 @@ public class BarChart extends JPanel{
 
 				if (booleano == true) {
 					counterTrue++;
+			//		System.out.println(counterTrue);
 				}
 			}
+			
 		}
+		
+		//System.out.println("counter sem erros" + (row - counterTrue) );
+		//System.out.println("counter depois do if" + counterTrue);
+		
+		
+		double counterFalse = row - counterTrue;
+		//System.out.println("CounterFalse" + counterFalse);
+		
+		double percentagemErros = (counterTrue/row);
+		//System.out.println("percentagemErros" + percentagemErros);
+		double percetagemSemErros = (counterFalse/row);
+		//System.out.println("percentagem Sem Erros" + percetagemSemErros);
 
-		double percentagemErros = counterTrue/row;
-		double percetagemSemErros = (row - counterTrue)/row;
-
-		System.out.println(charTitle + ": Com Erros = " + percentagemErros + "%   | Sem Erros = " + percetagemSemErros + "%");
+		//System.out.println(charTitle + ": Com Erros = " + percentagemErros + "%   | Sem Erros = " + percetagemSemErros + "%");
 
 		final String comErros = "Percentagem com Erros";
 		final String semErros = "Percentagem sem Erros";
 
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.addValue( 3, comErros , percentagemErros + "%");
-		dataset.addValue( 6, semErros , percetagemSemErros + "%");
+		dataset.addValue( percentagemErros, comErros , percentagemErros + "%");
+		dataset.addValue( percetagemSemErros, semErros , percetagemSemErros + "%");
 
 		return dataset;
 
@@ -105,10 +120,11 @@ public class BarChart extends JPanel{
 
 	private JFreeChart createChart(CategoryDataset dataset, String charTitle) {
 
-		JFreeChart barChart = ChartFactory.createBarChart(charTitle, "Boolean value", "Score", dataset, PlotOrientation.VERTICAL, true, true, false);
+		JFreeChart barChart = ChartFactory.createBarChart(charTitle, "Boolean value", "%", dataset, PlotOrientation.VERTICAL, true, true, false);
 
 		return barChart;
 	}
+	
 	
 	
 	
