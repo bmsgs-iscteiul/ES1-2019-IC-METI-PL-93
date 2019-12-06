@@ -3,7 +3,6 @@ package _ES._ES;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -21,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
@@ -55,13 +55,12 @@ public class MainFrame {
 		datatable = new Datatable(app.detectDefects(null));
 		table = datatable.getJTable();
 
-	    //FALTA UPDATE DA CLASSE DO ARTEM
 //		ArrayList<DefectDetection> ddList = new ArrayList<DefectDetection>();
 //		DefectDetection ddIPlasma = new DefectDetection("IPlasma");
 //		DefectDetection ddPMD = new DefectDetection("PMD");
 //		ddList.add(ddIPlasma);
 //		ddList.add(ddPMD);		
-//		listOfDD = new JList(ddlist);
+//		listOfDD = new JList((ListModel) ddList);
 		
 		String[] data = {"IPlasma", "PMD"};
 		listOfDD = new JList<String>(data);
@@ -108,17 +107,16 @@ public class MainFrame {
 		mainPanel.setSize(screenSize.width, screenSize.height); //1200,670
 		frame.add(mainPanel, BorderLayout.NORTH);
 
-
 		//EAST PANEL
 		JPanel eastPanel = new JPanel();
 		eastPanel.setLayout(new GridLayout(3,1));
 		eastPanel.setPreferredSize(new Dimension(350,screenSize.height)); //350,670
 		mainPanel.add(eastPanel, BorderLayout.EAST);
 
-		//NORTH PANEL -> ADICIONAR LISTA RETIRADA DA APP
+		//NORTH PANEL 
 		final JPanel northPanel = new JPanel();
 		northPanel.setLayout(new FlowLayout());
-		eastPanel.add(northPanel, new GridLayout(1,1));
+		eastPanel.add(northPanel);
 
 		String titleNorthPanel = "Defect Detections";
 		Border borderNorthPanel = BorderFactory.createTitledBorder(titleNorthPanel);
@@ -129,7 +127,7 @@ public class MainFrame {
 		northPanel.add(listOfDD);
 
 		JScrollPane listScroller = new JScrollPane(listOfDD);
-		listScroller.setPreferredSize(new Dimension(300, 150)); //270, 250
+		listScroller.setPreferredSize(new Dimension(320, 180)); //270, 250
 		northPanel.add(listScroller);		
 
 		JButton editButton = new JButton("Edit");
@@ -159,10 +157,11 @@ public class MainFrame {
 			}
 		});
 		northPanel.add(removeButton);	
-
+	
+		
 		//CENTER PANEL -> ADICIONAR A JFRAME DO MIRA -> DEFEITOS / CONTAGEM
 		JPanel centerPanel = new JPanel();
-		eastPanel.add(centerPanel, new GridLayout(2,1));
+		eastPanel.add(centerPanel);
 
 		String titleCenterPanel = "Defect Count";
 		Border borderCenterPanel = BorderFactory.createTitledBorder(titleCenterPanel);
@@ -170,23 +169,25 @@ public class MainFrame {
 		
 		DefectCount dc = new DefectCount();
 		JPanel panelCount = dc.panelBuilding();		
+		panelCount.setPreferredSize(new Dimension(300,200));
 		centerPanel.add(panelCount);
 		
 
 		//SOUTH PANEL 
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new FlowLayout());
-		eastPanel.add(southPanel, new GridLayout(3,1));
+		eastPanel.add(southPanel);
+	
 
 		String titleSouthPanel = "View";
 		Border borderSouthPanel = BorderFactory.createTitledBorder(titleSouthPanel);
 		southPanel.setBorder(borderSouthPanel);
 		
-		JButton importProjectButton = new JButton("Import Projects");
+		JButton importProjectButton = new JButton("Import Excel File Long-Method");
 		importProjectButton.setPreferredSize(new Dimension(250,50));
 		importProjectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//METER METODO
+				addContentImportProjectButton();
 			}
 		});
 		southPanel.add(importProjectButton);
@@ -218,12 +219,10 @@ public class MainFrame {
 		JButton pieChartButton = new JButton("Pie Chart");
 		pieChartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ADICIONAR O PIE CHART AO WESTPANEL -> CRIAR UM PIECHART E DEPOIS METER O METODO DE SHOW
-
+				
 				String titleMainPanel = listOfDD.getSelectedValue().toString(); 
 				Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
 				mainPanel.setBorder(borderMainPanel);
-
 
 				String selectedTool = listOfDD.getSelectedValue();
 				if(selectedTool != null) {
@@ -235,7 +234,6 @@ public class MainFrame {
 					scrollPane.setBorder(borderMainPanel);
 					westPanel.add(scrollPane);
 				}
-
 			}
 		});
 		southPanel.add(pieChartButton);
@@ -353,7 +351,7 @@ public class MainFrame {
 		//......
 	}
 	
-	public void addContentImportProjectsButton() {
+	public void addContentImportProjectButton() {
 		//IMPORTAR E VISUALIZAR O FICHEIRO EXCEL NO WESTPANEL
 //		app.importExcelFile("Long-Method.xlsx");
 ////		Excel excel=new Excel();
