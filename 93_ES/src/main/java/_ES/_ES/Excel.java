@@ -10,7 +10,11 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
+/**
+ * 
+ * @author Miguel Mira - 82966
+ *
+ */
 public class Excel {
 	private File file;
 

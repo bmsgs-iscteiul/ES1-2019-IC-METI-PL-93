@@ -6,6 +6,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
+/**
+ * 
+ * @author Miguel Mira - 82966
+ *
+ */
+
 public class DefectCount {
 
 	private int dci;
