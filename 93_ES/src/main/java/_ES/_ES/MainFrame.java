@@ -28,6 +28,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 /**
  * 
@@ -38,27 +39,23 @@ import javax.swing.table.TableModel;
 public class MainFrame {
 
 	private JFrame frame;
-//	private JList<DefectDetection> listOfDD;
+	ArrayList<DefectDetection> ddList;
 	private JList<String> listOfDD;
 	private JPanel westPanel;
 	private App app;
-	private Datatable datatable;
-	private JTable table;
-
+	private Object[][] dataMatrix;
+	DefectCount dc;
 	
 	public MainFrame() throws FileSystemException, IOException {
 		app = new App();
-		datatable = new Datatable(app.detectDefects(null));
-		table = datatable.getJTable();
-
-//		ArrayList<DefectDetection> ddList = new ArrayList<DefectDetection>();
-//		DefectDetection ddIPlasma = new DefectDetection("IPlasma");
-//		DefectDetection ddPMD = new DefectDetection("PMD");
-//		ddList.add(ddIPlasma);
-//		ddList.add(ddPMD);		
-//		listOfDD = new JList((ListModel) ddList);
-		
-		String[] data = {"IPlasma", "PMD"};
+		dc = new DefectCount();
+		ddList = new ArrayList<DefectDetection>();
+		DefectDetection ddIPlasma = new DefectDetection("iPlasma");
+		DefectDetection ddPMD = new DefectDetection("PMD");
+		ddList.add(ddIPlasma);
+		ddList.add(ddPMD);		
+	
+		String[] data = {"iPlasma", "PMD"};
 		listOfDD = new JList<String>(data);
 		
 	    listOfDD.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
@@ -74,8 +71,15 @@ public class MainFrame {
 					Object selectionValues[] = list.getSelectedValues();
 					for (int i = 0, n = selections.length; i < n; i++) {
 						System.out.print(selections[i] + "/" + selectionValues[i] + " ");
+						int length = ddList.size();
+						for(int j = 0; j < length; j++) {
+						    if (ddList.get(j).getName().equals(selectionValues[i])) {
+						    	System.out.println("Selected " + selectionValues[i]);
+						    	dataMatrix = app.detectDefects(ddList.get(j));
+						    	dc.defectCountTable(dataMatrix);
+						    }
+						}
 					}
-					System.out.println();
 				}
 			}
 		};
@@ -165,8 +169,7 @@ public class MainFrame {
 		Border borderCenterPanel = BorderFactory.createTitledBorder(titleCenterPanel);
 		centerPanel.setBorder(borderCenterPanel);
 		
-		DefectCount dc = new DefectCount();
-		JPanel panelCount = dc.panelBuilding();		
+		JPanel panelCount = dc.panelBuilding();
 		panelCount.setPreferredSize(new Dimension(300,200));
 		centerPanel.add(panelCount);
 		
@@ -212,7 +215,24 @@ public class MainFrame {
 				
 				String selectedTool = listOfDD.getSelectedValue();
 				if(selectedTool != null) {
-					TableModel tableModel = table.getModel();
+					String[] columnNames = {"Method ID", "Method Name", "Defect Detetion Result","is_long_method"};
+			        // Initializing the JTable 
+					@SuppressWarnings("serial")
+					DefaultTableModel tableModel = new DefaultTableModel(dataMatrix, columnNames){
+						@Override
+			            public Class<?> getColumnClass(int column) {
+			                switch (column) {
+			                    case 0:
+			                        return Integer.class;
+			                    case 1:
+			                        return String.class;
+			                    case 2:
+			                        return String.class;
+			                    default:
+			                        return String.class;
+			                }
+			            }
+			        };
 					BarChart barchart = new BarChart(tableModel, selectedTool, 2);
 
 					//VER SE É ADICIONADO O SCROLLPANE
@@ -234,7 +254,24 @@ public class MainFrame {
 
 				String selectedTool = listOfDD.getSelectedValue();
 				if(selectedTool != null) {
-					TableModel tableModel = table.getModel();
+					String[] columnNames = {"Method ID", "Method Name", "Defect Detetion Result","is_long_method"};
+			        // Initializing the JTable 
+					@SuppressWarnings("serial")
+					DefaultTableModel tableModel = new DefaultTableModel(dataMatrix, columnNames){
+						@Override
+			            public Class<?> getColumnClass(int column) {
+			                switch (column) {
+			                    case 0:
+			                        return Integer.class;
+			                    case 1:
+			                        return String.class;
+			                    case 2:
+			                        return String.class;
+			                    default:
+			                        return String.class;
+			                }
+			            }
+			        };
 					PieChart pieChart = new PieChart(tableModel, selectedTool, 2);
 
 					//VER SE É ADICIONADO O SCROLLPANE

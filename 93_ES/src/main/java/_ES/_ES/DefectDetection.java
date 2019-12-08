@@ -16,8 +16,7 @@ public class DefectDetection {
 		rules.add(thresHold);
 	}
 	
-	public boolean detection(Cell[] cell) throws Exception {
-		
+	public boolean detection(Cell[] cell) {
 		
 		for(int i =0; i<rules.size(); i++) {						
 			

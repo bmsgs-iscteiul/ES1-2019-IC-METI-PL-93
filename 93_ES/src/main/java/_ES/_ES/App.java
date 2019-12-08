@@ -2,6 +2,8 @@ package _ES._ES;
 
 import java.io.File;
 
+import javax.swing.table.TableModel;
+
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
@@ -13,6 +15,7 @@ public class App
 {
 	private Excel e;
 	private Cell[][] matrix;
+	private Object[][] defectMatrix;
 	
     public App() {
     	this.e = new Excel();
@@ -41,7 +44,12 @@ public class App
     }
     
     public Object[][] detectDefects(DefectDetection dd){
-    	Object[][] defectMatrix = new Object[matrix.length-1][4];
+    	defectMatrix = new Object[matrix.length-1][4];
+    	int d = 0; //0 - Default; 1 - iPlasma; 2 - PMD
+    	if(dd.getName().equals("iPlasma"))
+    		d = 1;
+    	else if(dd.getName().equals("PMD"))
+    		d = 2;
 
 		for (int i = 0; i < matrix.length-1; i++) {
 			String idString = matrix[i+1][0].toString();
@@ -50,18 +58,33 @@ public class App
 			defectMatrix[i][1] = matrix[i+1][3].toString();
 			
 			//defectMatrix[i][2] = dd.detection(matrix[i]);
-
+			switch(d) {
+			case 0:
+				defectMatrix[i][2] = dd.detection(matrix[i]);
+				break;
+			case 1:
+				defectMatrix[i][2] = matrix[i+1][9].toString();
+				break;
+			case 2:
+				defectMatrix[i][2] = matrix[i+1][10].toString();
+				break;
+			}
+			
 			//TESTES - APAGAR QUANDO O MÉTODO ESTIVER PRONTO
 			//
-			if(i % 2 == 0)
-				defectMatrix[i][2] = "true";
-			else 
-				defectMatrix[i][2] = "false";
+//			if(i % 2 == 0)
+//				defectMatrix[i][2] = "true";
+//			else 
+//				defectMatrix[i][2] = "false";
 			//
 			
 			defectMatrix[i][3] = matrix[i+1][8].toString().toLowerCase();
 		}
 		return defectMatrix;
+    }
+    
+    public TableModel getTableModel() {
+    	return null;
     }
     
 }
