@@ -238,7 +238,10 @@ public class MainFrame {
 					//VER SE É ADICIONADO O SCROLLPANE
 					JScrollPane scrollPane = new JScrollPane(barchart);	
 					scrollPane.setBorder(borderMainPanel);
+					westPanel.removeAll();
 					westPanel.add(scrollPane);
+					westPanel.revalidate();
+					westPanel.repaint();
 				}
 			}
 		});
@@ -277,7 +280,10 @@ public class MainFrame {
 					//VER SE É ADICIONADO O SCROLLPANE
 					JScrollPane scrollPane = new JScrollPane(pieChart);	
 					scrollPane.setBorder(borderMainPanel);
+					westPanel.removeAll();
 					westPanel.add(scrollPane);
+					westPanel.revalidate();
+					westPanel.repaint();
 				}
 			}
 		});
