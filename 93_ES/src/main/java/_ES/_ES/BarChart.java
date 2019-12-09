@@ -1,28 +1,12 @@
 package _ES._ES;
 
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GraphicsConfiguration;
-import java.awt.HeadlessException;
 
 import javax.swing.JPanel;
 import javax.swing.table.TableModel;
-
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Chart;
-import org.apache.poi.ss.usermodel.charts.ChartDataFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.StandardXYBarPainter;
-import org.jfree.chart.renderer.xy.XYBarRenderer;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -118,7 +102,7 @@ public class BarChart extends JPanel{
 
 	}
 
-	private JFreeChart createChart(CategoryDataset dataset, String charTitle) {
+	public JFreeChart createChart(CategoryDataset dataset, String charTitle) {
 
 		JFreeChart barChart = ChartFactory.createBarChart(charTitle, "Boolean value", "%", dataset, PlotOrientation.VERTICAL, true, true, false);
 
