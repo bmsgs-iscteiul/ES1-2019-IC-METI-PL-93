@@ -1,4 +1,4 @@
-package _ES._ES;
+package Tests;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,9 @@ import javax.swing.JScrollPane;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import _ES._ES.App;
+import _ES._ES.Datatable;
 
 public class DatatableTest {
 
