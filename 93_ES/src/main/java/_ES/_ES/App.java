@@ -29,6 +29,7 @@ public class App
         if(!name.substring(lastIndexOf).equals(".xlsx"))
         	throw new IllegalArgumentException("Invalid file type - must submit a .xlsx file");
     	else {
+//    		System.out.println("Aceita o ficheiro");
     		this.e = new ExcelHandler(file);
     		buildMatrix();
     	}
@@ -37,6 +38,7 @@ public class App
     public void buildMatrix() {
     	try {
 			matrix = e.getDataMatrix();
+			System.out.println("Constrói matriz");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +59,6 @@ public class App
 			defectMatrix[i][0] = Integer.parseInt(idString);
 			defectMatrix[i][1] = matrix[i+1][3].toString();
 			
-			//defectMatrix[i][2] = dd.detection(matrix[i]);
 			switch(d) {
 			case 0:
 				defectMatrix[i][2] = dd.detection(matrix[i]);

@@ -15,22 +15,23 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+
 /**
  * 
  * @author Beatriz Gomes - 82195
@@ -77,8 +78,9 @@ public class MainFrame {
 						for(int j = 0; j < length; j++) {
 						    if (ddList.get(j).getName().equals(selectionValues[i])) {
 						    	System.out.println("Selected " + selectionValues[i]);
+						    	//Criar matriz de dados com o Defect Detection selecionado
 						    	dataMatrix = app.detectDefects(ddList.get(j));
-						    	
+						    	//Criar painel de Defect Count
 						    	dc.defectCountTable(dataMatrix);
 						    	centerPanel.removeAll();
 						    	JPanel panelCount = dc.panelBuilding();
@@ -86,7 +88,7 @@ public class MainFrame {
 						    	centerPanel.add(panelCount);
 						    	centerPanel.revalidate();
 						    	centerPanel.repaint();
-						    	
+						    	//Se a ferramenta selecionada for o iPlasma ou o PMD, desabilita os botões de editar e remover
 						    	if(selectionValues[i].equals("iPlasma") || selectionValues[i].equals("PMD")) {
 						    		editButton.setEnabled(false);
 						    		removeButton.setEnabled(false);
@@ -184,11 +186,7 @@ public class MainFrame {
 		eastPanel.add(centerPanel);
 		String titleCenterPanel = "Defect Count";
 		Border borderCenterPanel = BorderFactory.createTitledBorder(titleCenterPanel);
-		centerPanel.setBorder(borderCenterPanel);
-//		JPanel panelCount = dc.panelBuilding();
-//		panelCount.setPreferredSize(new Dimension(300,200));
-//		centerPanel.add(panelCount);
-		
+		centerPanel.setBorder(borderCenterPanel);		
 
 		//SOUTH PANEL 
 		JPanel southPanel = new JPanel();
@@ -442,43 +440,25 @@ public class MainFrame {
 	}
 	
 	public void addContentImportProjectButton() { //TODO: IMPORTAR E VISUALIZAR O FICHEIRO EXCEL NO WESTPANEL
-		File excelFile = new File("Long-Method.xlsx");
-		app.importExcelFile(excelFile);
 		
-		final JFrame frameImport = new JFrame();
-		String nameTitle = "Import Project ";
-		frameImport.setTitle(nameTitle);
-		frameImport.setSize(400, 100);
+		JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel file", "xlsx");
+		fileChooser.setFileFilter(filter);
+		int value = fileChooser.showOpenDialog(null);
 
-		String text = "The File Long-Method is imported";
-		JLabel info = new JLabel(text);
-		frameImport.add(info);
+		if (value == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = fileChooser.getSelectedFile();
+			String filePath = selectedFile.getAbsolutePath();
+			int lastIndexOf = filePath.lastIndexOf(".");
+	        if(!filePath.substring(lastIndexOf).equals(".xlsx")) {
+	        	JOptionPane.showMessageDialog(frame, "File must have .xlsx extension", "Error", JOptionPane.ERROR_MESSAGE);
+	        } else {
+				app.importExcelFile(selectedFile);
+				listOfDD.setSelectedIndex(listOfDD.getSelectedIndex());
+				JOptionPane.showMessageDialog(frame, "Excel File was successfully imported", "Excel File Imported", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
 		
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new GridLayout(1, 2));
-		frameImport.add(southPanel, BorderLayout.SOUTH);
-
-		JButton openButton = new JButton("Open File");
-		openButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//ADICIONAR FILE NO WESTPANEL PARA SER VISUALIZADO
-				
-				frameImport.dispose();
-			}		
-		});
-		southPanel.add(openButton);
-		
-		JButton confirmButton = new JButton("Ok");
-		confirmButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frameImport.dispose();
-			}		
-		});
-		southPanel.add(confirmButton);
-
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frameImport.setLocation(dim.width / 2 - frameImport.getSize().width / 2, dim.height / 2 - frameImport.getSize().height / 2);
-		frameImport.setVisible(true);		
 	}
 	
 	
