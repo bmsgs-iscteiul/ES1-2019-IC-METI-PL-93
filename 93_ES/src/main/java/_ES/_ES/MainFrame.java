@@ -42,7 +42,7 @@ public class MainFrame {
 	private JFrame frame;
 	ArrayList<DefectDetection> ddList;
 	private JList<String> listOfDD;
-	private JPanel westPanel;
+	private JPanel westPanel, centerPanel;
 	private App app;
 	private Object[][] dataMatrix;
 	DefectCount dc;
@@ -78,7 +78,15 @@ public class MainFrame {
 						    if (ddList.get(j).getName().equals(selectionValues[i])) {
 						    	System.out.println("Selected " + selectionValues[i]);
 						    	dataMatrix = app.detectDefects(ddList.get(j));
+						    	
 						    	dc.defectCountTable(dataMatrix);
+						    	centerPanel.removeAll();
+						    	JPanel panelCount = dc.panelBuilding();
+						    	panelCount.setPreferredSize(new Dimension(300,200));
+						    	centerPanel.add(panelCount);
+						    	centerPanel.revalidate();
+						    	centerPanel.repaint();
+						    	
 						    	if(selectionValues[i].equals("iPlasma") || selectionValues[i].equals("PMD")) {
 						    		editButton.setEnabled(false);
 						    		removeButton.setEnabled(false);
@@ -172,16 +180,14 @@ public class MainFrame {
 		removeButton.setEnabled(false);
 		
 		//CENTER PANEL -> ADICIONAR A JFRAME DO MIRA -> DEFEITOS / CONTAGEM
-		JPanel centerPanel = new JPanel();
+		centerPanel = new JPanel();
 		eastPanel.add(centerPanel);
-
 		String titleCenterPanel = "Defect Count";
 		Border borderCenterPanel = BorderFactory.createTitledBorder(titleCenterPanel);
 		centerPanel.setBorder(borderCenterPanel);
-		
-		JPanel panelCount = dc.panelBuilding();
-		panelCount.setPreferredSize(new Dimension(300,200));
-		centerPanel.add(panelCount);
+//		JPanel panelCount = dc.panelBuilding();
+//		panelCount.setPreferredSize(new Dimension(300,200));
+//		centerPanel.add(panelCount);
 		
 
 		//SOUTH PANEL 
