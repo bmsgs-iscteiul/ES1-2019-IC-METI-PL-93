@@ -8,8 +8,11 @@ import javax.swing.JPanel;
 
 
 /**
- * 
+ * Esta classe compara, a partir de uma matriz recebida como parametro no metodo defectCountTable(Object[][] matrix),
+ * o resultado dos Defeitios Detetados com a coluna is_long_method.
+ * A partir dessa comparação é gerado, no metodo panelBuilding(),um JPanel apresentado na classe MainFrame. 
  * @author Miguel Mira - 82966
+ * @version 2.0
  *
  */
 
@@ -19,6 +22,12 @@ public class DefectCount {
 	private int dii;
 	private int adci;
 	private int adii;
+	
+	/**
+	 * Contrutor DefectCount que inicializa as variaveis dci(Defeitos corretamente identificados),dii(defeitos incorretamente identificados),
+	 * adci(ausencia de defeitos corretamente identificados) e adii(ausencia de defeitos incorretamente identificados) a 0. 
+	 *
+	 */
 
 	public DefectCount() {
 		dci=0;
@@ -26,21 +35,35 @@ public class DefectCount {
 		adci=0;
 		adii=0;
 	}
+	
+	/**
+	 * Este metodo efetua a comparacao entre o resultado dos Defeitos detetados com 
+	 * a quarta posicao(is_long_method) da matriz recebida como argumento 
+	 * 
+	 * @param matrix matriz de Objetos construida na classe Datatable
+	 * @return retorna um JPanel com a contagem das diversas comparacoes
+	 */
 
 	public JPanel defectCountTable(Object[][] matrix) {       
 		for(int i=0;i!=matrix.length;i++) {
-			if(Boolean.parseBoolean((String)matrix[i][2])==true && Boolean.parseBoolean((String)matrix[i][3])==true)
+			if(matrix[i][2].equals("TRUE") && Boolean.parseBoolean((String)matrix[i][3])==true)
 				dci++;
-			if(Boolean.parseBoolean((String)matrix[i][2])==true && Boolean.parseBoolean((String)matrix[i][3])==false)    
+			if(matrix[i][2].equals("TRUE") && Boolean.parseBoolean((String)matrix[i][3])==false)    
 				dii++;
-			if(Boolean.parseBoolean((String)matrix[i][2])==false && Boolean.parseBoolean((String)matrix[i][3])==false)   
+			if(matrix[i][2].equals("FALSE") && Boolean.parseBoolean((String)matrix[i][3])==false)   
 				adci++;
-			if(Boolean.parseBoolean((String)matrix[i][2])==false && Boolean.parseBoolean((String)matrix[i][3])==true)      
+			if(matrix[i][2].equals("FALSE") && Boolean.parseBoolean((String)matrix[i][3])==true)      
 				adii++;
 		}
 		return panelBuilding();
 	}
-
+	
+	
+	/**
+	 * Este metodo constroi um JPanel que ira ser apresentado na classe MainFrame com a contagem das diversas 
+	 * comparacoes efetuadass no metodo defectCountTabel(Object[][] matrix)
+	 * @return retorna um JPanel com duas colunas : uma para os defeitos e outras para a sua frequencia.
+	 */
 
 	public JPanel panelBuilding() {
 		JPanel panel = new JPanel();
