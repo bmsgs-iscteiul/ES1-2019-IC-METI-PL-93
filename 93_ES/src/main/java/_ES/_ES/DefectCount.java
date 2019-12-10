@@ -44,7 +44,11 @@ public class DefectCount {
 	 * @return retorna um JPanel com a contagem das diversas comparacoes
 	 */
 
-	public JPanel defectCountTable(Object[][] matrix) {       
+	public JPanel defectCountTable(Object[][] matrix) {     
+		dci=0;
+		dii=0;
+		adci=0;
+		adii=0;
 		for(int i=0;i!=matrix.length;i++) {
 			if(matrix[i][2].equals("TRUE") && Boolean.parseBoolean((String)matrix[i][3])==true)
 				dci++;
