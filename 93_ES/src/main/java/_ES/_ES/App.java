@@ -13,12 +13,12 @@ import org.apache.poi.ss.usermodel.Cell;
  */
 public class App 
 {
-	private Excel e;
+	private ExcelHandler e;
 	private Cell[][] matrix;
 	private Object[][] defectMatrix;
 	
     public App() {
-    	this.e = new Excel();
+    	this.e = new ExcelHandler();
     	buildMatrix();
     }
     
@@ -29,7 +29,7 @@ public class App
         if(!name.substring(lastIndexOf).equals(".xlsx"))
         	throw new IllegalArgumentException("Invalid file type - must submit a .xlsx file");
     	else {
-    		this.e = new Excel(file);
+    		this.e = new ExcelHandler(file);
     		buildMatrix();
     	}
     }
