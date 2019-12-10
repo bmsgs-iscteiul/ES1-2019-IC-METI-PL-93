@@ -46,6 +46,7 @@ public class MainFrame {
 	private App app;
 	private Object[][] dataMatrix;
 	DefectCount dc;
+	private JButton editButton, removeButton;
 	
 	public MainFrame() throws FileSystemException, IOException {
 		app = new App();
@@ -78,6 +79,13 @@ public class MainFrame {
 						    	System.out.println("Selected " + selectionValues[i]);
 						    	dataMatrix = app.detectDefects(ddList.get(j));
 						    	dc.defectCountTable(dataMatrix);
+						    	if(selectionValues[i].equals("iPlasma") || selectionValues[i].equals("PMD")) {
+						    		editButton.setEnabled(false);
+						    		removeButton.setEnabled(false);
+						    	} else {
+						    		editButton.setEnabled(true);
+						    		removeButton.setEnabled(true);
+						    	}
 						    }
 						}
 					}
@@ -133,7 +141,15 @@ public class MainFrame {
 		listScroller.setPreferredSize(new Dimension(320, 180)); //270, 250
 		northPanel.add(listScroller);		
 
-		JButton editButton = new JButton("Edit");
+		JButton addButton = new JButton("Add");
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addFrameContentNewButton();
+			}
+		});
+		northPanel.add(addButton);
+		
+		editButton = new JButton("Edit");
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String titleNorthPanel = listOfDD.getSelectedValue().toString();
@@ -143,24 +159,17 @@ public class MainFrame {
 				addContentEditButton();			
 			}
 		});
-		northPanel.add(editButton);	
-
-		JButton addButton = new JButton("Add");
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addFrameContentNewButton();
-			}
-		});
-		northPanel.add(addButton);	
-
-		JButton removeButton = new JButton("Remove");
+		northPanel.add(editButton);
+		editButton.setEnabled(false);
+		
+		removeButton = new JButton("Remove");
 		removeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addFrameContentRemoveButton();
 			}
 		});
 		northPanel.add(removeButton);	
-	
+		removeButton.setEnabled(false);
 		
 		//CENTER PANEL -> ADICIONAR A JFRAME DO MIRA -> DEFEITOS / CONTAGEM
 		JPanel centerPanel = new JPanel();
@@ -205,10 +214,7 @@ public class MainFrame {
 					mainPanel.setBorder(borderMainPanel);
 					
 					Datatable datatable = new Datatable(dataMatrix);
-					//VER SE É ADICIONADO O SCROLLPANE
-					JPanel tablePanel = new JPanel();
-					tablePanel.add(datatable.getJTable());
-					JScrollPane scrollPane = new JScrollPane(tablePanel);
+					JScrollPane scrollPane = new JScrollPane(datatable.getJTable());
 					westPanel.removeAll();
 					westPanel.add(scrollPane);
 					westPanel.revalidate();
