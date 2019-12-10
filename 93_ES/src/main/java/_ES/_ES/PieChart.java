@@ -1,10 +1,15 @@
 package _ES._ES;
+import java.text.DecimalFormat;
+
 import javax.swing.JPanel;
 import javax.swing.table.TableModel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -19,55 +24,43 @@ import org.jfree.util.Rotation;
 public class PieChart extends JPanel {
 
 	private TableModel tableModel;
-	private String chartTitle;
 
 	public PieChart(TableModel tableModel, String chartTitle, int column) {
 		this.tableModel = tableModel;
-		this.chartTitle = chartTitle;
 
 		PieDataset dataset = createDataset(column);
 		// based on the dataset we create the chart
 		JFreeChart chart = createChart(dataset, chartTitle);
+		// create labels for the chart 
+		PieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator("{2}", new DecimalFormat("0"), new DecimalFormat("0.00%"));
+		((PiePlot) chart.getPlot()).setLabelGenerator(labelGenerator);
 		// we put the chart into a panel
 		ChartPanel chartPanel = new ChartPanel(chart);
 		// default size
 		chartPanel.setPreferredSize(new java.awt.Dimension(600, 400));
 		
-
 		this.add(chartPanel);
-
 	}
 
 
 	private PieDataset createDataset(int column) {
 
 		int rows = tableModel.getRowCount();
-
 		double counter = 0;
+		
 		for (int i = 0; i < rows; i++) {
 
-
 			Object object = tableModel.getValueAt(i, column);
-
 			if(object instanceof String) {
 				String value = (String) object;
-				//System.out.println("Vou converter: |"+value+"|");
-				
-				boolean bool = Boolean.parseBoolean(value);
-				
-				if(bool == true) {
+				if(Boolean.parseBoolean(value)) {
 					counter++;
 				}
-
 			}
-
 		}
 
 		double comErros = counter / rows;
 		double semErros = (rows - counter) / rows;
-
-		//System.out.println(chartTitle + ": C/Erros = " + comErros + "%, S/Erros = " + semErros + "%");
-
 
 		DefaultPieDataset result = new DefaultPieDataset();
 		result.setValue("C/Erros", comErros);

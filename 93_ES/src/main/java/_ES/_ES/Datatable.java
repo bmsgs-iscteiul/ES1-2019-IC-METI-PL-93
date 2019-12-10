@@ -61,7 +61,7 @@ public class Datatable {
 		JFrame frame = new JFrame();  
         frame.setTitle("Teste JUnit");
         App app = new App();
-        JScrollPane sp = new JScrollPane(new Datatable(app.detectDefects(null)).getJTable()); 
+        JScrollPane sp = new JScrollPane(new Datatable(app.detectDefects(new DefectDetection("iPlasma"))).getJTable()); 
         frame.add(sp); 
         // Frame Size 
         frame.setSize(800, 600); 

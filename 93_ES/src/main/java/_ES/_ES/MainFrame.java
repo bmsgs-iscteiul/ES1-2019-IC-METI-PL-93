@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -196,11 +197,25 @@ public class MainFrame {
 		JButton dataTableButton = new JButton("Data Table");
 		dataTableButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ADICIONAR A DATA TABLE AO WESTPANEL -> CRIAR UMA DATATABLE E DEPOIS METER O METODO DE SHOW
-
-				String titleMainPanel = listOfDD.getSelectedValue().toString();
-				Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
-				mainPanel.setBorder(borderMainPanel);
+				
+				String selectedTool = listOfDD.getSelectedValue();
+				if(selectedTool != null) {
+					String titleMainPanel = listOfDD.getSelectedValue().toString();
+					Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
+					mainPanel.setBorder(borderMainPanel);
+					
+					Datatable datatable = new Datatable(dataMatrix);
+					//VER SE É ADICIONADO O SCROLLPANE
+					JPanel tablePanel = new JPanel();
+					tablePanel.add(datatable.getJTable());
+					JScrollPane scrollPane = new JScrollPane(tablePanel);
+					westPanel.removeAll();
+					westPanel.add(scrollPane);
+					westPanel.revalidate();
+					westPanel.repaint();
+				} else {
+					JOptionPane.showMessageDialog(frame, "No Defect Detection tool selected", "Warning", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		southPanel.add(dataTableButton);
@@ -209,12 +224,13 @@ public class MainFrame {
 		barChartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				String titleMainPanel = listOfDD.getSelectedValue().toString(); 
-				Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
-				mainPanel.setBorder(borderMainPanel);
-				
 				String selectedTool = listOfDD.getSelectedValue();
 				if(selectedTool != null) {
+					
+					String titleMainPanel = listOfDD.getSelectedValue().toString(); 
+					Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
+					mainPanel.setBorder(borderMainPanel);
+					
 					String[] columnNames = {"Method ID", "Method Name", "Defect Detetion Result","is_long_method"};
 			        // Initializing the JTable 
 					@SuppressWarnings("serial")
@@ -242,6 +258,8 @@ public class MainFrame {
 					westPanel.add(scrollPane);
 					westPanel.revalidate();
 					westPanel.repaint();
+				} else {
+					JOptionPane.showMessageDialog(frame, "No Defect Detection tool selected", "Warning", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -251,12 +269,12 @@ public class MainFrame {
 		pieChartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String titleMainPanel = listOfDD.getSelectedValue().toString(); 
-				Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
-				mainPanel.setBorder(borderMainPanel);
-
 				String selectedTool = listOfDD.getSelectedValue();
 				if(selectedTool != null) {
+					String titleMainPanel = listOfDD.getSelectedValue().toString(); 
+					Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
+					mainPanel.setBorder(borderMainPanel);
+					
 					String[] columnNames = {"Method ID", "Method Name", "Defect Detetion Result","is_long_method"};
 			        // Initializing the JTable 
 					@SuppressWarnings("serial")
@@ -284,6 +302,8 @@ public class MainFrame {
 					westPanel.add(scrollPane);
 					westPanel.revalidate();
 					westPanel.repaint();
+				} else {
+					JOptionPane.showMessageDialog(frame, "No Defect Detection tool selected", "Warning", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -310,7 +330,7 @@ public class MainFrame {
 
 		//VER SE É ADICIONADO O SCROLLPANE
 		JScrollPane scrollPane = new JScrollPane(westPanel, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);		
-		westPanel.add(scrollPane);
+//		westPanel.add(scrollPane);
 		frame.add(scrollPane);
 
 		frame.add(mainPanel);
