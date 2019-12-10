@@ -2,8 +2,6 @@ package _ES._ES;
 
 import java.io.File;
 
-import javax.swing.table.TableModel;
-
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
@@ -29,7 +27,6 @@ public class App
         if(!name.substring(lastIndexOf).equals(".xlsx"))
         	throw new IllegalArgumentException("Invalid file type - must submit a .xlsx file");
     	else {
-//    		System.out.println("Aceita o ficheiro");
     		this.e = new ExcelHandler(file);
     		buildMatrix();
     	}
@@ -38,7 +35,6 @@ public class App
     public void buildMatrix() {
     	try {
 			matrix = e.getDataMatrix();
-			System.out.println("Constrói matriz");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,32 +56,19 @@ public class App
 			defectMatrix[i][1] = matrix[i+1][3].toString();
 			
 			switch(d) {
-			case 0:
-				defectMatrix[i][2] = dd.detection(matrix[i]);
-				break;
-			case 1:
-				defectMatrix[i][2] = matrix[i+1][9].toString();
-				break;
-			case 2:
-				defectMatrix[i][2] = matrix[i+1][10].toString();
-				break;
+				case 0: //Outros
+					defectMatrix[i][2] = dd.detection(matrix[i+1]);
+					break;
+				case 1: //iPlasma
+					defectMatrix[i][2] = matrix[i+1][9].toString();
+					break;
+				case 2: //PMD
+					defectMatrix[i][2] = matrix[i+1][10].toString();
+					break;
 			}
-			
-			//TESTES - APAGAR QUANDO O MÉTODO ESTIVER PRONTO
-			//
-//			if(i % 2 == 0)
-//				defectMatrix[i][2] = "true";
-//			else 
-//				defectMatrix[i][2] = "false";
-			//
-			
 			defectMatrix[i][3] = matrix[i+1][8].toString().toLowerCase();
 		}
 		return defectMatrix;
     }
-    
-    public TableModel getTableModel() {
-    	return null;
-    }
-    
+
 }

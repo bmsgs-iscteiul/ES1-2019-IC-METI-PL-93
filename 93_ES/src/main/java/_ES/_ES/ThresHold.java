@@ -3,12 +3,12 @@ package _ES._ES;
 
 public class ThresHold {
 	
-	private int value;
+	private double value;
 	private Operators operator;
 	private int column;
 	
 	
-	public ThresHold(int column, int value, Operators operator) {
+	public ThresHold(int column, double value, Operators operator) {
 		this.value = value;
 		this.operator=operator;	
 		this.column=column;
@@ -30,7 +30,7 @@ public class ThresHold {
 		this.column = column;
 	}
 
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 

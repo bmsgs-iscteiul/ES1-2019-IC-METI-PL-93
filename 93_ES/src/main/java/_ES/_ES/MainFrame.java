@@ -1,17 +1,21 @@
 package _ES._ES;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -49,6 +53,7 @@ public class MainFrame {
 	DefectCount dc;
 	private JButton editButton, removeButton;
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public MainFrame() throws FileSystemException, IOException {
 		app = new App();
 		dc = new DefectCount();
@@ -58,8 +63,11 @@ public class MainFrame {
 		ddList.add(ddIPlasma);
 		ddList.add(ddPMD);		
 	
-		String[] data = {"iPlasma", "PMD"};
-		listOfDD = new JList<String>(data);
+//		String[] data = {"iPlasma", "PMD"};
+//		listOfDD = new JList<String>(data);
+		listOfDD = new JList<String>(new DefaultListModel<String>());
+		((DefaultListModel)listOfDD.getModel()).addElement("iPlasma");
+		((DefaultListModel)listOfDD.getModel()).addElement("PMD");
 		
 	    listOfDD.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 
@@ -67,7 +75,6 @@ public class MainFrame {
 			public void valueChanged(ListSelectionEvent listSelectionEvent) {
 				boolean adjust = listSelectionEvent.getValueIsAdjusting();
 				if (!adjust) {
-					@SuppressWarnings("rawtypes")
 					JList list = (JList) listSelectionEvent.getSource();
 					int selections[] = list.getSelectedIndices();
 					@SuppressWarnings("deprecation")
@@ -475,29 +482,42 @@ public class MainFrame {
 
 		String[] metricsList = {"LOC", "CYCLO", "ATFD", "LAA",};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		JComboBox listOfMetrics = new JComboBox(metricsList);
+		final JComboBox listOfMetrics = new JComboBox(metricsList);
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		listOfMetrics.setSelectedIndex(3);
 		northPanel.add(listOfMetrics);
 		
-		String[] simbolsList = {"<", ">"};
+		String[] symbolsList = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		JComboBox listOfSimbols = new JComboBox(simbolsList);
+		final JComboBox listOfSymbols = new JComboBox(symbolsList);
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		String simbolTitle = "Symbols";
-		listOfSimbols.setName(simbolTitle);
-		listOfSimbols.setSelectedIndex(1);
-		northPanel.add(listOfSimbols);
+		listOfSymbols.setName(simbolTitle);
+		listOfSymbols.setSelectedIndex(1);
+		northPanel.add(listOfSymbols);
 		
 		//TODO
-		String titleThreshold = "Threshold Value";
-		JTextField thresholdsValues = new JTextField();
-		thresholdsValues.setText(titleThreshold);
+		final JTextField thresholdsValues = new JTextField("Threshold");
+		thresholdsValues.setForeground(Color.GRAY);
+		thresholdsValues.addFocusListener(new FocusListener() {
+		    public void focusGained(FocusEvent e) {
+		        if (thresholdsValues.getText().equals("Threshold")) {
+		        	thresholdsValues.setText("");
+		        	thresholdsValues.setForeground(Color.BLACK);
+		        }
+		    }
+		    public void focusLost(FocusEvent e) {
+		        if (thresholdsValues.getText().isEmpty()) {
+		        	thresholdsValues.setForeground(Color.GRAY);
+		        	thresholdsValues.setText("Threshold");
+		        }
+		    }
+	    });
 		northPanel.add(thresholdsValues);
 		
 		String[] operatorsList = {"AND", "OR"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		JComboBox listOfOperators = new JComboBox(operatorsList);
+		final JComboBox listOfOperators = new JComboBox(operatorsList);
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		String operatorsTitle = "Logical Operators";
 		listOfOperators.setName(operatorsTitle);
@@ -506,26 +526,39 @@ public class MainFrame {
 		
 		String[] metricsList2 = {"LOC", "CYCLO", "ATFD", "LAA"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		JComboBox listOfMetrics2 = new JComboBox(metricsList2);
+		final JComboBox listOfMetrics2 = new JComboBox(metricsList2);
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		String metricTitle2 = "Metrics";
 		listOfMetrics2.setName(metricTitle2);
 		listOfMetrics2.setSelectedIndex(3);
 		northPanel.add(listOfMetrics2);
 		
-		String[] simbolsList2 = {"<", ">"};
+		String[] symbolsList2 = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		JComboBox listOfSimbols2 = new JComboBox(simbolsList2);
+		final JComboBox listOfSymbols2 = new JComboBox(symbolsList2);
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
-		String simbolTitle2 = "Symbols";
-		listOfSimbols2.setName(simbolTitle2);
-		listOfSimbols2.setSelectedIndex(1);
-		northPanel.add(listOfSimbols2);
+		String symbolTitle2 = "Symbols";
+		listOfSymbols2.setName(symbolTitle2);
+		listOfSymbols2.setSelectedIndex(1);
+		northPanel.add(listOfSymbols2);
 		
 		//TODO
-		String titleThreshold2 = "Threshold Value";
-		JTextField thresholdsValues2 = new JTextField();
-		thresholdsValues2.setText(titleThreshold2);
+		final JTextField thresholdsValues2 = new JTextField("Threshold");
+		thresholdsValues2.setForeground(Color.GRAY);
+		thresholdsValues2.addFocusListener(new FocusListener() {
+		    public void focusGained(FocusEvent e) {
+		        if (thresholdsValues2.getText().equals("Threshold")) {
+		        	thresholdsValues2.setText("");
+		        	thresholdsValues2.setForeground(Color.BLACK);
+		        }
+		    }
+		    public void focusLost(FocusEvent e) {
+		        if (thresholdsValues2.getText().isEmpty()) {
+		        	thresholdsValues2.setForeground(Color.GRAY);
+		        	thresholdsValues2.setText("Threshold");
+		        }
+		    }
+	    });
 		northPanel.add(thresholdsValues2);
 						
 		JPanel southPanel = new JPanel();
@@ -534,9 +567,70 @@ public class MainFrame {
 		
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public void actionPerformed(ActionEvent e) {
 				//CRIAR UM METODO PARA ADICIONAR/GUARDAR NOVAS DDs COM OS NOVOS PARAMETROS
-			
+				int column1 = -1;
+				if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("LOC")) {
+					column1 = 4;
+				} else if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("CYCLO")) {
+					column1 = 5;
+				} else if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("ATFD")) {
+					column1 = 6;
+				} else if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("LAA")) {
+					column1 = 7;
+				}
+				Operators operator = null;
+				if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals("<")) {
+					operator = Operators.MENOR;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals(">")) {
+					operator = Operators.MAIOR;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals("=")) {
+					operator = Operators.IGUAL;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals("<=")) {
+					operator = Operators.MENOR_OU_IGUAL;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals(">=")) {
+					operator = Operators.MAIOR_OU_IGUAL;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals("!=")) {
+					operator = Operators.DIFERENTE;
+				}
+				double value1 = Double.parseDouble(thresholdsValues.getText());
+				ThresHold t1 = new ThresHold(column1, value1, operator);
+				int column2 = -1;
+				if(listOfMetrics2.getItemAt(listOfMetrics2.getSelectedIndex()).toString().equals("LOC")) {
+					column2 = 4;
+				} else if(listOfMetrics2.getItemAt(listOfMetrics2.getSelectedIndex()).toString().equals("CYCLO")) {
+					column2 = 5;
+				} else if(listOfMetrics2.getItemAt(listOfMetrics2.getSelectedIndex()).toString().equals("ATFD")) {
+					column2 = 6;
+				} else if(listOfMetrics2.getItemAt(listOfMetrics2.getSelectedIndex()).toString().equals("LAA")) {
+					column2 = 7;
+				}
+				Operators operator2 = null;
+				if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals("<")) {
+					operator2 = Operators.MENOR;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals(">")) {
+					operator2 = Operators.MAIOR;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals("=")) {
+					operator2 = Operators.IGUAL;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals("<=")) {
+					operator2 = Operators.MENOR_OU_IGUAL;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals(">=")) {
+					operator2 = Operators.MAIOR_OU_IGUAL;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals("!=")) {
+					operator2 = Operators.DIFERENTE;
+				}
+				double value2 = Double.parseDouble(thresholdsValues.getText());
+				ThresHold t2 = new ThresHold(column2, value2, operator2);
+				int logicalOperator = -1;
+				if(listOfOperators.getItemAt(listOfOperators.getSelectedIndex()).toString().equals("AND")) {
+					logicalOperator = 1;
+				} else if(listOfOperators.getItemAt(listOfOperators.getSelectedIndex()).toString().equals("OR")) {
+					logicalOperator = 2;
+				}
+				DefectDetection newDD = new DefectDetection("teste", logicalOperator, t1, t2);
+				ddList.add(newDD);
+				((DefaultListModel)listOfDD.getModel()).addElement("teste");
 				frameDefine.dispose();
 			}		
 		});
