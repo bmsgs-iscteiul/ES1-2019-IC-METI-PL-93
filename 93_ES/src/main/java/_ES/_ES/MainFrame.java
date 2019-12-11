@@ -808,7 +808,7 @@ public class MainFrame {
 		final JTextField thresholdsValues = new JTextField(ddList.get(ddIndex).getThresHold(0).getValue()+"");
 		northPanel.add(thresholdsValues);
 		
-		String[] operatorsList = {"AND", "OR"};
+		String[] operatorsList = {"AND", "OR"}; 
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfOperators = new JComboBox(operatorsList);
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
