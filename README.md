@@ -1,10 +1,10 @@
 # ES1-IC-METI-PL-93
 
-Elementos do grupo:
+Elementos do grupo:g
 Artem Bogdan 
 Beatriz Gomes 
 Catarina Garcez 
 José Gonçalves
 Júlia Monteiro 
 Miguel Mira
-g
+
