@@ -37,13 +37,26 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * 
+ * A Classe MainFrame comporta-se como uma Aplicaçao de avaliaçao da qualidade de deteçao de defeitos de desenho em Projetos de Software.
+ * Tem como funçoes: 
+ *  - a visualizaçao de Ferramentas como "IPlasma" e "PMD", entre outras que irao ser criadas consoante o desejo do Utilizador, em formato
+ *    de DataTable, PieChart e BarChart; 
+ *  - a criaçao, ediçao e remoçao de Ferramentas; 
+ *  - a importaçao do ficheiro Excel "Long-Method", sendo este projeto adaptavel a outros ficheiros Excel (do tipo .xlsx) de estrutura 
+ *    semelhante; 
+ *  - a definiçao de limites (Thresholds) para as metricas, envolvidas na deteçao dos defeitos long_method e feature_envy;
+ *  - a definiçao de regras e thresholds para a deteçao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na 
+ *    regra, os thresholds e as operaçoes logicas (AND e OR);
+ *  - a visualizaçao de uma tabela com a contabilizaçao dos indicadores de qualidade verificados na deteçao dos defeitos (DCI, DII, ADCI,
+ *    ADII) para as ferramentas "IPlasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
  * @author Beatriz Gomes - 82195
- *
+ * @version 5.0
  */
 
 public class MainFrame {
-
+	/**
+	 * Criaçao da Frame Principal da Aplicaçao.
+	 */
 	private JFrame frame;
 	ArrayList<DefectDetection> ddList;
 	private JList<String> listOfDD;
@@ -53,6 +66,15 @@ public class MainFrame {
 	DefectCount dc;
 	private JButton editButton, removeButton;
 	
+	/**
+	 * Construtor da Classe MainFrame com todos os componentes necessarios para a criaçao da Frame principal, nomeadamente a invocaçao dos
+	 * metodos doFrame() e addFrameContent(), que permitem adicionar componetes mais especificos à frame, e por fim a listagem de 
+	 * DefectDetection designada como ddList, o que permite a visualizaçao da JList listOfDD na Frame.
+	 * É feito também o controlo quando uma ferramneta é selecionada na JList, e caso a ferramenta selecionada for o "IPlasma" ou o "PMD"
+	 * desabilita a funcionalidade dos botoes "Edit" e "Remove".
+	 *  @throws FileSystemException quando a operaçao de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
+	 *  @throws IOException sempre que uma operaçao de input ou output falha ou é interpretada.
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public MainFrame() throws FileSystemException, IOException {
 		app = new App();
@@ -114,8 +136,11 @@ public class MainFrame {
 		doFrame();
 		addFrameContent();
 	}
-
-	private void doFrame() {
+	
+	/**
+	 * Criaçao da Frame principal permitindo a sua visibilidade na Aplicaçao, feita com dimensoes especificas.
+	 */
+	public void doFrame() {
 		frame = new JFrame("Defect Detection In Software Projects");
 		frame.setTitle("Defect Detection In Software Projects");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);			
@@ -125,20 +150,37 @@ public class MainFrame {
 		frame.setSize(dim.width, dim.height);
 		frame.setVisible(true);
 	}
-
-	private void addFrameContent() throws FileSystemException, IOException {
+	
+	
+	/**
+	 * Este metodo permite a adicao de paineis na Frame, onde cada painel tem componentes especificos.
+	 * O MainPanel e o painel principal, a este painel sao adicionados o WestPanel e o EastPanel.
+	 * O WestPanel foi criado para permitir a visualizacao de DataTables, PieCharts e BarCharts.
+	 * No EastPanel sao adicionados 3 novos paineis, nomeadamente o NorthPanel, o CenterPanel e o SouthPanel.
+	 * No NorthPanel e adicionado a JList listOfDD e os botoes "Edit", "Add" e "Remove".
+	 * No CenterPanel e adicionada a tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI,ADII) para as 
+	 * ferramentas "IPlasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
+	 * No SouthPanel e adicionado botoes como o "DataTable", "PieChart" e o "BarChart" que ao serem precionados aparecem os/as graficos/tabelas correspondetes, 
+	 * e o botao que permite a importacao de ficheiros.
+	 * 
+	 * TODO botao que o zé vai alterar
+	 * 
+	 *  @throws FileSystemException quando a operacao de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
+	 *  @throws IOException sempre que uma operacao de input ou output falha ou e interpretada.
+	 */
+	public void addFrameContent() throws FileSystemException, IOException {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		//MAIN PANEL
 		final JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
-		mainPanel.setSize(screenSize.width, screenSize.height); //1200,670
+		mainPanel.setSize(screenSize.width, screenSize.height);
 		frame.add(mainPanel, BorderLayout.NORTH);
 
 		//EAST PANEL
 		JPanel eastPanel = new JPanel();
 		eastPanel.setLayout(new GridLayout(3,1));
-		eastPanel.setPreferredSize(new Dimension(350,screenSize.height)); //350,670
+		eastPanel.setPreferredSize(new Dimension(350,screenSize.height)); 
 		mainPanel.add(eastPanel, BorderLayout.EAST);
 
 		//NORTH PANEL 
@@ -155,7 +197,7 @@ public class MainFrame {
 		northPanel.add(listOfDD);
 
 		JScrollPane listScroller = new JScrollPane(listOfDD);
-		listScroller.setPreferredSize(new Dimension(320, 180)); //270, 250
+		listScroller.setPreferredSize(new Dimension(320, 180)); 
 		northPanel.add(listScroller);		
 
 		JButton addButton = new JButton("Add");
@@ -188,7 +230,7 @@ public class MainFrame {
 		northPanel.add(removeButton);	
 		removeButton.setEnabled(false);
 		
-		//CENTER PANEL -> ADICIONAR A JFRAME DO MIRA -> DEFEITOS / CONTAGEM
+		//CENTER PANEL
 		centerPanel = new JPanel();
 		eastPanel.add(centerPanel);
 		String titleCenterPanel = "Defect Count";
@@ -338,14 +380,13 @@ public class MainFrame {
 		//WEST PANEL
 		westPanel = new JPanel();	
 		westPanel.setLayout(new BorderLayout());
-		westPanel.setPreferredSize(new Dimension(screenSize.width-375, screenSize.height)); //700, 670
+		westPanel.setPreferredSize(new Dimension(screenSize.width-375, screenSize.height)); 
 		mainPanel.add(westPanel, BorderLayout.WEST);
 
 		String titleWestPanel = "Tables and Graphs";
 		Border borderWestPanel = BorderFactory.createTitledBorder(titleWestPanel);
 		westPanel.setBorder(borderWestPanel);
 
-		//VER SE É ADICIONADO O SCROLLPANE
 		JScrollPane scrollPane = new JScrollPane(westPanel, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);		
 //		westPanel.add(scrollPane);
 		frame.add(scrollPane);
@@ -354,6 +395,12 @@ public class MainFrame {
 
 	}
 
+	/**
+	 * Este metodo permite a criacao de novas Ferramentas.
+	 * 
+	 * TODO zé vai alterar este metodo
+	 * 
+	 */
 	public void addFrameContentNewButton() {
 
 		final JFrame frameNew = new JFrame("New Threshold");
@@ -403,6 +450,12 @@ public class MainFrame {
 		frameNew.setVisible(true);
 	}
 
+	/**
+	 * Este metodo permite a remocao de Ferramentas.
+	 * 
+	 * TODO zé vai alterar este metodo
+	 * 
+	 */
 	public void addFrameContentRemoveButton() {		
 		final String selectedDD = listOfDD.getSelectedValue().toString();
 		final JFrame frameDelete = new JFrame("Delete");
@@ -442,11 +495,21 @@ public class MainFrame {
 		frameDelete.setVisible(true);		
 	}
 
+	/**
+	 * Este metodo permite a edicao de Ferramentas.
+	 * 
+	 * TODO zé vai alterar este metodo
+	 * 
+	 */
 	public void addContentEditButton() {
 		//......
 	}
 	
-	public void addContentImportProjectButton() { //TODO: IMPORTAR E VISUALIZAR O FICHEIRO EXCEL NO WESTPANEL
+	/**
+	 * Este metodo permite ao Utilizador importar ficheiros presentes na sua diretoria pessoal, de preferencia do tipo ".xlsx"
+	 * 
+	 */
+	public void addContentImportProjectButton() { 
 		
 		JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel file", "xlsx");
@@ -464,11 +527,13 @@ public class MainFrame {
 				listOfDD.setSelectedIndex(listOfDD.getSelectedIndex());
 				JOptionPane.showMessageDialog(frame, "Excel File was successfully imported", "Excel File Imported", JOptionPane.INFORMATION_MESSAGE);
 			}
-		}
-		
+		}		
 	}
 	
-	
+	/**
+	 * Este metodo permite a definiçao de regras e thresholds para a deteçao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na 
+	 * regra, os thresholds e as operaçoes logicas (AND e OR).
+	 */	
 	public void addFrameContentDefineButton() {
 		
 		final JFrame frameDefine = new JFrame();
