@@ -40,6 +40,7 @@ public class ExcelHandler {
 		this.file=file;
 	}
 	
+	
 	/**
 	 * Este método le o conteudo do ficheiro Excel file e passa essa informacao para uma matriz 
 	 * @return retorna uma matriz com o conteudo do ficheiro Excel file

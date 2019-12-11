@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 
 class BarChartTest {
 
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
+	
 
 }
