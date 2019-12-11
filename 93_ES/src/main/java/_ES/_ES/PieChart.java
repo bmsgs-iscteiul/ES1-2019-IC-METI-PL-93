@@ -124,6 +124,8 @@ public class PieChart extends JPanel {
 		plot.setForegroundAlpha(0.5f);
 		return chart;
 
+		
+		
 	}
 
 }
