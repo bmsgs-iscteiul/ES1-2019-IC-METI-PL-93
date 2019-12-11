@@ -37,25 +37,25 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * A Classe MainFrame comporta-se como uma Aplicaçao de avaliaçao da qualidade de deteçao de defeitos de desenho em Projetos de Software.
- * Tem como funçoes: 
- *  - a visualizaçao de Ferramentas como "IPlasma" e "PMD", entre outras que irao ser criadas consoante o desejo do Utilizador, em formato
- *    de DataTable, PieChart e BarChart; 
- *  - a criaçao, ediçao e remoçao de Ferramentas; 
- *  - a importaçao do ficheiro Excel "Long-Method", sendo este projeto adaptavel a outros ficheiros Excel (do tipo .xlsx) de estrutura 
- *    semelhante; 
- *  - a definiçao de limites (Thresholds) para as metricas, envolvidas na deteçao dos defeitos long_method e feature_envy;
- *  - a definiçao de regras e thresholds para a deteçao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na 
- *    regra, os thresholds e as operaçoes logicas (AND e OR);
- *  - a visualizaçao de uma tabela com a contabilizaçao dos indicadores de qualidade verificados na deteçao dos defeitos (DCI, DII, ADCI,
- *    ADII) para as ferramentas "IPlasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
+ * A Classe MainFrame comporta-se como uma Aplicacao de avaliacao da qualidade de detecao de defeitos de desenho em Projetos de Software.
+ * Tem como funcoes: 
+ *  - a visualizacao de Ferramentas como "IPlasma" e "PMD", entre outras que irao ser criadas consoante o desejo do Utilizador, em formato de DataTable, PieChart 
+ *  e BarChart; 
+ *  - a criacao, edicao e remocao de Ferramentas; 
+ *  - a importacao do ficheiro Excel "Long-Method", sendo este projeto adaptavel a outros ficheiros Excel (do tipo .xlsx) de estrutura 
+ *  semelhante; 
+ *  - a definicao de limites (Thresholds) para as metricas, envolvidas na detecao dos defeitos long_method e feature_envy;
+ *  - a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na regra, os thresholds e as 
+ *  operacoes logicas (AND e OR);
+ *  - a visualizacao de uma tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI, ADII) para as ferramentas
+ *   "IPlasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
  * @author Beatriz Gomes - 82195
  * @version 5.0
  */
 
 public class MainFrame {
 	/**
-	 * Criaçao da Frame Principal da Aplicaçao.
+	 * Criacao da Frame Principal da Aplicacao.
 	 */
 	private JFrame frame;
 	ArrayList<DefectDetection> ddList;
@@ -67,13 +67,13 @@ public class MainFrame {
 	private JButton editButton, removeButton;
 	
 	/**
-	 * Construtor da Classe MainFrame com todos os componentes necessarios para a criaçao da Frame principal, nomeadamente a invocaçao dos
-	 * metodos doFrame() e addFrameContent(), que permitem adicionar componetes mais especificos à frame, e por fim a listagem de 
-	 * DefectDetection designada como ddList, o que permite a visualizaçao da JList listOfDD na Frame.
-	 * É feito também o controlo quando uma ferramneta é selecionada na JList, e caso a ferramenta selecionada for o "IPlasma" ou o "PMD"
-	 * desabilita a funcionalidade dos botoes "Edit" e "Remove".
-	 *  @throws FileSystemException quando a operaçao de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
-	 *  @throws IOException sempre que uma operaçao de input ou output falha ou é interpretada.
+	 * Construtor da Classe MainFrame com todos os componentes necessarios para a criacao da Frame principal, nomeadamente a invocacao dos metodos doFrame() e 
+	 * addFrameContent(), que permitem adicionar componetes mais especificos a frame, e por fim a listagem de DefectDetection designada como ddList, o que permite 
+	 * a visualizacao da JList listOfDD na Frame.
+	 * E feito tambem o controlo quando uma ferramneta e selecionada na JList, e caso a ferramenta selecionada for o "IPlasma" ou o "PMD" desabilita a funcionalidade
+	 * dos botoes "Edit" e "Remove".
+	 *  @throws FileSystemException quando a operacao de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
+	 *  @throws IOException sempre que uma operacao de input ou output falha ou e interpretada.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public MainFrame() throws FileSystemException, IOException {
@@ -138,15 +138,13 @@ public class MainFrame {
 	}
 	
 	/**
-	 * Criaçao da Frame principal permitindo a sua visibilidade na Aplicaçao, feita com dimensoes especificas.
+	 * Criacao da Frame principal permitindo a sua visibilidade na Aplicacao, feita com dimensoes especificas.
 	 */
 	public void doFrame() {
 		frame = new JFrame("Defect Detection In Software Projects");
 		frame.setTitle("Defect Detection In Software Projects");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);			
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();		
-//		frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
-//		frame.setSize(1200, 670);	
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setSize(dim.width, dim.height);
 		frame.setVisible(true);
 	}
@@ -531,8 +529,8 @@ public class MainFrame {
 	}
 	
 	/**
-	 * Este metodo permite a definiçao de regras e thresholds para a deteçao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na 
-	 * regra, os thresholds e as operaçoes logicas (AND e OR).
+	 * Este metodo permite a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na regra, os
+	 * thresholds e as operacoes logicas (AND e OR).
 	 */	
 	public void addFrameContentDefineButton() {
 		
