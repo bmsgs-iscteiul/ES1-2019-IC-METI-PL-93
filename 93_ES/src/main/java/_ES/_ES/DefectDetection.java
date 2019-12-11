@@ -9,6 +9,14 @@ public class DefectDetection {
 	private ArrayList<ThresHold> rules = new ArrayList<ThresHold>();
 	private int logicalOperator; //1 - AND; 2 - OR
 	
+	public int getLogicalOperator() {
+		return logicalOperator;
+	}
+
+	public void setLogicalOperator(int logicalOperator) {
+		this.logicalOperator = logicalOperator;
+	}
+
 	public DefectDetection(String name){
 		this.name = name;
 	}
@@ -30,84 +38,221 @@ public class DefectDetection {
 	}
 	
 	public boolean detection(Cell[] cell) {
-//		System.out.println(cell[rules.get(0).getColumn()].getNumericCellValue());
-		System.out.println(cell[rules.get(0).getColumn()].toString());
+
 		switch(rules.size()) {
 			case 1:
 				switch (rules.get(0).getOperator()) {
 				case MENOR:
+					try {
+						if(rules.get(0).getValue() > cell[rules.get(0).getColumn()].getNumericCellValue())							
+							return true;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() > cellDouble)
+							return true;
+					}
+				case MAIOR:
+					try {
 						if(rules.get(0).getValue() < cell[rules.get(0).getColumn()].getNumericCellValue())							
 							return true;
-				case MAIOR:
-						if(rules.get(0).getValue() > cell[rules.get(0).getColumn()].getNumericCellValue())
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() < cellDouble)
 							return true;
+					}
 				case IGUAL:
-						if(rules.get(0).getValue() == cell[rules.get(0).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(0).getValue() == cell[rules.get(0).getColumn()].getNumericCellValue())							
 							return true;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() == cellDouble)
+							return true;
+					}
 				case MENOR_OU_IGUAL:
-						if(rules.get(0).getValue() <= cell[rules.get(0).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(0).getValue() >= cell[rules.get(0).getColumn()].getNumericCellValue())							
 							return true;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() >= cellDouble)
+							return true;
+					}
 				case MAIOR_OU_IGUAL:
-						if(rules.get(0).getValue() >= cell[rules.get(0).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(0).getValue() <= cell[rules.get(0).getColumn()].getNumericCellValue())							
 							return true;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() <= cellDouble)
+							return true;
+					}
 				case DIFERENTE:
-						if(rules.get(0).getValue() != cell[rules.get(0).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(0).getValue() != cell[rules.get(0).getColumn()].getNumericCellValue())							
 							return true;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() != cellDouble)
+							return true;
+					}
 				}
 				break;
 			case 2:
-				boolean rule1Output = true, rule2Output = true;
+				boolean rule1Output = false, rule2Output = false;
 				switch (rules.get(0).getOperator()) {
 				case MENOR:
+					try {
+						if(rules.get(0).getValue() > cell[rules.get(0).getColumn()].getNumericCellValue())							
+							rule1Output = true;
+						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() > cellDouble)
+							rule1Output = true;
+						break;
+					}
+				case MAIOR:
+					try {
 						if(rules.get(0).getValue() < cell[rules.get(0).getColumn()].getNumericCellValue())							
 							rule1Output = true;
 						break;
-				case MAIOR:
-						if(rules.get(0).getValue() > cell[rules.get(0).getColumn()].getNumericCellValue())
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() < cellDouble)
 							rule1Output = true;
 						break;
+					}
 				case IGUAL:
-						if(rules.get(0).getValue() == cell[rules.get(0).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(0).getValue() == cell[rules.get(0).getColumn()].getNumericCellValue())							
 							rule1Output = true;
 						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() == cellDouble)
+							rule1Output = true;
+						break;
+					}
 				case MENOR_OU_IGUAL:
-						if(rules.get(0).getValue() <= cell[rules.get(0).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(0).getValue() >= cell[rules.get(0).getColumn()].getNumericCellValue())							
 							rule1Output = true;
 						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() >= cellDouble)
+							rule1Output = true;
+						break;
+					}
 				case MAIOR_OU_IGUAL:
-						if(rules.get(0).getValue() >= cell[rules.get(0).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(0).getValue() <= cell[rules.get(0).getColumn()].getNumericCellValue())							
 							rule1Output = true;
 						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() <= cellDouble)
+							rule1Output = true;
+						break;
+					}
 				case DIFERENTE:
-						if(rules.get(0).getValue() != cell[rules.get(0).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(0).getValue() != cell[rules.get(0).getColumn()].getNumericCellValue())							
 							rule1Output = true;
 						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(0).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(0).getValue() != cellDouble)
+							rule1Output = true;
+						break;
+					}
 				}
 				switch (rules.get(1).getOperator()) {
 				case MENOR:
+					try {
+						if(rules.get(1).getValue() > cell[rules.get(1).getColumn()].getNumericCellValue())							
+							rule2Output = true;
+						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(1).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(1).getValue() > cellDouble)
+							rule2Output = true;
+						break;
+					}
+				case MAIOR:
+					try {
 						if(rules.get(1).getValue() < cell[rules.get(1).getColumn()].getNumericCellValue())							
 							rule2Output = true;
 						break;
-				case MAIOR:
-						if(rules.get(1).getValue() > cell[rules.get(1).getColumn()].getNumericCellValue())
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(1).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(1).getValue() < cellDouble)
 							rule2Output = true;
 						break;
+					}
 				case IGUAL:
-						if(rules.get(1).getValue() == cell[rules.get(1).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(1).getValue() == cell[rules.get(1).getColumn()].getNumericCellValue())							
 							rule2Output = true;
 						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(1).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(1).getValue() == cellDouble)
+							rule2Output = true;
+						break;
+					}
 				case MENOR_OU_IGUAL:
-						if(rules.get(1).getValue() <= cell[rules.get(1).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(1).getValue() >= cell[rules.get(1).getColumn()].getNumericCellValue())							
 							rule2Output = true;
 						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(1).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(1).getValue() >= cellDouble)
+							rule2Output = true;
+						break;
+					}
 				case MAIOR_OU_IGUAL:
-						if(rules.get(1).getValue() >= cell[rules.get(1).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(1).getValue() <= cell[rules.get(1).getColumn()].getNumericCellValue())							
 							rule2Output = true;
 						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(1).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(1).getValue() <= cellDouble)
+							rule2Output = true;
+						break;
+					}
 				case DIFERENTE:
-						if(rules.get(1).getValue() != cell[rules.get(1).getColumn()].getNumericCellValue())
+					try {
+						if(rules.get(1).getValue() != cell[rules.get(1).getColumn()].getNumericCellValue())							
 							rule2Output = true;
 						break;
+					} catch (IllegalStateException e) {
+						String cellString = cell[rules.get(1).getColumn()].toString();
+						double cellDouble = Double.parseDouble(cellString);
+						if(rules.get(1).getValue() != cellDouble)
+							rule2Output = true;
+						break;
+					}
 				}
 				switch (logicalOperator) {
 				case 1:
@@ -130,6 +275,10 @@ public class DefectDetection {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public ThresHold getThresHold(int index) {
+		return rules.get(index);
 	}
 
 }

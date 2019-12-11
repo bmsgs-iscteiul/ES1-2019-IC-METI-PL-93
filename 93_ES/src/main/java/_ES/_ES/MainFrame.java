@@ -84,9 +84,7 @@ public class MainFrame {
 		DefectDetection ddPMD = new DefectDetection("PMD");
 		ddList.add(ddIPlasma);
 		ddList.add(ddPMD);		
-	
-//		String[] data = {"iPlasma", "PMD"};
-//		listOfDD = new JList<String>(data);
+
 		listOfDD = new JList<String>(new DefaultListModel<String>());
 		((DefaultListModel)listOfDD.getModel()).addElement("iPlasma");
 		((DefaultListModel)listOfDD.getModel()).addElement("PMD");
@@ -201,7 +199,7 @@ public class MainFrame {
 		JButton addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addFrameContentNewButton();
+				addDefectDetectionButton();
 			}
 		});
 		northPanel.add(addButton);
@@ -209,11 +207,7 @@ public class MainFrame {
 		editButton = new JButton("Edit");
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String titleNorthPanel = listOfDD.getSelectedValue().toString();
-				Border borderNorthPanel = BorderFactory.createTitledBorder(titleNorthPanel);
-				mainPanel.setBorder(borderNorthPanel);
-
-				addContentEditButton();			
+				editDefectDetectionButton();
 			}
 		});
 		northPanel.add(editButton);
@@ -222,7 +216,7 @@ public class MainFrame {
 		removeButton = new JButton("Remove");
 		removeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addFrameContentRemoveButton();
+				removeDefectDetectionButton();
 			}
 		});
 		northPanel.add(removeButton);	
@@ -366,13 +360,13 @@ public class MainFrame {
 		});
 		southPanel.add(pieChartButton);
 		
-		JButton defineButton = new JButton("Define Defect Detection Rules and Thresholds");
-		defineButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addFrameContentDefineButton();
-			}		
-		});
-		southPanel.add(defineButton);
+//		JButton defineButton = new JButton("Define Defect Detection Rules and Thresholds");
+//		defineButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+////				addFrameContentDefineButton();
+//			}		
+//		});
+//		southPanel.add(defineButton);
 	
 
 		//WEST PANEL
@@ -532,23 +526,33 @@ public class MainFrame {
 	 * Este metodo permite a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na regra, os
 	 * thresholds e as operacoes logicas (AND e OR).
 	 */	
-	public void addFrameContentDefineButton() {
+	public void addDefectDetectionButton() {
 		
 		final JFrame frameDefine = new JFrame();
 		frameDefine.setLayout(new FlowLayout());
-		String nameTitle = "Define Defect Detection Rules and Thresholds";
+		String nameTitle = "Add new Defect Detection";
 		frameDefine.setTitle(nameTitle);
-		frameDefine.setSize(530, 110);
+		frameDefine.setSize(530, 200);
 		
-		JPanel northPanel = new JPanel();
-		frameDefine.add(northPanel, BorderLayout.NORTH);
+		JPanel mainPanel = new JPanel(new GridLayout(2,1));
+		frameDefine.add(mainPanel, BorderLayout.NORTH);
 
+		JPanel northPanel = new JPanel();
+		JPanel southPanel = new JPanel();
+		mainPanel.add(northPanel);
+		mainPanel.add(southPanel);
+		
+		JLabel name = new JLabel("Name:");
+		final JTextField nameField = new JTextField("", 33);
+		northPanel.add(name);
+		northPanel.add(nameField);
+		
 		String[] metricsList = {"LOC", "CYCLO", "ATFD", "LAA",};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfMetrics = new JComboBox(metricsList);
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
-		listOfMetrics.setSelectedIndex(3);
-		northPanel.add(listOfMetrics);
+		listOfMetrics.setSelectedIndex(0);
+		southPanel.add(listOfMetrics);
 		
 		String[] symbolsList = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -556,8 +560,8 @@ public class MainFrame {
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		String simbolTitle = "Symbols";
 		listOfSymbols.setName(simbolTitle);
-		listOfSymbols.setSelectedIndex(1);
-		northPanel.add(listOfSymbols);
+		listOfSymbols.setSelectedIndex(0);
+		southPanel.add(listOfSymbols);
 		
 		//TODO
 		final JTextField thresholdsValues = new JTextField("Threshold");
@@ -576,7 +580,7 @@ public class MainFrame {
 		        }
 		    }
 	    });
-		northPanel.add(thresholdsValues);
+		southPanel.add(thresholdsValues);
 		
 		String[] operatorsList = {"AND", "OR"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -584,8 +588,8 @@ public class MainFrame {
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		String operatorsTitle = "Logical Operators";
 		listOfOperators.setName(operatorsTitle);
-		listOfOperators.setSelectedIndex(1);
-		northPanel.add(listOfOperators);
+		listOfOperators.setSelectedIndex(0);
+		southPanel.add(listOfOperators);
 		
 		String[] metricsList2 = {"LOC", "CYCLO", "ATFD", "LAA"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -593,8 +597,8 @@ public class MainFrame {
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		String metricTitle2 = "Metrics";
 		listOfMetrics2.setName(metricTitle2);
-		listOfMetrics2.setSelectedIndex(3);
-		northPanel.add(listOfMetrics2);
+		listOfMetrics2.setSelectedIndex(1);
+		southPanel.add(listOfMetrics2);
 		
 		String[] symbolsList2 = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -602,8 +606,8 @@ public class MainFrame {
 		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		String symbolTitle2 = "Symbols";
 		listOfSymbols2.setName(symbolTitle2);
-		listOfSymbols2.setSelectedIndex(1);
-		northPanel.add(listOfSymbols2);
+		listOfSymbols2.setSelectedIndex(0);
+		southPanel.add(listOfSymbols2);
 		
 		//TODO
 		final JTextField thresholdsValues2 = new JTextField("Threshold");
@@ -622,16 +626,28 @@ public class MainFrame {
 		        }
 		    }
 	    });
-		northPanel.add(thresholdsValues2);
+		southPanel.add(thresholdsValues2);
 						
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new GridLayout(1,2));
-		frameDefine.add(southPanel, BorderLayout.SOUTH);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(1,2));
+		frameDefine.add(buttonPanel, BorderLayout.SOUTH);
 		
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public void actionPerformed(ActionEvent e) {
+				
+				boolean hasSameName = false;
+				for (DefectDetection dd : ddList) {
+					if(dd.getName().equals(nameField.getText()))
+						hasSameName = true;
+				}
+				
+				if(hasSameName) {
+					JOptionPane.showMessageDialog(frame, "Another Defect Detection with this name already exists", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
 				//CRIAR UM METODO PARA ADICIONAR/GUARDAR NOVAS DDs COM OS NOVOS PARAMETROS
 				int column1 = -1;
 				if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("LOC")) {
@@ -683,7 +699,7 @@ public class MainFrame {
 				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals("!=")) {
 					operator2 = Operators.DIFERENTE;
 				}
-				double value2 = Double.parseDouble(thresholdsValues.getText());
+				double value2 = Double.parseDouble(thresholdsValues2.getText());
 				ThresHold t2 = new ThresHold(column2, value2, operator2);
 				int logicalOperator = -1;
 				if(listOfOperators.getItemAt(listOfOperators.getSelectedIndex()).toString().equals("AND")) {
@@ -691,9 +707,242 @@ public class MainFrame {
 				} else if(listOfOperators.getItemAt(listOfOperators.getSelectedIndex()).toString().equals("OR")) {
 					logicalOperator = 2;
 				}
-				DefectDetection newDD = new DefectDetection("teste", logicalOperator, t1, t2);
+				System.out.println("Metrics1 = " + column1);
+				System.out.println("Operator1 = " + operator);
+				System.out.println("Value1 = " + value1);
+				System.out.println("logical operator = " + logicalOperator);
+				System.out.println("Metrics2 = " + column2);
+				System.out.println("Operator2 = " + operator2);
+				System.out.println("Value2 = " + value2);
+				DefectDetection newDD = new DefectDetection(nameField.getText(), logicalOperator, t1, t2);
 				ddList.add(newDD);
-				((DefaultListModel)listOfDD.getModel()).addElement("teste");
+				((DefaultListModel)listOfDD.getModel()).addElement(nameField.getText());
+				frameDefine.dispose();
+			}		
+		});
+		buttonPanel.add(saveButton);
+		
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frameDefine.dispose();
+			}		
+		});
+		buttonPanel.add(cancelButton);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frameDefine.setLocation(dim.width / 2 - frameDefine.getSize().width / 2, dim.height / 2 - frameDefine.getSize().height / 2);
+		frameDefine.setVisible(true);
+	}
+
+	
+	public void editDefectDetectionButton() {
+		
+		String ddToEditName = listOfDD.getSelectedValue();
+		int ddIndex = -1;
+		for (DefectDetection dd : ddList) {
+			if(dd.getName().equals(ddToEditName)) {
+				ddIndex = ddList.indexOf(dd);
+				break;
+			}
+		}
+		final int ddIndexFinal = ddIndex;
+		final JFrame frameDefine = new JFrame();
+		frameDefine.setLayout(new FlowLayout());
+		String nameTitle = "Edit Defect Detection " + ddToEditName;
+		frameDefine.setTitle(nameTitle);
+		frameDefine.setSize(530, 110);
+		
+		JPanel northPanel = new JPanel();
+		frameDefine.add(northPanel, BorderLayout.NORTH);
+
+		String[] metricsList = {"LOC", "CYCLO", "ATFD", "LAA",};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		final JComboBox listOfMetrics = new JComboBox(metricsList);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		switch(ddList.get(ddIndex).getThresHold(0).getColumn()) {
+			case 4:
+				listOfMetrics.setSelectedIndex(0);
+				break;
+			case 5:
+				listOfMetrics.setSelectedIndex(1);
+				break;
+			case 6:
+				listOfMetrics.setSelectedIndex(2);
+				break;
+			case 7:
+				listOfMetrics.setSelectedIndex(3);
+				break;
+		}
+		northPanel.add(listOfMetrics);
+		
+		String[] symbolsList = {"<", ">", "=", "<=", ">=", "!="};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		final JComboBox listOfSymbols = new JComboBox(symbolsList);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		switch(ddList.get(ddIndex).getThresHold(0).getOperator()) {
+			case MENOR:
+				listOfSymbols.setSelectedIndex(0);
+				break;
+			case MAIOR:
+				listOfSymbols.setSelectedIndex(1);
+				break;
+			case IGUAL:
+				listOfSymbols.setSelectedIndex(2);
+				break;
+			case MENOR_OU_IGUAL:
+				listOfSymbols.setSelectedIndex(3);
+				break;
+			case MAIOR_OU_IGUAL:
+				listOfSymbols.setSelectedIndex(4);
+				break;
+			case DIFERENTE:
+				listOfSymbols.setSelectedIndex(5);
+				break;
+		}
+		String simbolTitle = "Symbols";
+		listOfSymbols.setName(simbolTitle);
+		northPanel.add(listOfSymbols);
+		
+		//TODO
+		final JTextField thresholdsValues = new JTextField(ddList.get(ddIndex).getThresHold(0).getValue()+"");
+		northPanel.add(thresholdsValues);
+		
+		String[] operatorsList = {"AND", "OR"};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		final JComboBox listOfOperators = new JComboBox(operatorsList);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		String operatorsTitle = "Logical Operators";
+		listOfOperators.setName(operatorsTitle);
+		listOfOperators.setSelectedIndex(ddList.get(ddIndex).getLogicalOperator()-1); //1 - AND; 2 - OR
+		northPanel.add(listOfOperators);
+		
+		String[] metricsList2 = {"LOC", "CYCLO", "ATFD", "LAA"};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		final JComboBox listOfMetrics2 = new JComboBox(metricsList2);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		String metricTitle2 = "Metrics";
+		listOfMetrics2.setName(metricTitle2);
+		switch(ddList.get(ddIndex).getThresHold(1).getColumn()) {
+		case 4:
+			listOfMetrics2.setSelectedIndex(0);
+			break;
+		case 5:
+			listOfMetrics2.setSelectedIndex(1);
+			break;
+		case 6:
+			listOfMetrics2.setSelectedIndex(2);
+			break;
+		case 7:
+			listOfMetrics2.setSelectedIndex(3);
+			break;
+	}
+		northPanel.add(listOfMetrics2);
+		
+		String[] symbolsList2 = {"<", ">", "=", "<=", ">=", "!="};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		final JComboBox listOfSymbols2 = new JComboBox(symbolsList2);
+		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
+		String symbolTitle2 = "Symbols";
+		listOfSymbols2.setName(symbolTitle2);
+		switch(ddList.get(ddIndex).getThresHold(1).getOperator()) {
+			case MENOR:
+				listOfSymbols2.setSelectedIndex(0);
+				break;
+			case MAIOR:
+				listOfSymbols2.setSelectedIndex(1);
+				break;
+			case IGUAL:
+				listOfSymbols2.setSelectedIndex(2);
+				break;
+			case MENOR_OU_IGUAL:
+				listOfSymbols2.setSelectedIndex(3);
+				break;
+			case MAIOR_OU_IGUAL:
+				listOfSymbols2.setSelectedIndex(4);
+				break;
+			case DIFERENTE:
+				listOfSymbols2.setSelectedIndex(5);
+				break;
+		}
+		northPanel.add(listOfSymbols2);
+		
+		//TODO
+		final JTextField thresholdsValues2 = new JTextField(ddList.get(ddIndex).getThresHold(1).getValue()+"");
+		northPanel.add(thresholdsValues2);
+						
+		JPanel southPanel = new JPanel();
+		southPanel.setLayout(new GridLayout(1,2));
+		frameDefine.add(southPanel, BorderLayout.SOUTH);
+		
+		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//CRIAR UM METODO PARA ADICIONAR/GUARDAR NOVAS DDs COM OS NOVOS PARAMETROS
+				int column1 = -1;
+				if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("LOC")) {
+					column1 = 4;
+				} else if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("CYCLO")) {
+					column1 = 5;
+				} else if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("ATFD")) {
+					column1 = 6;
+				} else if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("LAA")) {
+					column1 = 7;
+				}
+				Operators operator = null;
+				if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals("<")) {
+					operator = Operators.MENOR;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals(">")) {
+					operator = Operators.MAIOR;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals("=")) {
+					operator = Operators.IGUAL;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals("<=")) {
+					operator = Operators.MENOR_OU_IGUAL;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals(">=")) {
+					operator = Operators.MAIOR_OU_IGUAL;
+				} else if(listOfSymbols.getItemAt(listOfSymbols.getSelectedIndex()).toString().equals("!=")) {
+					operator = Operators.DIFERENTE;
+				}
+				double value1 = Double.parseDouble(thresholdsValues.getText());
+				int column2 = -1;
+				if(listOfMetrics2.getItemAt(listOfMetrics2.getSelectedIndex()).toString().equals("LOC")) {
+					column2 = 4;
+				} else if(listOfMetrics2.getItemAt(listOfMetrics2.getSelectedIndex()).toString().equals("CYCLO")) {
+					column2 = 5;
+				} else if(listOfMetrics2.getItemAt(listOfMetrics2.getSelectedIndex()).toString().equals("ATFD")) {
+					column2 = 6;
+				} else if(listOfMetrics2.getItemAt(listOfMetrics2.getSelectedIndex()).toString().equals("LAA")) {
+					column2 = 7;
+				}
+				Operators operator2 = null;
+				if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals("<")) {
+					operator2 = Operators.MENOR;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals(">")) {
+					operator2 = Operators.MAIOR;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals("=")) {
+					operator2 = Operators.IGUAL;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals("<=")) {
+					operator2 = Operators.MENOR_OU_IGUAL;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals(">=")) {
+					operator2 = Operators.MAIOR_OU_IGUAL;
+				} else if(listOfSymbols2.getItemAt(listOfSymbols2.getSelectedIndex()).toString().equals("!=")) {
+					operator2 = Operators.DIFERENTE;
+				}
+				double value2 = Double.parseDouble(thresholdsValues2.getText());
+				int logicalOperator = -1;
+				if(listOfOperators.getItemAt(listOfOperators.getSelectedIndex()).toString().equals("AND")) {
+					logicalOperator = 1;
+				} else if(listOfOperators.getItemAt(listOfOperators.getSelectedIndex()).toString().equals("OR")) {
+					logicalOperator = 2;
+				}
+				ddList.get(ddIndexFinal).getThresHold(0).setColumn(column1);
+				ddList.get(ddIndexFinal).getThresHold(0).setOperator(operator);
+				ddList.get(ddIndexFinal).getThresHold(0).setValue(value1);
+				ddList.get(ddIndexFinal).setLogicalOperator(logicalOperator);
+				ddList.get(ddIndexFinal).getThresHold(1).setColumn(column2);
+				ddList.get(ddIndexFinal).getThresHold(1).setOperator(operator2);
+				ddList.get(ddIndexFinal).getThresHold(1).setValue(value2);
+
 				frameDefine.dispose();
 			}		
 		});
@@ -712,6 +961,24 @@ public class MainFrame {
 		frameDefine.setVisible(true);
 	}
 
+	@SuppressWarnings("rawtypes")
+	public void removeDefectDetectionButton() {
+		String ddToRemoveName = listOfDD.getSelectedValue();
+		System.out.println("listOfDD.getSelectedIndex(): " + listOfDD.getSelectedIndex());
+		System.out.println(ddToRemoveName);
+		for (DefectDetection dd : ddList) {
+			if(dd.getName().equals(ddToRemoveName)) {
+				ddList.remove(dd);
+				((DefaultListModel)listOfDD.getModel()).remove(listOfDD.getSelectedIndex());
+				listOfDD.revalidate();
+				listOfDD.repaint();
+				editButton.setEnabled(false);
+	    		removeButton.setEnabled(false);
+				break;
+			}
+		}
+	}
+	
 	/**
 	 * TODO
 	 */	

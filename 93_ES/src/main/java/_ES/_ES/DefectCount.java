@@ -50,13 +50,13 @@ public class DefectCount {
 		adci=0;
 		adii=0;
 		for(int i=0;i!=matrix.length;i++) {
-			if(matrix[i][2].equals("TRUE") && Boolean.parseBoolean((String)matrix[i][3])==true)
+			if((Boolean)(matrix[i][2]) && Boolean.parseBoolean((String)matrix[i][3]))
 				dci++;
-			if(matrix[i][2].equals("TRUE") && Boolean.parseBoolean((String)matrix[i][3])==false)    
+			if((Boolean)(matrix[i][2]) && !Boolean.parseBoolean((String)matrix[i][3]))    
 				dii++;
-			if(matrix[i][2].equals("FALSE") && Boolean.parseBoolean((String)matrix[i][3])==false)   
+			if(!(Boolean)(matrix[i][2]) && !Boolean.parseBoolean((String)matrix[i][3]))   
 				adci++;
-			if(matrix[i][2].equals("FALSE") && Boolean.parseBoolean((String)matrix[i][3])==true)      
+			if(!(Boolean)(matrix[i][2]) && Boolean.parseBoolean((String)matrix[i][3]))      
 				adii++;
 		}
 		return panelBuilding();

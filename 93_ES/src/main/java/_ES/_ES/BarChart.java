@@ -62,13 +62,10 @@ public class BarChart extends JPanel{
 
 		for (int i = 0; i < row; i++) {
 
-			Object obj = tableModel.getValueAt(i, column);
-			if(obj instanceof String) {
-				String value = (String) obj;
-				if (Boolean.parseBoolean(value)) {
-					counterTrue++;
-				}
-			}
+			Boolean obj = (Boolean)tableModel.getValueAt(i, column);
+			
+			if (obj)
+				counterTrue++;
 		}
 		
 		double counterFalse = row - counterTrue;

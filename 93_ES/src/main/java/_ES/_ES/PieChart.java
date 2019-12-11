@@ -77,13 +77,10 @@ public class PieChart extends JPanel {
 		
 		for (int i = 0; i < rows; i++) {
 
-			Object object = tableModel.getValueAt(i, column);
-			if(object instanceof String) {
-				String value = (String) object;
-				if(Boolean.parseBoolean(value)) {
-					counter++;
-				}
-			}
+			Boolean object = (Boolean)tableModel.getValueAt(i, column);
+			
+			if (object)
+				counter++;
 		}
 
 		double comErros = counter / rows;
