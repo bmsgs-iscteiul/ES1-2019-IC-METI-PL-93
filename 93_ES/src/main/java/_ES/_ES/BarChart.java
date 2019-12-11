@@ -10,9 +10,9 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
- * A Classe BarChart e uma classe que permite criar um gráfico de Barras apartir de uma tabela.
+ * A Classe BarChart permite criar um grafico de Barras apartir de uma tabela do tipo TableModel.
  * @author Julia Monteiro - 82472
- * @version 1.0
+ * @version 1.1
  */
 
 
@@ -48,8 +48,8 @@ public class BarChart extends JPanel{
 	
 	
 	/**
-	 * Este metodo recebe o número da coluna a analisar e foi criado com o intuito de devolver um dataset, para isso e necessário ir buscar o numero de linhas da tabela e atraves de um ciclo estas mesma linhas sao percorridas, para cada linha percorrida sao criados objetos que vao obter a string que esta na coluna. 
-		No caso dessa string ser true o contador CounterTrue e incrementado, depois de todas todas as linhas serem percorridas através da diferença do número de linhas da tabela e do CounterTrue e criado o CounterFalse. 
+	 * Este metodo recebe o numero da coluna a analisar e foi criado com o intuito de devolver um dataset, para isso e necessario ir buscar o numero de linhas da tabela e atraves de um ciclo estas mesma linhas sao percorridas, para cada linha percorrida sao criados objetos que vao obter o objeto booleano que esta na coluna. 
+		No caso dessse objeto ser true o contador CounterTrue e incrementado, depois de todas todas as linhas serem percorridas atraves da diferenca do numero de linhas da tabela e do CounterTrue e criado o CounterFalse. 
 		Por fim e calculada a percentagem de True e Falses e sao entao adicionados as dados para a criacao das duas barras ao dataset.
 	 * 
 	 * @param column Numero da coluna a retirar os dados
