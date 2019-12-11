@@ -2,15 +2,20 @@
 
 Elementos do grupo:
 
-Artem Bogdan 
+Artem Bogdan 82847
 
-Beatriz Gomes 
+Beatriz Gomes 82195
 
-Catarina Garcez 
+Catarina Garcez 82517
 
-José Gonçalves
+José Gonçalves 82694
 
-Júlia Monteiro 
+Júlia Monteiro 82472
 
-Miguel Mira
+Miguel Mira 82966
+
+
+Todas as funcionalidades pedidas no encunciado do projeto foram implementadas com sucesso.
+
+
 
