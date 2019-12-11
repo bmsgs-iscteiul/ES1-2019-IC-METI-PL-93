@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 /**
  * Esta classe compara, a partir de uma matriz recebida como parametro no metodo defectCountTable(Object[][] matrix),
  * o resultado dos Defeitios Detetados com a coluna is_long_method.
- * A partir dessa comparação é gerado, no metodo panelBuilding(),um JPanel apresentado na classe MainFrame. 
+ * A partir dessa comparacao e gerado, no metodo panelBuilding(),um JPanel apresentado na classe MainFrame. 
  * @author Miguel Mira - 82966
  * @version 2.0
  *

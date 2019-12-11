@@ -12,7 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * Esta classe tem dois metodos contrutores : um recebe um ficheiro dado como parametro e altera a variavel file consoante o ficheiro Excel dado, 
- * outro não possui parametros e altera a variável file para o  Excel dado para a elaboracao do projeto.
+ * outro nao possui parametros e altera a variavel file para o  Excel dado para a elaboracao do projeto.
  * Devolve, atraves do metodo getDataMatrix(), uma matrix com o conteudo do ficheiro Excel file . 
  * @author Miguel Mira - 82966
  * @version 2.0
@@ -42,7 +42,7 @@ public class ExcelHandler {
 	
 	
 	/**
-	 * Este método le o conteudo do ficheiro Excel file e passa essa informacao para uma matriz 
+	 * Este metodo le o conteudo do ficheiro Excel file e passa essa informacao para uma matriz 
 	 * @return retorna uma matriz com o conteudo do ficheiro Excel file
 	 * @throws Exception usado caso o ficheiro nao consiga ser aberto ou lido com sucesso 
 	 */
