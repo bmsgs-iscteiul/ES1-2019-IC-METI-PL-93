@@ -26,15 +26,17 @@ class MainFrameTest {
 	
 	@Test
 	public void testDoFrame() throws FileSystemException, IOException {
-		frame = new JFrame("Defect Detection In Software Projects");
-		String frameTitle ="Defect Detection In Software Projects";
-		assertTrue(frame.getTitle().equals(frameTitle));
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		assertNotNull(frame);
-		assertEquals(dim.width, frame.getWidth());
-		assertEquals(dim.height, frame.getHeight());
-		assertTrue(frame.isVisible());
+		frame = new JFrame();
+		mf = new MainFrame();
+//		String frameTitle ="Defect Detection In Software Projects";
+//		assertTrue(frame.getTitle().equals(frameTitle));
+//		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+//		assertNotNull(frame);
+//		assertEquals(dim.width, frame.getWidth());
+//		assertEquals(dim.height, frame.getHeight());
+//		assertTrue(frame.isVisible());
 		mf.doFrame();
+		mf.addFrameContent();
 	}
 	
 	@Test
