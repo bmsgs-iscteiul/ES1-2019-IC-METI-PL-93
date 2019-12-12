@@ -16,7 +16,7 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 
 /**
- * A Classe PieChart tem como objetivo gerar graficos circulares atraves da leitura de uma tabela. 
+ * A Classe PieChart tem como objetivo gerar gráficos circulares através da leitura de uma tabela. 
  * @author Catarina Garcez - 82517
  * @version 2.0
  */
@@ -28,14 +28,14 @@ public class PieChart extends JPanel {
 	
 	/**
 	 * 
-	 * O construtor desta classe recebe tres argumentos de forma a conseguir construir o grafico circular. 
-	 * No construtor sao criados e inicializados diferentes tipos de objectos provinientes dos metodos criados nesta classe.
-	 * Antes da criacao do grafico definiou-se novos formatos para a geracao de Labels de forma a ser mais simples a analise do grafico.
-	 * Por fim e criado o grafico, indicando as dimensoes que o mesmo deve ocupar no painel e adicionado ao mesmo.
+	 * O construtor desta classe recebe três argumentos de forma a conseguir construir o gráfico circular. 
+	 * No construtor são criados e inicializados diferentes tipos de objectos provinientes dos métodos criados nesta classe.
+	 * Antes da criação do gráfico definiou-se novos formatos para a geração de Labels de forma a ser mais simples a análise do gráfico.
+	 * Por fim é criado o gráfico, indicando as dimensões que o mesmo deve ocupar no painel e adicionado ao mesmo.
 	 * 
 	 * @param tableModel Tabela da qual se pretende retirar os dados.  
-	 * @param chartTitle Titulo que vai ser apresentado aquando a construçao do grafico.
-	 * @param column  Numero da coluna de onde vao ser lidos os dados.
+	 * @param chartTitle Título que vai ser apresentado aquando a construção do gráfico.
+	 * @param column  Número da coluna de onde vão ser lidos os dados.
 	 */
 
 
@@ -59,15 +59,15 @@ public class PieChart extends JPanel {
 	
 	
 	/**
-	 * O metodo createDataset recebe o numero da coluna que se pretender ler e tem como finalidade devolver um dataset.
-	 * Primeiramente, e necessario contar o numero de linhas e os dados que cada linha apresenta. Esta informacao e retirada da coluna escolhida da tableModel passada como argumento no construtor.
-	 * Percorre-se todas as linhas atraves de um ForEach, em cada linha e criado objecto do valor presente na mesma e onde atraves de casts se transforma o objecto lido num Boolean. 
-	 * O contador previamente criado e inicializado a 0 e incrementado caso o Boolean lido na linha seja True.
-	 * Por fim sao criados duas variaveis a serem apresentadas como resultados no grafico. Atraves do contador e do numero de linhas percorridas e calculado o valor da variavel comErros. 
-	 * A segunda variavel(semErros) e facilmente calculada com base na primeira. Apes se definir os valores das variaveis estes sao atualizados no grafico.
+	 * O método createDataset recebe o número da coluna que se pretender ler e tem como finalidade devolver um dataset.
+	 * Primeiramente, é necessario contar o número de linhas e os dados que cada linha apresenta. Esta informação e retirada da coluna escolhida da tableModel passada como argumento no construtor.
+	 * Percorre-se todas as linhas através de um ForEach, em cada linha e criado objecto do valor presente na mesma e onde atraves de casts se transforma o objecto lido num Boolean. 
+	 * O contador previamente criado é inicializado a 0 e incrementado caso o Boolean lido na linha seja True.
+	 * Por fim são criados duas variaveis a serem apresentadas como resultados no gráfico. Atraves do contador e do numero de linhas percorridas é calculado o valor da variável comErros. 
+	 * A segunda variável(semErros) é facilmente calculada com base na primeira. Após se definir os valores das variáveis estes são atualizados no gráfico.
 
-	 * @param column Numero da coluna de onde vao ser lidos os dados.
-	 * @return PieDataSet result, ou seja, os dados a serem apresentados no grafico provenientes da tableModel.
+	 * @param column Número da coluna de onde vão ser lidos os dados.
+	 * @return PieDataSet result, ou seja, os dados a serem apresentados no gráfico provenientes da tableModel.
 	 */
 
 	public PieDataset createDataset(int column) {
@@ -97,12 +97,12 @@ public class PieChart extends JPanel {
 	
 	/**
 	 * 
-	 * Este metodo permite criar o grafico pieChart e recebe como argumentos o dataset devolvido no metodo anteriormente e uma String que corresponde ao titulo que o grafico deve apresentar.
+	 * Este método permite criar o gráfico pieChart e recebe como argumentos o dataset devolvido no metodo anteriormente e uma String que corresponde ao título que o gráfico deve apresentar.
 	 * 
 	 * 
-	 * @param dataset PieDataSet, ou seja, os dados a serem apresentados no grafico provenientes da tableModel.
-	 * @param Title Titulo que vai ser apresentado aquando a construcao do grafico.
-	 * @return JFreeChart, grafico circular 3D.
+	 * @param dataset PieDataSet, ou seja, os dados a serem apresentados no gráfico provenientes da tableModel.
+	 * @param title Título que vai ser apresentado aquando a construção do gráfico.
+	 * @return JFreeChart, gráfico circular 3D.
 	 */
 
 	public JFreeChart createChart(PieDataset dataset, String title) {
