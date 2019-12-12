@@ -16,7 +16,7 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 
 /**
- * A Classe PieChart tem como objetivo gerar graficos circulares atraves da leitura da classe DataTable presente no projecto. 
+ * A Classe PieChart tem como objetivo gerar graficos circulares atraves da leitura de uma tabela. 
  * @author Catarina Garcez - 82517
  * @version 2.0
  */
