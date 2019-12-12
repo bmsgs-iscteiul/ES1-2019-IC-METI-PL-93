@@ -37,13 +37,13 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * A Classe MainFrame comporta-se como uma Aplicacao de avaliacao da qualidade de detecao de defeitos de desenho em Projetos de Software.
+ * A Classe MainFrame comporta-se como uma Aplicação de avaliacao da qualidade de detecao de defeitos de desenho em Projetos de Software.
  * Tem como funcoes: 
- *  - a visualizacao de Ferramentas como "IPlasma" e "PMD", entre outras que irao ser criadas consoante o desejo do Utilizador, em formato de DataTable, 
+ *  - a visualizacao de Ferramentas como "IPlasma" e "PMD", entre outras que irao ser criadas consoante o desejo do Utilizador, e possível visualização em formato de DataTable, 
  *  PieChart e BarChart; 
  *  - a criacao, edicao e remocao de Ferramentas; 
  *  - a importacao do ficheiro Excel "Long-Method", sendo este projeto adaptavel a outros ficheiros Excel (do tipo .xlsx) de estrutura semelhante; 
- *  - a definicao de limites (Thresholds) para as metricas, envolvidas na detecao dos defeitos long_method e feature_envy;
+ *  - a definicao de limites (Thresholds) para as metricas, envolvidas na detecao dos defeitos long_method;
  *  - a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na regra, os thresholds 
  *  e as operacoes logicas (AND e OR);
  *  - a visualizacao de uma tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI, ADII) para as 
@@ -58,6 +58,10 @@ public class MainFrame {
 	 * Criacao da Frame Principal da Aplicacao.
 	 */
 	private JFrame frame;
+	public JFrame getFrame() {
+		return frame;
+	}
+
 	ArrayList<DefectDetection> ddList;
 	private JList<String> listOfDD;
 	private JPanel westPanel, centerPanel;
@@ -157,7 +161,7 @@ public class MainFrame {
 	 * No NorthPanel e adicionado a JList listOfDD e os botoes "Edit", "Add" e "Remove".
 	 * No CenterPanel e adicionada a tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI,ADII)
 	 * para as ferramentas "IPlasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
-	 * No SouthPanel e adicionado botoes como o "DataTable", "PieChart" e o "BarChart" que ao serem precionados aparecem os/as graficos/tabelas correspondetes, 
+	 * No SouthPanel e adicionado botoes como o "DataTable", "PieChart" e o "BarChart" que ao serem pressionados aparecem os/as graficos/tabelas correspondentes, 
 	 * e o botao que permite a importacao de ficheiros. 
 	 * 
 	 *  @throws FileSystemException quando a operacao de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
@@ -170,7 +174,7 @@ public class MainFrame {
 		final JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setSize(screenSize.width, screenSize.height);
-		frame.add(mainPanel, BorderLayout.NORTH);
+//		frame.add(mainPanel, BorderLayout.NORTH);
 
 		//EAST PANEL
 		JPanel eastPanel = new JPanel();
@@ -369,7 +373,7 @@ public class MainFrame {
 		Border borderWestPanel = BorderFactory.createTitledBorder(titleWestPanel);
 		westPanel.setBorder(borderWestPanel);
 
-		JScrollPane scrollPane = new JScrollPane(westPanel, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);		
+		JScrollPane scrollPane = new JScrollPane(westPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);		
 //		westPanel.add(scrollPane);
 		frame.add(scrollPane);
 
@@ -820,7 +824,7 @@ public class MainFrame {
 	}
 
 	/**
-	 * Este metodo e feito com o intuito de remover DefectDetections, o botao "Remove" ao ser presionado faz com que este metodo seja executado 
+	 * Este metodo e feito com o intuito de remover DefectDetections, o botao "Remove" ao ser pressionado faz com que este metodo seja executado 
 	 * automaticamente. 
 	 */	
 	@SuppressWarnings("rawtypes")
