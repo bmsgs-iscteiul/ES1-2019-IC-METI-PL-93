@@ -1,63 +1,64 @@
 package Tests;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.text.DecimalFormat;
-import java.util.List;
-
-import javax.swing.table.TableModel;
-
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.labels.PieSectionLabelGenerator;
-import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
-import org.jfree.chart.labels.StandardPieToolTipGenerator;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.PiePlot3D;
-import org.jfree.data.general.DatasetChangeListener;
-import org.jfree.data.general.DatasetGroup;
+import javax.swing.table.DefaultTableModel;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
-import org.jfree.util.Rotation;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import _ES._ES.App;
-import _ES._ES.Datatable;
+import _ES._ES.DefectDetection;
 import _ES._ES.PieChart;
-import junit.framework.TestSuite;
 
 class PieChartTest {
 
 
-	private TableModel tableModel;
+	
+	DefaultTableModel tableModel;
 	private PieChart pieChart1;
 	String title;
-	int column;
-	PieDataset dataset;
+	int column;	
+	App app;
+	DefectDetection iPlasma;
 	
-	
-	    @Test
-	    public void setUp() {
+    @SuppressWarnings("serial")
+	@BeforeEach
+    public void setUp() {
 
-	    	pieChart1= new PieChart(tableModel, title, column);
-	    	
-	        DefaultPieDataset result = new DefaultPieDataset();
-	        result.setValue("comErros", new Double(43.2));
-	        result.setValue("semErros", new Double(17.5));
-	        pieChart1.createChart(result, title);
-	       
-	        
-	        
-	        
-//	        final DefaultPieDataset pieDataset = new DefaultPieDataset(new DefaultPieDataset(result));
-//	        PiePlot piePlot = new PiePlot(pieDataset);
-//	        piePlot.setToolTipGenerator(new StandardPieToolTipGenerator());
-//	        
-	    }
+    	title = "iPlasma";
+    	column = 2;
+		String[] columnNames = {"Method ID", "Method Name", "Defect Detetion Result","is_long_method"};
+		app = new App();
+		iPlasma = new DefectDetection("iPlasma");
+		app.buildMatrix();
+		
+		tableModel = new DefaultTableModel(app.detectDefects(iPlasma), columnNames){
+			@Override
+            public Class<?> getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return Integer.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return String.class;
+                    default:
+                        return String.class;
+                }
+            }
+        };
+        pieChart1 = new PieChart(tableModel, title, column);
+    	
+    }
+
+    @Test
+    public void test() {
+    	DefaultPieDataset result = new DefaultPieDataset();
+        result.setValue("comErros", new Double(43.2));
+        result.setValue("semErros", new Double(17.5));
+        pieChart1.createChart(result, title);
+    }
+}
 	    
-		}
+	
 		
 		
 
