@@ -18,7 +18,7 @@ import org.jfree.util.Rotation;
 /**
  * A Classe PieChart tem como objetivo gerar gráficos circulares através da leitura de uma tabela. 
  * @author Catarina Garcez - 82517
- * @version 2.0
+ * @version 2.1
  */
 
 public class PieChart extends JPanel {
