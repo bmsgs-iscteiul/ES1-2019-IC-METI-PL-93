@@ -15,52 +15,33 @@ import _ES._ES.Operators;
 import _ES._ES.ThresHold;
 
 class DefectDetectionTest {
-	ArrayList<ThresHold> th= new ArrayList<ThresHold>();
-	ArrayList<DefectDetection> dd= new ArrayList<DefectDetection>();
+	ArrayList<ThresHold> th;
+	ArrayList<DefectDetection> dd;
 	Cell[][] matriz;
 	ExcelHandler excel;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		File file = new File ("Long-Method.xlsx");
-		excel= new ExcelHandler(file);
-		matriz=excel.getDataMatrix();
-		
-		th.add(new ThresHold(4,523,Operators.IGUAL));
-		th.add(new ThresHold(4,523,Operators.DIFERENTE));
-		th.add(new ThresHold(4,522,Operators.IGUAL));
-		th.add(new ThresHold(4,522,Operators.DIFERENTE));
-		th.add(new ThresHold(7,0.3,Operators.IGUAL));
-		th.add(new ThresHold(7,0.3,Operators.DIFERENTE));
-		th.add(new ThresHold(7,0.2,Operators.IGUAL));
-		th.add(new ThresHold(7,0.2,Operators.DIFERENTE));
-		
-		dd.add(new DefectDetection("name", 1, th.get(0), th.get(1)));
-		dd.add(new DefectDetection("name", 1, th.get(2), th.get(3)));
-		dd.add(new DefectDetection("name", 1, th.get(4), th.get(5)));
-		dd.add(new DefectDetection("name", 1, th.get(6), th.get(7)));
-		
-		
-		dd.add(new DefectDetection("name", 1, th.get(1), th.get(0)));
-		dd.add(new DefectDetection("name", 1, th.get(3), th.get(2)));
-		dd.add(new DefectDetection("name", 1, th.get(5), th.get(4)));
-		dd.add(new DefectDetection("name", 1, th.get(7), th.get(6)));
-		
-		dd.add(new DefectDetection("name", 2, th.get(0), th.get(1)));
-		dd.add(new DefectDetection("name", 2, th.get(2), th.get(3)));
-		dd.add(new DefectDetection("name", 2, th.get(4), th.get(5)));
-		dd.add(new DefectDetection("name", 2, th.get(6), th.get(7)));
-		
-		dd.add(new DefectDetection("name", 2, th.get(1), th.get(0)));
-		dd.add(new DefectDetection("name", 2, th.get(3), th.get(2)));
-		dd.add(new DefectDetection("name", 2, th.get(5), th.get(4)));
-		dd.add(new DefectDetection("name", 2, th.get(7), th.get(6)));
-		
+		excel = new ExcelHandler();
+		matriz = excel.getDataMatrix();
+		th= new ArrayList<ThresHold>();
+		dd= new ArrayList<DefectDetection>();
 	}
 	
 	@Test
-	public void add() {
-		dd.get(0).addThresHold(th.get(0));
+	public void testIgual() {
+		th.add(new ThresHold(4,523,Operators.IGUAL));
+		th.add(new ThresHold(5,0.2,Operators.IGUAL));
+		dd.add(new DefectDetection("name", 1, th.get(0), th.get(1)));
+		dd.get(0).detection(matriz[14]);
+	}
+	
+	@Test
+	public void testMaior() {
+		th.add(new ThresHold(4,523,Operators.MAIOR));
+		th.add(new ThresHold(5,0.2,Operators.MAIOR));
+		dd.add(new DefectDetection("name", 1, th.get(0), th.get(1)));
+		dd.get(0).detection(matriz[14]);
 	}
 	
 	@Test
@@ -79,4 +60,14 @@ class DefectDetectionTest {
 		}
 	}
 	
+	@Test
+	public void detectionV() {
+		for (int i = 0; i < matriz[7].length; i++) {
+			try {
+				System.out.println(matriz[7][i].getNumericCellValue());
+			} catch (IllegalStateException e) {
+				System.out.println(matriz[7][i].getStringCellValue());
+			}
+		}
+	}
 }
