@@ -10,9 +10,10 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
- * A Classe BarChart permite criar um grafico de Barras apartir de uma tabela do tipo TableModel.
- * @author Julia Monteiro - 82472
- * @version 1.1
+ * A Classe BarChart permite criar um gráfico de Barras apartir de uma tabela do tipo TableModel.
+ * 
+ * @author Júlia Monteiro - 82472
+ * @version 1.3
  */
 
 
@@ -27,10 +28,10 @@ public class BarChart extends JPanel{
 	
 	
 	/**
-	 * Constroi a BarChart atraves de uma tableModel, de uma String que representa o nome do grafico e do numero da coluna a analisar na tableModel. 
-	 *	Para a criacao da BarChart sao utilizados dois metodos, o createDataset(column) e o createChart(dataset, charTitle). E tambem utilizada a classe ChartPanel que permitiu exibir a Barchart e estabelecer as suas dimensoes.
+	 * Constroi a BarChart atravás de uma tableModel, de uma String que representa o nome do gráfico e do número da coluna a analisar na tableModel. 
+	 *	Para a criacao da BarChart sao utilizados dois metodos, o createDataset(column) e o createChart(dataset, charTitle). É tambem utilizada a classe ChartPanel que permitiu exibir a Barchart e estabelecer as suas dimensões.
 	 * 
-	 * @param tableModel Tabela 
+	 * @param tableModel Tabela do tipo TableModel 
 	 * @param chartTitle Nome do gráfico
 	 * @param column  Número da coluna a retirar os dados
 	 */
@@ -48,11 +49,14 @@ public class BarChart extends JPanel{
 	
 	
 	/**
-	 * Este metodo recebe o numero da coluna a analisar e foi criado com o intuito de devolver um dataset, para isso e necessario ir buscar o numero de linhas da tabela e atraves de um ciclo estas mesma linhas sao percorridas, para cada linha percorrida sao criados objetos que vao obter o objeto booleano que esta na coluna. 
-		No caso dessse objeto ser true o contador CounterTrue e incrementado, depois de todas todas as linhas serem percorridas atraves da diferenca do numero de linhas da tabela e do CounterTrue e criado o CounterFalse. 
-		Por fim e calculada a percentagem de True e Falses e sao entao adicionados as dados para a criacao das duas barras ao dataset.
+	 * Este método recebe o número da coluna a analisar e foi criado com o intuito de devolver um dataset, para isso foi criado um ciclo que percorre as linhas da TableModel, para cada linha percorrida sao criados objetos com o informação da coluna dada como argumento. 
+		Estes objetos são transformados numa variável boolena através de um cast.
+		No caso dessse objeto ser true o contador CounterTrue é incrementado.
+ 		Quando todas as linhas são percorridas é calculado o número de objetos false e obtem-se o CounterFalse. 
+		Por fim é calculada a percentagem de True e Falses, e são então adicionados os dados para a criacão das duas barras ao dataset.
+
 	 * 
-	 * @param column Numero da coluna a retirar os dados
+	 * @param column Número da coluna a retirar os dados
 	 * @return Os dados retirados da tabela
 	 */
 
@@ -88,12 +92,12 @@ public class BarChart extends JPanel{
 
 	/**
 	 * 
-	 * Este metodo permite criar a Bar Chart atraves do dataset devolvido pelo metodo anterior. 
+	 * Este método permite criar a Bar Chart através do dataset devolvido pelo método anterior. 
 	 * 
 	 * 
 	 * @param dataset Dados retirados da tabela
-	 * @param charTitle Nome do grafico
-	 * @return O grafico barChart
+	 * @param charTitle Nome do gráfico
+	 * @return O gráfico barChart
 	 */
 
 	public JFreeChart createChart(CategoryDataset dataset, String charTitle) {
