@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 
 
 /**
- * Esta classe compara, a partir de uma matriz recebida como parametro no metodo defectCountTable(Object[][] matrix),
+ * Esta classe compara, a partir de uma matriz recebida como parametro no método defectCountTable(Object[][] matrix),
  * o resultado dos Defeitios Detetados com a coluna is_long_method.
- * A partir dessa comparacao e gerado, no metodo panelBuilding(),um JPanel apresentado na classe MainFrame. 
+ * A partir dessa comparação é gerado, no método panelBuilding(),um JPanel apresentado na classe MainFrame. 
  * @author Miguel Mira - 82966
  * @version 2.0
  *
@@ -24,7 +24,7 @@ public class DefectCount {
 	private int adii;
 	
 	/**
-	 * Contrutor DefectCount que inicializa as variaveis dci(Defeitos corretamente identificados),dii(defeitos incorretamente identificados),
+	 * Contrutor DefectCount que inicializa as variáveis dci(Defeitos corretamente identificados),dii(defeitos incorretamente identificados),
 	 * adci(ausencia de defeitos corretamente identificados) e adii(ausencia de defeitos incorretamente identificados) a 0. 
 	 *
 	 */
@@ -37,11 +37,11 @@ public class DefectCount {
 	}
 	
 	/**
-	 * Este metodo efetua a comparacao entre o resultado dos Defeitos detetados com 
-	 * a quarta posicao(is_long_method) da matriz recebida como argumento 
+	 * Este método efetua a comparação entre o resultado dos Defeitos detetados com 
+	 * a quarta posição(is_long_method) da matriz recebida como argumento 
 	 * 
 	 * @param matrix matriz de Objetos construida na classe Datatable
-	 * @return retorna um JPanel com a contagem das diversas comparacoes
+	 * @return retorna um JPanel com a contagem das diversas comparações
 	 */
 
 	public JPanel defectCountTable(Object[][] matrix) {     
@@ -64,9 +64,9 @@ public class DefectCount {
 	
 	
 	/**
-	 * Este metodo constroi um JPanel que ira ser apresentado na classe MainFrame com a contagem das diversas 
-	 * comparacoes efetuadass no metodo defectCountTabel(Object[][] matrix)
-	 * @return retorna um JPanel com duas colunas : uma para os defeitos e outras para a sua frequencia.
+	 * Este método constroi um JPanel que irá ser apresentado na classe MainFrame com a contagem das diversas 
+	 * comparações efetuadass no método defectCountTabel(Object[][] matrix)
+	 * @return retorna um JPanel com duas colunas : uma para os defeitos e outras para a sua frequência.
 	 */
 
 	public JPanel panelBuilding() {
