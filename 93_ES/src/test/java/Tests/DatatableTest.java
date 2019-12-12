@@ -3,31 +3,36 @@ package Tests;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import _ES._ES.App;
 import _ES._ES.Datatable;
+import _ES._ES.DefectDetection;
 
 	public class DatatableTest {
 
 		App app;
+		Datatable datatable;
+		DefectDetection iPlasma;
 		
-		@Before
-		public void setUp() throws Exception {
+		@BeforeEach
+		public void setUp() {
 			app = new App();
 		}
 
 		@Test
 		public void test() {
+			iPlasma = new DefectDetection("iPlasma");
+			app.buildMatrix();
+			
+			datatable = new Datatable(app.detectDefects(iPlasma));
 			JFrame frame = new JFrame();  
 	        frame.setTitle("Teste JUnit");
 	        
-	        JScrollPane sp = new JScrollPane(new Datatable(app.detectDefects(null)).getJTable()); 
+	        JScrollPane sp = new JScrollPane(datatable.getJTable()); 
 	        frame.add(sp); 
-	        // Frame Size 
-	        frame.setSize(500, 200); 
-	        // Frame Visible = true 
+	        frame.setSize(500, 200);  
 	        frame.setVisible(true);
 		}
 

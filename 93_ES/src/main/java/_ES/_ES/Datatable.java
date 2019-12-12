@@ -18,10 +18,16 @@ public class Datatable {
 
 	Object[][] defectMatrix; 
 
+	/**
+	 * @param defectMatrix
+	 */
 	public Datatable(Object[][] defectMatrix) {
 		this.defectMatrix = defectMatrix;
 	}
 	
+	/**
+	 * @return
+	 */
 	public JTable getJTable() { 
 		// Column Names 
 		String[] columnNames = new String[4];
@@ -50,24 +56,7 @@ public class Datatable {
 		//Row Sorter
 		RowSorter<TableModel> rowSorter = new TableRowSorter<TableModel>(tableModel);
 		table.setRowSorter(rowSorter);
-		
-//		return new JTable(defectMatrix, columnNames);
 		return table;
 	}
-	
-	//TESTES - APAGAR QUANDO A CLASSE ESTIVER PRONTA
-	//
-	public static void main(String args[]) throws Exception{
-		JFrame frame = new JFrame();  
-        frame.setTitle("Teste JUnit");
-        App app = new App();
-        JScrollPane sp = new JScrollPane(new Datatable(app.detectDefects(new DefectDetection("iPlasma"))).getJTable()); 
-        frame.add(sp); 
-        // Frame Size 
-        frame.setSize(800, 600); 
-        // Frame Visible = true 
-        frame.setVisible(true);
-	}
-	//
 	
 }

@@ -28,7 +28,9 @@ public class App {
     }
     
     /**
-     * 
+     * O método importExcelFile recebe o ficheiro da GUI e cria uma nova instância da classe ExcelHandler.
+     * Chama de seguida o método buildMatrix para preencher o array bidimensional com os dados do ficheiro excel.
+     *
      * @param file - Ficheiro a carregar na classe ExcelHandler
      */
     public void importExcelFile(File file) {
@@ -44,7 +46,7 @@ public class App {
     }
     
     /**
-     * 
+     * O método buildMatrix atribui à variável matrix o output do comando getDataMatrix do objecto da classe ExcelHandler, com os dados do Excel já formatados para o array bidimensional
      */
     public void buildMatrix() {
     	try {
@@ -56,8 +58,9 @@ public class App {
     }
     
     /**
-     * @param dd
-     * @return
+     * 
+     * @param dd - Objeto da classe DefectDetection que vai realizar os cálculos de defeito para os valores guardados no array bidimensional
+     * @return Object[][] detectMatrix - array que vai alimentar os componentes gráficos na MainFrame
      */
     public Object[][] detectDefects(DefectDetection dd){
     	defectMatrix = new Object[matrix.length-1][4];
@@ -74,14 +77,14 @@ public class App {
 			defectMatrix[i][1] = matrix[i+1][3].toString();
 			
 			switch(d) {
-				case 0: //Outros
-					defectMatrix[i][2] = dd.detection(matrix[i+1]);
-					break;
 				case 1: //iPlasma
 					defectMatrix[i][2] = Boolean.parseBoolean(matrix[i+1][9].toString());
 					break;
 				case 2: //PMD
 					defectMatrix[i][2] = Boolean.parseBoolean(matrix[i+1][10].toString());
+					break;
+				default: //Outros
+					defectMatrix[i][2] = dd.detection(matrix[i+1]);
 					break;
 			}
 			defectMatrix[i][3] = matrix[i+1][8].toString().toLowerCase();
