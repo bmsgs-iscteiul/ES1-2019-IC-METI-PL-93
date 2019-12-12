@@ -15,7 +15,10 @@ Júlia Monteiro 82472
 Miguel Mira 82966
 
 
-Todas as funcionalidades pedidas no encunciado do projeto foram implementadas com sucesso.
+   Relativamente ao Projeto, todas as funcionalidades foram implementantas tal como era pedido no encunciado à excessão da 
+funcionalidade que permite que haja Defect Dectecion com apenas um TresHold.
+
+   Quanto a erros, o projeto não apresenta qualquer erro que tenha sido detetado.
 
 
 
