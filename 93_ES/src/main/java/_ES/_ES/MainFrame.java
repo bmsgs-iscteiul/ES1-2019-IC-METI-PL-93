@@ -39,18 +39,18 @@ import javax.swing.table.DefaultTableModel;
 /**
  * A Classe MainFrame comporta-se como uma Aplicacao de avaliacao da qualidade de detecao de defeitos de desenho em Projetos de Software.
  * Tem como funcoes: 
- *  - a visualizacao de Ferramentas como "IPlasma" e "PMD", entre outras que irao ser criadas consoante o desejo do Utilizador, em formato de DataTable, PieChart 
- *  e BarChart; 
+ *  - a visualizacao de Ferramentas como "IPlasma" e "PMD", entre outras que irao ser criadas consoante o desejo do Utilizador, em formato de DataTable, 
+ *  PieChart e BarChart; 
  *  - a criacao, edicao e remocao de Ferramentas; 
- *  - a importacao do ficheiro Excel "Long-Method", sendo este projeto adaptavel a outros ficheiros Excel (do tipo .xlsx) de estrutura 
- *  semelhante; 
+ *  - a importacao do ficheiro Excel "Long-Method", sendo este projeto adaptavel a outros ficheiros Excel (do tipo .xlsx) de estrutura semelhante; 
  *  - a definicao de limites (Thresholds) para as metricas, envolvidas na detecao dos defeitos long_method e feature_envy;
- *  - a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na regra, os thresholds e as 
- *  operacoes logicas (AND e OR);
- *  - a visualizacao de uma tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI, ADII) para as ferramentas
- *   "IPlasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
+ *  - a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na regra, os thresholds 
+ *  e as operacoes logicas (AND e OR);
+ *  - a visualizacao de uma tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI, ADII) para as 
+ *  ferramentas Plasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
+ *   
  * @author Beatriz Gomes - 82195
- * @version 5.0
+ * @version 10.0
  */
 
 public class MainFrame {
@@ -67,11 +67,12 @@ public class MainFrame {
 	private JButton editButton, removeButton;
 	
 	/**
-	 * Construtor da Classe MainFrame com todos os componentes necessarios para a criacao da Frame principal, nomeadamente a invocacao dos metodos doFrame() e 
-	 * addFrameContent(), que permitem adicionar componetes mais especificos a frame, e por fim a listagem de DefectDetection designada como ddList, o que permite 
-	 * a visualizacao da JList listOfDD na Frame.
-	 * E feito tambem o controlo quando uma ferramneta e selecionada na JList, e caso a ferramenta selecionada for o "IPlasma" ou o "PMD" desabilita a funcionalidade
-	 * dos botoes "Edit" e "Remove".
+	 * Construtor da Classe MainFrame com todos os componentes necessarios para a criacao da Frame principal, nomeadamente a invocacao dos metodos doFrame()
+	 * e addFrameContent(), que permitem adicionar componetes mais especificos a frame, e por fim a listagem de DefectDetection designada como ddList, o que 
+	 * permite a visualizacao da JList listOfDD na Frame.
+	 * E feito tambem o controlo quando uma ferramneta e selecionada na JList, e caso a ferramenta selecionada for o "IPlasma" ou o "PMD" desabilita a 
+	 * funcionalidade dos botoes "Edit" e "Remove".
+	 * 
 	 *  @throws FileSystemException quando a operacao de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
 	 *  @throws IOException sempre que uma operacao de input ou output falha ou e interpretada.
 	 */
@@ -136,7 +137,7 @@ public class MainFrame {
 	}
 	
 	/**
-	 * Criacao da Frame principal permitindo a sua visibilidade na Aplicacao, feita com dimensoes especificas.
+	 * Criacao da Frame principal permitindo a sua visibilidade na Aplicacao, e e feita com dimensoes especificas.
 	 */
 	public void doFrame() {
 		frame = new JFrame("Defect Detection In Software Projects");
@@ -149,17 +150,15 @@ public class MainFrame {
 	
 	
 	/**
-	 * Este metodo permite a adicao de paineis na Frame, onde cada painel tem componentes especificos.
+	 * Este metodo permite a adicao de paineis na Frame Principal, tendo cada painel componentes especificos.
 	 * O MainPanel e o painel principal, a este painel sao adicionados o WestPanel e o EastPanel.
 	 * O WestPanel foi criado para permitir a visualizacao de DataTables, PieCharts e BarCharts.
 	 * No EastPanel sao adicionados 3 novos paineis, nomeadamente o NorthPanel, o CenterPanel e o SouthPanel.
 	 * No NorthPanel e adicionado a JList listOfDD e os botoes "Edit", "Add" e "Remove".
-	 * No CenterPanel e adicionada a tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI,ADII) para as 
-	 * ferramentas "IPlasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
+	 * No CenterPanel e adicionada a tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI,ADII)
+	 * para as ferramentas "IPlasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
 	 * No SouthPanel e adicionado botoes como o "DataTable", "PieChart" e o "BarChart" que ao serem precionados aparecem os/as graficos/tabelas correspondetes, 
-	 * e o botao que permite a importacao de ficheiros.
-	 * 
-	 * TODO botao que o zé vai alterar
+	 * e o botao que permite a importacao de ficheiros. 
 	 * 
 	 *  @throws FileSystemException quando a operacao de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
 	 *  @throws IOException sempre que uma operacao de input ou output falha ou e interpretada.
@@ -360,15 +359,6 @@ public class MainFrame {
 		});
 		southPanel.add(pieChartButton);
 		
-//		JButton defineButton = new JButton("Define Defect Detection Rules and Thresholds");
-//		defineButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-////				addFrameContentDefineButton();
-//			}		
-//		});
-//		southPanel.add(defineButton);
-	
-
 		//WEST PANEL
 		westPanel = new JPanel();	
 		westPanel.setLayout(new BorderLayout());
@@ -386,120 +376,9 @@ public class MainFrame {
 		frame.add(mainPanel);
 
 	}
-
-	/**
-	 * Este metodo permite a criacao de novas Ferramentas.
-	 * 
-	 * TODO zé vai alterar este metodo
-	 * 
-	 */
-	public void addFrameContentNewButton() {
-
-		final JFrame frameNew = new JFrame("New Threshold");
-		frameNew.setTitle("New Threshold");
-		frameNew.setSize(400, 250);
-		frameNew.setLayout(new GridLayout(7, 10));
-
-		JLabel nameTheThreshold = new JLabel("Name the new Threshold: ");
-		final JTextField nameOfTheThreshold = new JTextField();
-		frameNew.add(nameTheThreshold);
-		frameNew.add(nameOfTheThreshold);
-
-		JLabel locNumber = new JLabel("LOC: ");
-		final JTextField loc = new JTextField();
-		frameNew.add(locNumber);
-		frameNew.add(loc);
-
-		JLabel cycloNumber = new JLabel("CYCLO: ");
-		final JTextField cyclo = new JTextField();
-		frameNew.add(cycloNumber);
-		frameNew.add(cyclo);	
-
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new GridLayout(1, 5));
-		frameNew.add(southPanel, BorderLayout.SOUTH);
-
-		JButton saveButton = new JButton("Save The New Threshold!");
-		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//ADICIONAR A NOVA THRESHOLD AO EASTPANEL
-
-				frameNew.dispose();
-			}
-		});
-		southPanel.add(saveButton, BorderLayout.SOUTH);
-
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frameNew.dispose();
-			}
-		});
-		southPanel.add(cancelButton, BorderLayout.SOUTH);
-
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frameNew.setLocation(dim.width / 2 - frameNew.getSize().width / 2, dim.height / 2 - frameNew.getSize().height / 2);
-		frameNew.setVisible(true);
-	}
-
-	/**
-	 * Este metodo permite a remocao de Ferramentas.
-	 * 
-	 * TODO zé vai alterar este metodo
-	 * 
-	 */
-	public void addFrameContentRemoveButton() {		
-		final String selectedDD = listOfDD.getSelectedValue().toString();
-		final JFrame frameDelete = new JFrame("Delete");
-		String nameTitle = "Delete Defect Detection: " + selectedDD;
-		frameDelete.setTitle(nameTitle);
-		frameDelete.setSize(400, 100);
-
-		String text = "Do you want to eliminate: " + selectedDD;
-		JLabel deleteInfo = new JLabel(text);
-		frameDelete.add(deleteInfo);
-
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new GridLayout(1, 5));
-		frameDelete.add(southPanel, BorderLayout.SOUTH);
-
-		JButton confirmButton = new JButton("Confirm");
-		confirmButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				int index = indexOf(selectedDD);
-//				listOfDD.remove(index);
-
-				frameDelete.dispose();
-			}		
-		});
-		southPanel.add(confirmButton, BorderLayout.SOUTH);
-
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frameDelete.dispose();
-			}
-		});
-		southPanel.add(cancelButton, BorderLayout.SOUTH);
-
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frameDelete.setLocation(dim.width / 2 - frameDelete.getSize().width / 2, dim.height / 2 - frameDelete.getSize().height / 2);
-		frameDelete.setVisible(true);		
-	}
-
-	/**
-	 * Este metodo permite a edicao de Ferramentas.
-	 * 
-	 * TODO zé vai alterar este metodo
-	 * 
-	 */
-	public void addContentEditButton() {
-		//......
-	}
 	
 	/**
-	 * Este metodo permite ao Utilizador importar ficheiros presentes na sua diretoria pessoal, de preferencia do tipo ".xlsx"
-	 * 
+	 * Este metodo permite ao Utilizador importar ficheiros presentes na sua diretoria pessoal, de preferencia do tipo ".xlsx", ou seja ficheiros Excel. 
 	 */
 	public void addContentImportProjectButton() { 
 		
@@ -523,8 +402,8 @@ public class MainFrame {
 	}
 	
 	/**
-	 * Este metodo permite a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na regra, os
-	 * thresholds e as operacoes logicas (AND e OR).
+	 * Este metodo permite a adicao de DefectDetections e a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher 
+	 * as metricas a serem usadas na regra, os thresholds e as operacoes logicas (AND e OR).
 	 */	
 	public void addDefectDetectionButton() {
 		
@@ -532,7 +411,7 @@ public class MainFrame {
 		frameDefine.setLayout(new FlowLayout());
 		String nameTitle = "Add new Defect Detection";
 		frameDefine.setTitle(nameTitle);
-		frameDefine.setSize(530, 200);
+		frameDefine.setSize(530, 145);
 		
 		JPanel mainPanel = new JPanel(new GridLayout(2,1));
 		frameDefine.add(mainPanel, BorderLayout.NORTH);
@@ -550,16 +429,12 @@ public class MainFrame {
 		String[] metricsList = {"LOC", "CYCLO", "ATFD", "LAA",};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfMetrics = new JComboBox(metricsList);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		listOfMetrics.setSelectedIndex(0);
 		southPanel.add(listOfMetrics);
 		
 		String[] symbolsList = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfSymbols = new JComboBox(symbolsList);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
-		String simbolTitle = "Symbols";
-		listOfSymbols.setName(simbolTitle);
 		listOfSymbols.setSelectedIndex(0);
 		southPanel.add(listOfSymbols);
 		
@@ -585,27 +460,18 @@ public class MainFrame {
 		String[] operatorsList = {"AND", "OR"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfOperators = new JComboBox(operatorsList);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
-		String operatorsTitle = "Logical Operators";
-		listOfOperators.setName(operatorsTitle);
 		listOfOperators.setSelectedIndex(0);
 		southPanel.add(listOfOperators);
 		
 		String[] metricsList2 = {"LOC", "CYCLO", "ATFD", "LAA"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfMetrics2 = new JComboBox(metricsList2);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
-		String metricTitle2 = "Metrics";
-		listOfMetrics2.setName(metricTitle2);
 		listOfMetrics2.setSelectedIndex(1);
 		southPanel.add(listOfMetrics2);
 		
 		String[] symbolsList2 = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfSymbols2 = new JComboBox(symbolsList2);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
-		String symbolTitle2 = "Symbols";
-		listOfSymbols2.setName(symbolTitle2);
 		listOfSymbols2.setSelectedIndex(0);
 		southPanel.add(listOfSymbols2);
 		
@@ -735,7 +601,10 @@ public class MainFrame {
 		frameDefine.setVisible(true);
 	}
 
-	
+	/**
+	 * Este metodo permite a edicao de DefectDetections e a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher 
+	 * as metricas a serem usadas na regra, os thresholds e as operacoes logicas (AND e OR).
+	 */	
 	public void editDefectDetectionButton() {
 		
 		String ddToEditName = listOfDD.getSelectedValue();
@@ -759,7 +628,6 @@ public class MainFrame {
 		String[] metricsList = {"LOC", "CYCLO", "ATFD", "LAA",};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfMetrics = new JComboBox(metricsList);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		switch(ddList.get(ddIndex).getThresHold(0).getColumn()) {
 			case 4:
 				listOfMetrics.setSelectedIndex(0);
@@ -779,7 +647,6 @@ public class MainFrame {
 		String[] symbolsList = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfSymbols = new JComboBox(symbolsList);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
 		switch(ddList.get(ddIndex).getThresHold(0).getOperator()) {
 			case MENOR:
 				listOfSymbols.setSelectedIndex(0);
@@ -811,18 +678,12 @@ public class MainFrame {
 		String[] operatorsList = {"AND", "OR"}; 
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfOperators = new JComboBox(operatorsList);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
-		String operatorsTitle = "Logical Operators";
-		listOfOperators.setName(operatorsTitle);
 		listOfOperators.setSelectedIndex(ddList.get(ddIndex).getLogicalOperator()-1); //1 - AND; 2 - OR
 		northPanel.add(listOfOperators);
 		
 		String[] metricsList2 = {"LOC", "CYCLO", "ATFD", "LAA"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfMetrics2 = new JComboBox(metricsList2);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
-		String metricTitle2 = "Metrics";
-		listOfMetrics2.setName(metricTitle2);
 		switch(ddList.get(ddIndex).getThresHold(1).getColumn()) {
 		case 4:
 			listOfMetrics2.setSelectedIndex(0);
@@ -842,9 +703,6 @@ public class MainFrame {
 		String[] symbolsList2 = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfSymbols2 = new JComboBox(symbolsList2);
-		//VER COMO ADICIONAR O TITULO PARA O COMBOBOX
-		String symbolTitle2 = "Symbols";
-		listOfSymbols2.setName(symbolTitle2);
 		switch(ddList.get(ddIndex).getThresHold(1).getOperator()) {
 			case MENOR:
 				listOfSymbols2.setSelectedIndex(0);
@@ -961,6 +819,10 @@ public class MainFrame {
 		frameDefine.setVisible(true);
 	}
 
+	/**
+	 * Este metodo e feito com o intuito de remover DefectDetections, o botao "Remove" ao ser presionado faz com que este metodo seja executado 
+	 * automaticamente. 
+	 */	
 	@SuppressWarnings("rawtypes")
 	public void removeDefectDetectionButton() {
 		String ddToRemoveName = listOfDD.getSelectedValue();
@@ -980,7 +842,9 @@ public class MainFrame {
 	}
 	
 	/**
-	 * TODO
+	 * Metodo principal da Aplicacao responsavel por executar a mesma.
+	 * 
+	 * @throws IOException sempre que uma operacao de input ou output falha ou e interpretada.
 	 */	
 	public static void main(String[] args) throws IOException {
 		@SuppressWarnings("unused")
