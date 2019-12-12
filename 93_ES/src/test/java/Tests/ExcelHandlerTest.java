@@ -18,7 +18,7 @@ class ExcelHandlerTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-	 file=null;
+	 file=new File("JUnitTest.xlsx");
 	 excel= new ExcelHandler();
 	 excel2= new ExcelHandler(file);
 	 excel3=null;
@@ -33,9 +33,9 @@ class ExcelHandlerTest {
 	}
 	
 	@Test
-	
 	public void testGetDataMatrix() throws Exception {
-		excel.getDataMatrix();
+		assertFalse(excel.getDataMatrix().equals(excel2.getDataMatrix()));
+		
 		
 	}
 	
