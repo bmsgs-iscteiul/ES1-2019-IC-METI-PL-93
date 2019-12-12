@@ -2,7 +2,11 @@ package _ES._ES;
 import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Cell;
-
+/**
+ * Classe criada com o objetivo de realizar a detecao de defeitos apartir de uma serie de regras criadas definidas atraves dos TresHolds
+ * @author Artem Bogdan 35191
+ *
+ */
 public class DefectDetection {
 //	
 	private String name;
@@ -276,7 +280,12 @@ public class DefectDetection {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	/**
+	 * Esta funcao obtem um ThresHold apartir do seu numero de ordem na lista de regras
+	 * @param index numero de ordem	
+	 * 
+	 * @return
+	 */
 	public ThresHold getThresHold(int index) {
 		return rules.get(index);
 	}
