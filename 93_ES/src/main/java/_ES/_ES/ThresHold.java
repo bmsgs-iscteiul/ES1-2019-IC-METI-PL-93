@@ -1,8 +1,8 @@
 package _ES._ES;
 
 /**
- * Esta classe permite definir um ThresHold, para este ser utilizado posteriormente na detecao de defeitos.
- * package _ES._ES;
+ * Esta classe permite definir um ThresHold apartir de um valor, operador e um número da coluna a analisar, para este ser
+ * 	utilizado posteriormente na definição das regras e na deteção de defeitos.
  * @author Artem Bogdan 35191
  *
  */
@@ -13,11 +13,12 @@ public class ThresHold {
 	private Operators operator;
 	private int column;
 	/**
-	 * Um Threshold neste caso vai ser representado por um valor um operador e por uma coluna.
+	 * Um construtor que permite criar um novo threshold tendo por base o número da coluna a analizar, o valor e um 
+	 * 	operador de comparação.
 	 * 
-	 * @param column	coluna
-	 * @param value		metrica
-	 * @param operator	operador de comparacao
+	 * @param column	Número da coluna a ser analizada.
+	 * @param value		Valor usado na comparação.
+	 * @param operator	Operador de comparação.
 	 */
 	
 	public ThresHold(int column, double value, Operators operator) {
@@ -26,44 +27,44 @@ public class ThresHold {
 		this.column=column;
 	}
 	/**
-	 * Um "getter" que nos permite obter o operador do ThresHold em questao
-	 * @return operador de comparacao
+	 * Um "getter" que nos permite obter o operador do ThresHold em questão.
+	 * @return Operador de comparação.
 	 */
 	public Operators getOperator() {
 		return operator;
 	}
 
 	/**
-	 * Um "setter" que nos permite definir o operador do ThresHold em questao
-	 * @param operator operador de comparacao
+	 * Um "setter" que nos permite definir o operador do ThresHold em questão.
+	 * @param operator Operador de comparação
 	 */
 	public void setOperator(Operators operator) {
 		this.operator = operator;
 	}
 	/**
-	 *  Um "getter" que nos permite obter a coluna do ThresHold em questao
-	 * @return coluna
+	 *  Um "getter" que nos permite obter a coluna analizada do ThresHold em questão
+	 * @return O número da coluna a ser analizada.
 	 */
 	public int getColumn() {
 		return column;
 	}
 	/**
-	 *  Um "setter" que nos permite alterar a coluna do ThresHold em questao
+	 *  Um "setter" que nos permite alterar a coluna analizada do ThresHold em questão.
 	 * @param column coluna
 	 */
 	public void setColumn(int column) {
 		this.column = column;
 	}
 	/**
-	 *  Um "getter" que nos permite obter o valor da metrica do ThresHold em questao
-	 * @return metrica
+	 *  Um "getter" que nos permite obter o valor de comparação do ThresHold em questão.
+	 * @return Valor a ser comparado.
 	 */
 	public double getValue() {
 		return value;
 	}
 	/**
-	 *  Um "setter" que nos permite alterar o valor da metrica do ThresHold em questao
-	 * @param value metrica
+	 *  Um "setter" que nos permite definir o valor de comparação do ThresHold em questão.
+	 * @param  Valor a ser comparado.
 	 */
 	public void setValue(double value) {
 		this.value = value;

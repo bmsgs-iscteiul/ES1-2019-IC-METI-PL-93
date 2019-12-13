@@ -3,44 +3,76 @@ import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Cell;
 /**
- * Classe criada com o objetivo de realizar a detecao de defeitos apartir de uma serie de regras criadas definidas atraves dos TresHolds
+ * Classe criada com o objetivo de realizar a deteção de defeitos apartir de uma serie de regras criadas que são definidas 
+ * 	através dos TresHolds e de um operador lógico AND ou OR.
  * @author Artem Bogdan 35191
  *
  */
 public class DefectDetection {
-//	
+	
 	private String name;
 	private ArrayList<ThresHold> rules = new ArrayList<ThresHold>();
 	private int logicalOperator; //1 - AND; 2 - OR
 	
+	/**
+	 * Permite obter o operador lógico da deteção de defeitos em questão.
+	 * @return Operador lógico onde 1 representa o AND e 2 representa o OR.
+	 */
 	public int getLogicalOperator() {
 		return logicalOperator;
 	}
-
+	/**
+	 * Permite definir o operador lógico de uma deteção de defeitos.
+	 * @param logicalOperator Operador onde lógico 1 representa o AND e 2 representa o OR.
+	 */
 	public void setLogicalOperator(int logicalOperator) {
 		this.logicalOperator = logicalOperator;
 	}
-
+	/**
+	 * Construtor que permite criar uma deteção de defeitos só uzando o nome.
+	 * @param name Nome da deteção de defeitos .
+	 */
 	public DefectDetection(String name){
 		this.name = name;
 	}
-	
+	/**
+	 * Construtor que permite criar uma deteção de defeitos apartir de um threshold e um nome.
+	 * @param name Nome da deteção de defeitos.
+	 * @param t Threshold a ser adicionado a deteção de defeitos em questão.
+	 */
 	public DefectDetection(String name, ThresHold t){
 		this.name = name;
 		addThresHold(t);
 	}
-	
+	/**
+	 * 
+	 * @param name Nome da deteção de defeitos.
+	 * @param logicalOperator Operador lógico onde 1 representa o AND e 2 representa o OR.
+	 * @param t1 Threshold a ser adicionado a deteção de defeitos em questão.
+	 * @param t2 Threshold a ser adicionado a deteção de defeitos em questão.
+	 */
 	public DefectDetection(String name, int logicalOperator, ThresHold t1, ThresHold t2){
 		this.name = name;
 		this.logicalOperator = logicalOperator;
 		addThresHold(t1);
 		addThresHold(t2);
 	}
-	
+	/**
+	 * Função que permite adicionar o threshold à lista que representa as regras.
+	 * @param thresHold Threshold a ser adicionado a deteção de defeitos em questão.
+	 */
 	public void addThresHold(ThresHold thresHold) {
 		rules.add(thresHold);
 	}
-	
+	/**
+	 * Função que vai realizar a deteção de defeitos usando a lista de regras cujo conteúdo são os thresholds,
+	 *  operador lógico euma linha de células com conteúdo excel.
+	 * No caso 1 é feita deteção de erros usando o operador logico AND, no caso 2 OR. Dentro de cada caso são
+	 *  verificados todos os thresholds, esta verificação tem como apoio um enumerado desenvolvido propositadamente 
+	 *  	para a mesma.
+	 * @param cell Uma célula excel.
+	 * @return Boolean com decisão final.
+	 */
 	public boolean detection(Cell[] cell) {
 
 		switch(rules.size()) {
@@ -272,19 +304,25 @@ public class DefectDetection {
 		}
 		return false;
 	}
-	
+	/**
+	 * Um "getter" que permite obter o nome de uma dada deteção de defeitos.
+	 * @return Nome da deteção de defeitos em forma de String.
+	 */
 	public String getName() {
 		return name;
 	}
-
+	/**
+	 * Um "setter" que permite definir o nome de uma dada deteção de defeitos.
+	 * @param Nome da deteção de defeitos pretendido em forma de String.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	/**
-	 * Esta funcao obtem um ThresHold apartir do seu numero de ordem na lista de regras
-	 * @param index numero de ordem	
+	 * Esta função obtém um threshold apartir do seu número de ordem na lista de regras.
+	 * @param index Número de ordem	do ThresHold pretendido.
 	 * 
-	 * @return
+	 * @return threshold Treshold na posição indicada.
 	 */
 	public ThresHold getThresHold(int index) {
 		return rules.get(index);
