@@ -69,7 +69,7 @@ public class MainFrame {
 	private Object[][] dataMatrix;
 	DefectCount dc;
 	private JButton editButton, removeButton;
-	
+
 	/**
 	 * Construtor da Classe MainFrame com todos os componentes necessários para a criação da Frame principal, nomeadamente a invocação dos métodos doFrame()
 	 * e addFrameContent(), que permitem adicionar componetes mais específicos à frame, e por fim a listagem de DefectDetection designada como ddList, o que 
@@ -93,8 +93,8 @@ public class MainFrame {
 		listOfDD = new JList<String>(new DefaultListModel<String>());
 		((DefaultListModel)listOfDD.getModel()).addElement("iPlasma");
 		((DefaultListModel)listOfDD.getModel()).addElement("PMD");
-		
-	    listOfDD.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+
+		listOfDD.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 
 		ListSelectionListener listSelectionListener = new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent listSelectionEvent) {
@@ -108,27 +108,27 @@ public class MainFrame {
 						System.out.print(selections[i] + "/" + selectionValues[i] + " ");
 						int length = ddList.size();
 						for(int j = 0; j < length; j++) {
-						    if (ddList.get(j).getName().equals(selectionValues[i])) {
-						    	System.out.println("Selected " + selectionValues[i]);
-						    	//Criar matriz de dados com o Defect Detection selecionado
-						    	dataMatrix = app.detectDefects(ddList.get(j));
-						    	//Criar painel de Defect Count
-						    	dc.defectCountTable(dataMatrix);
-						    	centerPanel.removeAll();
-						    	JPanel panelCount = dc.panelBuilding();
-						    	panelCount.setPreferredSize(new Dimension(300,200));
-						    	centerPanel.add(panelCount);
-						    	centerPanel.revalidate();
-						    	centerPanel.repaint();
-						    	//Se a ferramenta selecionada for o iPlasma ou o PMD, desabilita os botões de editar e remover
-						    	if(selectionValues[i].equals("iPlasma") || selectionValues[i].equals("PMD")) {
-						    		editButton.setEnabled(false);
-						    		removeButton.setEnabled(false);
-						    	} else {
-						    		editButton.setEnabled(true);
-						    		removeButton.setEnabled(true);
-						    	}
-						    }
+							if (ddList.get(j).getName().equals(selectionValues[i])) {
+								System.out.println("Selected " + selectionValues[i]);
+								//Criar matriz de dados com o Defect Detection selecionado
+								dataMatrix = app.detectDefects(ddList.get(j));
+								//Criar painel de Defect Count
+								dc.defectCountTable(dataMatrix);
+								centerPanel.removeAll();
+								JPanel panelCount = dc.panelBuilding();
+								panelCount.setPreferredSize(new Dimension(300,200));
+								centerPanel.add(panelCount);
+								centerPanel.revalidate();
+								centerPanel.repaint();
+								//Se a ferramenta selecionada for o iPlasma ou o PMD, desabilita os botões de editar e remover
+								if(selectionValues[i].equals("iPlasma") || selectionValues[i].equals("PMD")) {
+									editButton.setEnabled(false);
+									removeButton.setEnabled(false);
+								} else {
+									editButton.setEnabled(true);
+									removeButton.setEnabled(true);
+								}
+							}
 						}
 					}
 				}
@@ -139,7 +139,7 @@ public class MainFrame {
 		doFrame();
 		addFrameContent();
 	}
-	
+
 	/**
 	 * Criação da Frame principal permitindo a sua visibilidade na Aplicação, e é feita com dimensões específicas.
 	 */
@@ -151,8 +151,8 @@ public class MainFrame {
 		frame.setSize(dim.width, dim.height);
 		frame.setVisible(true);
 	}
-	
-	
+
+
 	/**
 	 * Este método permite a adição de paineis na Frame Principal, tendo cada painel componentes específicos.
 	 * O MainPanel é o painel principal, a este painel são adicionados o WestPanel e o EastPanel.
@@ -169,7 +169,7 @@ public class MainFrame {
 	 */
 	public void addFrameContent() throws FileSystemException, IOException {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		
+
 		//MAIN PANEL
 		final JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
@@ -205,7 +205,7 @@ public class MainFrame {
 			}
 		});
 		northPanel.add(addButton);
-		
+
 		editButton = new JButton("Edit");
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -214,7 +214,7 @@ public class MainFrame {
 		});
 		northPanel.add(editButton);
 		editButton.setEnabled(false);
-		
+
 		removeButton = new JButton("Remove");
 		removeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -223,7 +223,7 @@ public class MainFrame {
 		});
 		northPanel.add(removeButton);	
 		removeButton.setEnabled(false);
-		
+
 		//CENTER PANEL
 		centerPanel = new JPanel();
 		eastPanel.add(centerPanel);
@@ -235,11 +235,11 @@ public class MainFrame {
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new FlowLayout());
 		eastPanel.add(southPanel);
-	
+
 		String titleSouthPanel = "View";
 		Border borderSouthPanel = BorderFactory.createTitledBorder(titleSouthPanel);
 		southPanel.setBorder(borderSouthPanel);
-		
+
 		JButton importProjectButton = new JButton("Import Excel File Long-Method");
 		importProjectButton.setPreferredSize(new Dimension(275,35));
 		importProjectButton.addActionListener(new ActionListener() {
@@ -252,13 +252,13 @@ public class MainFrame {
 		JButton dataTableButton = new JButton("Data Table");
 		dataTableButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String selectedTool = listOfDD.getSelectedValue();
 				if(selectedTool != null) {
 					String titleMainPanel = listOfDD.getSelectedValue().toString();
 					Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
 					mainPanel.setBorder(borderMainPanel);
-					
+
 					Datatable datatable = new Datatable(dataMatrix);
 					JScrollPane scrollPane = new JScrollPane(datatable.getJTable());
 					westPanel.removeAll();
@@ -278,29 +278,29 @@ public class MainFrame {
 
 				String selectedTool = listOfDD.getSelectedValue();
 				if(selectedTool != null) {
-					
+
 					String titleMainPanel = listOfDD.getSelectedValue().toString(); 
 					Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
 					mainPanel.setBorder(borderMainPanel);
-					
+
 					String[] columnNames = {"Method ID", "Method Name", "Defect Detetion Result","is_long_method"};
-			        // Initializing the JTable 
+					// Initializing the JTable 
 					@SuppressWarnings("serial")
 					DefaultTableModel tableModel = new DefaultTableModel(dataMatrix, columnNames){
 						@Override
-			            public Class<?> getColumnClass(int column) {
-			                switch (column) {
-			                    case 0:
-			                        return Integer.class;
-			                    case 1:
-			                        return String.class;
-			                    case 2:
-			                        return String.class;
-			                    default:
-			                        return String.class;
-			                }
-			            }
-			        };
+						public Class<?> getColumnClass(int column) {
+							switch (column) {
+							case 0:
+								return Integer.class;
+							case 1:
+								return String.class;
+							case 2:
+								return String.class;
+							default:
+								return String.class;
+							}
+						}
+					};
 					BarChart barchart = new BarChart(tableModel, selectedTool, 2);
 
 					//VER SE É ADICIONADO O SCROLLPANE
@@ -320,31 +320,31 @@ public class MainFrame {
 		JButton pieChartButton = new JButton("Pie Chart");
 		pieChartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String selectedTool = listOfDD.getSelectedValue();
 				if(selectedTool != null) {
 					String titleMainPanel = listOfDD.getSelectedValue().toString(); 
 					Border borderMainPanel = BorderFactory.createTitledBorder(titleMainPanel);
 					mainPanel.setBorder(borderMainPanel);
-					
+
 					String[] columnNames = {"Method ID", "Method Name", "Defect Detetion Result","is_long_method"};
-			        // Initializing the JTable 
+					// Initializing the JTable 
 					@SuppressWarnings("serial")
 					DefaultTableModel tableModel = new DefaultTableModel(dataMatrix, columnNames){
 						@Override
-			            public Class<?> getColumnClass(int column) {
-			                switch (column) {
-			                    case 0:
-			                        return Integer.class;
-			                    case 1:
-			                        return String.class;
-			                    case 2:
-			                        return String.class;
-			                    default:
-			                        return String.class;
-			                }
-			            }
-			        };
+						public Class<?> getColumnClass(int column) {
+							switch (column) {
+							case 0:
+								return Integer.class;
+							case 1:
+								return String.class;
+							case 2:
+								return String.class;
+							default:
+								return String.class;
+							}
+						}
+					};
 					PieChart pieChart = new PieChart(tableModel, selectedTool, 2);
 
 					//VER SE É ADICIONADO O SCROLLPANE
@@ -360,7 +360,7 @@ public class MainFrame {
 			}
 		});
 		southPanel.add(pieChartButton);
-		
+
 		//WEST PANEL
 		westPanel = new JPanel();	
 		westPanel.setLayout(new BorderLayout());
@@ -374,12 +374,12 @@ public class MainFrame {
 		frame.add(mainPanel);
 
 	}
-	
+
 	/**
 	 * Este método permite ao Utilizador importar ficheiros presentes na sua diretoria pessoal, de preferência do tipo ".xlsx", ou seja ficheiros Excel. 
 	 */
 	public void addContentImportProjectButton() { 
-		
+
 		JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel file", "xlsx");
 		fileChooser.setFileFilter(filter);
@@ -389,28 +389,28 @@ public class MainFrame {
 			File selectedFile = fileChooser.getSelectedFile();
 			String filePath = selectedFile.getAbsolutePath();
 			int lastIndexOf = filePath.lastIndexOf(".");
-	        if(!filePath.substring(lastIndexOf).equals(".xlsx")) {
-	        	JOptionPane.showMessageDialog(frame, "File must have .xlsx extension", "Error", JOptionPane.ERROR_MESSAGE);
-	        } else {
+			if(!filePath.substring(lastIndexOf).equals(".xlsx")) {
+				JOptionPane.showMessageDialog(frame, "File must have .xlsx extension", "Error", JOptionPane.ERROR_MESSAGE);
+			} else {
 				app.importExcelFile(selectedFile);
 				listOfDD.setSelectedIndex(listOfDD.getSelectedIndex());
 				JOptionPane.showMessageDialog(frame, "Excel File was successfully imported", "Excel File Imported", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}		
 	}
-	
+
 	/**
 	 * Este método permite a adição de DefectDetections e a definição de regras e thresholds para a deteção de defeitos, permitindo ao Utilizador escolher 
 	 * as métricas a serem usadas na regra, os thresholds e as operações lógicas (AND e OR).
 	 */	
 	public void addDefectDetectionButton() {
-		
+
 		final JFrame frameDefine = new JFrame();
 		frameDefine.setLayout(new FlowLayout());
 		String nameTitle = "Add new Defect Detection";
 		frameDefine.setTitle(nameTitle);
 		frameDefine.setSize(530, 145);
-		
+
 		JPanel mainPanel = new JPanel(new GridLayout(2,1));
 		frameDefine.add(mainPanel, BorderLayout.NORTH);
 
@@ -418,100 +418,100 @@ public class MainFrame {
 		JPanel southPanel = new JPanel();
 		mainPanel.add(northPanel);
 		mainPanel.add(southPanel);
-		
+
 		JLabel name = new JLabel("Name:");
 		final JTextField nameField = new JTextField("", 33);
 		northPanel.add(name);
 		northPanel.add(nameField);
-		
+
 		String[] metricsList = {"LOC", "CYCLO", "ATFD", "LAA",};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfMetrics = new JComboBox(metricsList);
 		listOfMetrics.setSelectedIndex(0);
 		southPanel.add(listOfMetrics);
-		
+
 		String[] symbolsList = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfSymbols = new JComboBox(symbolsList);
 		listOfSymbols.setSelectedIndex(0);
 		southPanel.add(listOfSymbols);
-		
+
 		//TODO
 		final JTextField thresholdsValues = new JTextField("Threshold");
 		thresholdsValues.setForeground(Color.GRAY);
 		thresholdsValues.addFocusListener(new FocusListener() {
-		    public void focusGained(FocusEvent e) {
-		        if (thresholdsValues.getText().equals("Threshold")) {
-		        	thresholdsValues.setText("");
-		        	thresholdsValues.setForeground(Color.BLACK);
-		        }
-		    }
-		    public void focusLost(FocusEvent e) {
-		        if (thresholdsValues.getText().isEmpty()) {
-		        	thresholdsValues.setForeground(Color.GRAY);
-		        	thresholdsValues.setText("Threshold");
-		        }
-		    }
-	    });
+			public void focusGained(FocusEvent e) {
+				if (thresholdsValues.getText().equals("Threshold")) {
+					thresholdsValues.setText("");
+					thresholdsValues.setForeground(Color.BLACK);
+				}
+			}
+			public void focusLost(FocusEvent e) {
+				if (thresholdsValues.getText().isEmpty()) {
+					thresholdsValues.setForeground(Color.GRAY);
+					thresholdsValues.setText("Threshold");
+				}
+			}
+		});
 		southPanel.add(thresholdsValues);
-		
+
 		String[] operatorsList = {"AND", "OR"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfOperators = new JComboBox(operatorsList);
 		listOfOperators.setSelectedIndex(0);
 		southPanel.add(listOfOperators);
-		
+
 		String[] metricsList2 = {"LOC", "CYCLO", "ATFD", "LAA"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfMetrics2 = new JComboBox(metricsList2);
 		listOfMetrics2.setSelectedIndex(1);
 		southPanel.add(listOfMetrics2);
-		
+
 		String[] symbolsList2 = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfSymbols2 = new JComboBox(symbolsList2);
 		listOfSymbols2.setSelectedIndex(0);
 		southPanel.add(listOfSymbols2);
-		
+
 		//TODO
 		final JTextField thresholdsValues2 = new JTextField("Threshold");
 		thresholdsValues2.setForeground(Color.GRAY);
 		thresholdsValues2.addFocusListener(new FocusListener() {
-		    public void focusGained(FocusEvent e) {
-		        if (thresholdsValues2.getText().equals("Threshold")) {
-		        	thresholdsValues2.setText("");
-		        	thresholdsValues2.setForeground(Color.BLACK);
-		        }
-		    }
-		    public void focusLost(FocusEvent e) {
-		        if (thresholdsValues2.getText().isEmpty()) {
-		        	thresholdsValues2.setForeground(Color.GRAY);
-		        	thresholdsValues2.setText("Threshold");
-		        }
-		    }
-	    });
+			public void focusGained(FocusEvent e) {
+				if (thresholdsValues2.getText().equals("Threshold")) {
+					thresholdsValues2.setText("");
+					thresholdsValues2.setForeground(Color.BLACK);
+				}
+			}
+			public void focusLost(FocusEvent e) {
+				if (thresholdsValues2.getText().isEmpty()) {
+					thresholdsValues2.setForeground(Color.GRAY);
+					thresholdsValues2.setText("Threshold");
+				}
+			}
+		});
 		southPanel.add(thresholdsValues2);
-						
+
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1,2));
 		frameDefine.add(buttonPanel, BorderLayout.SOUTH);
-		
+
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public void actionPerformed(ActionEvent e) {
-				
+
 				boolean hasSameName = false;
 				for (DefectDetection dd : ddList) {
 					if(dd.getName().equals(nameField.getText()))
 						hasSameName = true;
 				}
-				
+
 				if(hasSameName) {
 					JOptionPane.showMessageDialog(frame, "Another Defect Detection with this name already exists", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				
+
 				//CRIAR UM METODO PARA ADICIONAR/GUARDAR NOVAS DDs COM OS NOVOS PARAMETROS
 				int column1 = -1;
 				if(listOfMetrics.getItemAt(listOfMetrics.getSelectedIndex()).toString().equals("LOC")) {
@@ -585,7 +585,7 @@ public class MainFrame {
 			}		
 		});
 		buttonPanel.add(saveButton);
-		
+
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -593,7 +593,7 @@ public class MainFrame {
 			}		
 		});
 		buttonPanel.add(cancelButton);
-		
+
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frameDefine.setLocation(dim.width / 2 - frameDefine.getSize().width / 2, dim.height / 2 - frameDefine.getSize().height / 2);
 		frameDefine.setVisible(true);
@@ -604,7 +604,7 @@ public class MainFrame {
 	 * as métricas a serem usadas na regra, os thresholds e as operações lógicas (AND e OR).
 	 */	
 	public void editDefectDetectionButton() {
-		
+
 		String ddToEditName = listOfDD.getSelectedValue();
 		int ddIndex = -1;
 		for (DefectDetection dd : ddList) {
@@ -619,7 +619,7 @@ public class MainFrame {
 		String nameTitle = "Edit Defect Detection " + ddToEditName;
 		frameDefine.setTitle(nameTitle);
 		frameDefine.setSize(530, 110);
-		
+
 		JPanel northPanel = new JPanel();
 		frameDefine.add(northPanel, BorderLayout.NORTH);
 
@@ -627,58 +627,58 @@ public class MainFrame {
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfMetrics = new JComboBox(metricsList);
 		switch(ddList.get(ddIndex).getThresHold(0).getColumn()) {
-			case 4:
-				listOfMetrics.setSelectedIndex(0);
-				break;
-			case 5:
-				listOfMetrics.setSelectedIndex(1);
-				break;
-			case 6:
-				listOfMetrics.setSelectedIndex(2);
-				break;
-			case 7:
-				listOfMetrics.setSelectedIndex(3);
-				break;
+		case 4:
+			listOfMetrics.setSelectedIndex(0);
+			break;
+		case 5:
+			listOfMetrics.setSelectedIndex(1);
+			break;
+		case 6:
+			listOfMetrics.setSelectedIndex(2);
+			break;
+		case 7:
+			listOfMetrics.setSelectedIndex(3);
+			break;
 		}
 		northPanel.add(listOfMetrics);
-		
+
 		String[] symbolsList = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfSymbols = new JComboBox(symbolsList);
 		switch(ddList.get(ddIndex).getThresHold(0).getOperator()) {
-			case MENOR:
-				listOfSymbols.setSelectedIndex(0);
-				break;
-			case MAIOR:
-				listOfSymbols.setSelectedIndex(1);
-				break;
-			case IGUAL:
-				listOfSymbols.setSelectedIndex(2);
-				break;
-			case MENOR_OU_IGUAL:
-				listOfSymbols.setSelectedIndex(3);
-				break;
-			case MAIOR_OU_IGUAL:
-				listOfSymbols.setSelectedIndex(4);
-				break;
-			case DIFERENTE:
-				listOfSymbols.setSelectedIndex(5);
-				break;
+		case MENOR:
+			listOfSymbols.setSelectedIndex(0);
+			break;
+		case MAIOR:
+			listOfSymbols.setSelectedIndex(1);
+			break;
+		case IGUAL:
+			listOfSymbols.setSelectedIndex(2);
+			break;
+		case MENOR_OU_IGUAL:
+			listOfSymbols.setSelectedIndex(3);
+			break;
+		case MAIOR_OU_IGUAL:
+			listOfSymbols.setSelectedIndex(4);
+			break;
+		case DIFERENTE:
+			listOfSymbols.setSelectedIndex(5);
+			break;
 		}
 		String simbolTitle = "Symbols";
 		listOfSymbols.setName(simbolTitle);
 		northPanel.add(listOfSymbols);
-		
+
 		//TODO
 		final JTextField thresholdsValues = new JTextField(ddList.get(ddIndex).getThresHold(0).getValue()+"");
 		northPanel.add(thresholdsValues);
-		
+
 		String[] operatorsList = {"AND", "OR"}; 
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfOperators = new JComboBox(operatorsList);
 		listOfOperators.setSelectedIndex(ddList.get(ddIndex).getLogicalOperator()-1); //1 - AND; 2 - OR
 		northPanel.add(listOfOperators);
-		
+
 		String[] metricsList2 = {"LOC", "CYCLO", "ATFD", "LAA"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfMetrics2 = new JComboBox(metricsList2);
@@ -695,42 +695,42 @@ public class MainFrame {
 		case 7:
 			listOfMetrics2.setSelectedIndex(3);
 			break;
-	}
+		}
 		northPanel.add(listOfMetrics2);
-		
+
 		String[] symbolsList2 = {"<", ">", "=", "<=", ">=", "!="};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox listOfSymbols2 = new JComboBox(symbolsList2);
 		switch(ddList.get(ddIndex).getThresHold(1).getOperator()) {
-			case MENOR:
-				listOfSymbols2.setSelectedIndex(0);
-				break;
-			case MAIOR:
-				listOfSymbols2.setSelectedIndex(1);
-				break;
-			case IGUAL:
-				listOfSymbols2.setSelectedIndex(2);
-				break;
-			case MENOR_OU_IGUAL:
-				listOfSymbols2.setSelectedIndex(3);
-				break;
-			case MAIOR_OU_IGUAL:
-				listOfSymbols2.setSelectedIndex(4);
-				break;
-			case DIFERENTE:
-				listOfSymbols2.setSelectedIndex(5);
-				break;
+		case MENOR:
+			listOfSymbols2.setSelectedIndex(0);
+			break;
+		case MAIOR:
+			listOfSymbols2.setSelectedIndex(1);
+			break;
+		case IGUAL:
+			listOfSymbols2.setSelectedIndex(2);
+			break;
+		case MENOR_OU_IGUAL:
+			listOfSymbols2.setSelectedIndex(3);
+			break;
+		case MAIOR_OU_IGUAL:
+			listOfSymbols2.setSelectedIndex(4);
+			break;
+		case DIFERENTE:
+			listOfSymbols2.setSelectedIndex(5);
+			break;
 		}
 		northPanel.add(listOfSymbols2);
-		
+
 		//TODO
 		final JTextField thresholdsValues2 = new JTextField(ddList.get(ddIndex).getThresHold(1).getValue()+"");
 		northPanel.add(thresholdsValues2);
-						
+
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new GridLayout(1,2));
 		frameDefine.add(southPanel, BorderLayout.SOUTH);
-		
+
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -803,7 +803,7 @@ public class MainFrame {
 			}		
 		});
 		southPanel.add(saveButton);
-		
+
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -811,7 +811,7 @@ public class MainFrame {
 			}		
 		});
 		southPanel.add(cancelButton);
-		
+
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frameDefine.setLocation(dim.width / 2 - frameDefine.getSize().width / 2, dim.height / 2 - frameDefine.getSize().height / 2);
 		frameDefine.setVisible(true);
@@ -832,12 +832,12 @@ public class MainFrame {
 				listOfDD.revalidate();
 				listOfDD.repaint();
 				editButton.setEnabled(false);
-	    		removeButton.setEnabled(false);
+				removeButton.setEnabled(false);
 				break;
 			}
 		}
 	}
-	
+
 	/**
 	 * Método principal da Aplicação responsável por executar a mesma.
 	 * 
