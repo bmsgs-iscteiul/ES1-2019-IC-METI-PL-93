@@ -62,10 +62,6 @@ public class ThresHold {
 	public double getValue() {
 		return value;
 	}
-	/**
-	 *  Um "setter" que nos permite definir o valor de comparação do ThresHold em questão.
-	 * @param  Valor a ser comparado.
-	 */
 	public void setValue(double value) {
 		this.value = value;
 	}

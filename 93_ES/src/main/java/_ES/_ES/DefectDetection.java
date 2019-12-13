@@ -311,17 +311,12 @@ public class DefectDetection {
 	public String getName() {
 		return name;
 	}
-	/**
-	 * Um "setter" que permite definir o nome de uma dada deteção de defeitos.
-	 * @param Nome da deteção de defeitos pretendido em forma de String.
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	/**
 	 * Esta função obtém um threshold apartir do seu número de ordem na lista de regras.
 	 * @param index Número de ordem	do ThresHold pretendido.
-	 * 
 	 * @return threshold Treshold na posição indicada.
 	 */
 	public ThresHold getThresHold(int index) {
