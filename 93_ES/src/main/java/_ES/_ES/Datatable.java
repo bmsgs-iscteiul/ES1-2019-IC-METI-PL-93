@@ -7,7 +7,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
- * A classe Datatable é a converte os dados da análise de defeitos para uma tabela swing a inserir na MainFrame da GUI.
+ * A classe Datatable é a que converte os dados da análise de defeitos para uma tabela SWING a inserir na MainFrame da GUI.
  * @author José Gonçalves - 82694
  * @version 1.0
  */
@@ -17,7 +17,7 @@ public class Datatable {
 	Object[][] defectMatrix; 
 
 	/**
-	 * O construtor desta classe recebe como argumento um array Bidimensional de objetos, gerado pela classe App, que guarda numa variável.
+	 * O construtor desta classe recebe como argumento um Array Bidimensional de objetos, gerado pela classe App, que guarda numa variável.
 	 * @param defectMatrix
 	 */
 	public Datatable(Object[][] defectMatrix) {
@@ -26,7 +26,7 @@ public class Datatable {
 	
 	/**
 	 * O método getJTable é o que devolve um objeto da classe JTable para ser inserido na MainFrame da GUI.
-	 * A construção de uma DefaultTableModel é necessária para que o sorter consiga interpretar os MethodID como números, de modo a fazer a ordenação correta
+	 * A construção de uma DefaultTableModel é necessária para que o sorter consiga interpretar os MethodID como números, de modo a fazer a ordenação correta.
 	 * @return JTable table - tabela a inserir na GUI
 	 */
 	public JTable getJTable() { 
