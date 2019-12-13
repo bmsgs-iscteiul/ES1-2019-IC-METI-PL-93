@@ -37,16 +37,16 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * A Classe MainFrame comporta-se como uma Aplicação de avaliacao da qualidade de detecao de defeitos de desenho em Projetos de Software.
- * Tem como funcoes: 
- *  - a visualizacao de Ferramentas como "IPlasma" e "PMD", entre outras que irao ser criadas consoante o desejo do Utilizador, e possível visualização em formato de DataTable, 
+ * A Classe MainFrame comporta-se como uma Aplicação de avaliação da qualidade de deteção de defeitos de desenho em Projetos de Software.
+ * Tem como funções: 
+ *  - a visualização de Ferramentas como "IPlasma" e "PMD", entre outras que irão ser criadas consoante o desejo do Utilizador, e possível visualização em formato de DataTable, 
  *  PieChart e BarChart; 
- *  - a criacao, edicao e remocao de Ferramentas; 
- *  - a importacao do ficheiro Excel "Long-Method", sendo este projeto adaptavel a outros ficheiros Excel (do tipo .xlsx) de estrutura semelhante; 
- *  - a definicao de limites (Thresholds) para as metricas, envolvidas na detecao dos defeitos long_method;
- *  - a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher as metricas a serem usadas na regra, os thresholds 
- *  e as operacoes logicas (AND e OR);
- *  - a visualizacao de uma tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI, ADII) para as 
+ *  - a criação, edição e remoção de Ferramentas; 
+ *  - a importação do ficheiro Excel "Long-Method", sendo este projeto adaptável a outros ficheiros Excel (do tipo .xlsx) de estrutura semelhante; 
+ *  - a definição de limites (Thresholds) para as métricas, envolvidas na deteção dos defeitos long_method;
+ *  - a definição de regras e thresholds para a deteção de defeitos, permitindo ao Utilizador escolher as métricas a serem usadas na regra, os thresholds 
+ *  e as operações lógicas (AND e OR);
+ *  - a visualização de uma tabela com a contabilização dos indicadores de qualidade verificados na deteção dos defeitos (DCI, DII, ADCI, ADII) para as 
  *  ferramentas Plasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
  *   
  * @author Beatriz Gomes - 82195
@@ -55,7 +55,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class MainFrame {
 	/**
-	 * Criacao da Frame Principal da Aplicacao.
+	 * Criação da Frame Principal da Aplicação.
 	 */
 	private JFrame frame;
 	public JFrame getFrame() {
@@ -71,14 +71,14 @@ public class MainFrame {
 	private JButton editButton, removeButton;
 	
 	/**
-	 * Construtor da Classe MainFrame com todos os componentes necessarios para a criacao da Frame principal, nomeadamente a invocacao dos metodos doFrame()
-	 * e addFrameContent(), que permitem adicionar componetes mais especificos a frame, e por fim a listagem de DefectDetection designada como ddList, o que 
-	 * permite a visualizacao da JList listOfDD na Frame.
-	 * E feito tambem o controlo quando uma ferramneta e selecionada na JList, e caso a ferramenta selecionada for o "IPlasma" ou o "PMD" desabilita a 
-	 * funcionalidade dos botoes "Edit" e "Remove".
+	 * Construtor da Classe MainFrame com todos os componentes necessários para a criação da Frame principal, nomeadamente a invocação dos métodos doFrame()
+	 * e addFrameContent(), que permitem adicionar componetes mais específicos à frame, e por fim a listagem de DefectDetection designada como ddList, o que 
+	 * permite a visualização da JList listOfDD na Frame.
+	 * É feito também o controlo quando uma ferramneta é selecionada na JList, e caso a ferramenta selecionada for o "IPlasma" ou o "PMD" desabilita a 
+	 * funcionalidade dos botões "Edit" e "Remove".
 	 * 
-	 *  @throws FileSystemException quando a operacao de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
-	 *  @throws IOException sempre que uma operacao de input ou output falha ou e interpretada.
+	 *  @throws FileSystemException quando a operação de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
+	 *  @throws IOException sempre que uma operação de input ou output falha ou é interpretada.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public MainFrame() throws FileSystemException, IOException {
@@ -141,7 +141,7 @@ public class MainFrame {
 	}
 	
 	/**
-	 * Criacao da Frame principal permitindo a sua visibilidade na Aplicacao, e e feita com dimensoes especificas.
+	 * Criação da Frame principal permitindo a sua visibilidade na Aplicação, e é feita com dimensões específicas.
 	 */
 	public void doFrame() {
 		frame = new JFrame("Defect Detection In Software Projects");
@@ -154,18 +154,18 @@ public class MainFrame {
 	
 	
 	/**
-	 * Este metodo permite a adicao de paineis na Frame Principal, tendo cada painel componentes especificos.
-	 * O MainPanel e o painel principal, a este painel sao adicionados o WestPanel e o EastPanel.
-	 * O WestPanel foi criado para permitir a visualizacao de DataTables, PieCharts e BarCharts.
-	 * No EastPanel sao adicionados 3 novos paineis, nomeadamente o NorthPanel, o CenterPanel e o SouthPanel.
-	 * No NorthPanel e adicionado a JList listOfDD e os botoes "Edit", "Add" e "Remove".
-	 * No CenterPanel e adicionada a tabela com a contabilizacao dos indicadores de qualidade verificados na detecao dos defeitos (DCI, DII, ADCI,ADII)
+	 * Este método permite a adição de paineis na Frame Principal, tendo cada painel componentes específicos.
+	 * O MainPanel é o painel principal, a este painel são adicionados o WestPanel e o EastPanel.
+	 * O WestPanel foi criado para permitir a visualização de DataTables, PieCharts e BarCharts.
+	 * No EastPanel são adicionados 3 novos paineis, nomeadamente o NorthPanel, o CenterPanel e o SouthPanel.
+	 * No NorthPanel é adicionado a JList listOfDD e os botões "Edit", "Add" e "Remove".
+	 * No CenterPanel é adicionada a tabela com a contabilização dos indicadores de qualidade verificados na deteção dos defeitos (DCI, DII, ADCI,ADII)
 	 * para as ferramentas "IPlasma", "PMD" e para as regras/thresholds criadas/definidas pelo Utilizador.
-	 * No SouthPanel e adicionado botoes como o "DataTable", "PieChart" e o "BarChart" que ao serem pressionados aparecem os/as graficos/tabelas correspondentes, 
-	 * e o botao que permite a importacao de ficheiros. 
+	 * No SouthPanel é adicionado botões como o "DataTable", "PieChart" e o "BarChart" que ao serem pressionados aparecem os/as gráficos/tabelas correspondentes, 
+	 * e o botão que permite a importação de ficheiros. 
 	 * 
-	 *  @throws FileSystemException quando a operacao de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
-	 *  @throws IOException sempre que uma operacao de input ou output falha ou e interpretada.
+	 *  @throws FileSystemException quando a operação de sistemas de ficheiros falha em pelo menos um ou dois ficheiros.
+	 *  @throws IOException sempre que uma operação de input ou output falha ou é interpretada.
 	 */
 	public void addFrameContent() throws FileSystemException, IOException {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -174,7 +174,6 @@ public class MainFrame {
 		final JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setSize(screenSize.width, screenSize.height);
-//		frame.add(mainPanel, BorderLayout.NORTH);
 
 		//EAST PANEL
 		JPanel eastPanel = new JPanel();
@@ -196,7 +195,7 @@ public class MainFrame {
 		northPanel.add(listOfDD);
 
 		JScrollPane listScroller = new JScrollPane(listOfDD);
-		listScroller.setPreferredSize(new Dimension(320, 180)); 
+		listScroller.setPreferredSize(new Dimension(300, 150)); 
 		northPanel.add(listScroller);		
 
 		JButton addButton = new JButton("Add");
@@ -237,7 +236,6 @@ public class MainFrame {
 		southPanel.setLayout(new FlowLayout());
 		eastPanel.add(southPanel);
 	
-
 		String titleSouthPanel = "View";
 		Border borderSouthPanel = BorderFactory.createTitledBorder(titleSouthPanel);
 		southPanel.setBorder(borderSouthPanel);
@@ -373,16 +371,12 @@ public class MainFrame {
 		Border borderWestPanel = BorderFactory.createTitledBorder(titleWestPanel);
 		westPanel.setBorder(borderWestPanel);
 
-		JScrollPane scrollPane = new JScrollPane(westPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);		
-//		westPanel.add(scrollPane);
-		frame.add(scrollPane);
-
 		frame.add(mainPanel);
 
 	}
 	
 	/**
-	 * Este metodo permite ao Utilizador importar ficheiros presentes na sua diretoria pessoal, de preferencia do tipo ".xlsx", ou seja ficheiros Excel. 
+	 * Este método permite ao Utilizador importar ficheiros presentes na sua diretoria pessoal, de preferência do tipo ".xlsx", ou seja ficheiros Excel. 
 	 */
 	public void addContentImportProjectButton() { 
 		
@@ -406,8 +400,8 @@ public class MainFrame {
 	}
 	
 	/**
-	 * Este metodo permite a adicao de DefectDetections e a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher 
-	 * as metricas a serem usadas na regra, os thresholds e as operacoes logicas (AND e OR).
+	 * Este método permite a adição de DefectDetections e a definição de regras e thresholds para a deteção de defeitos, permitindo ao Utilizador escolher 
+	 * as métricas a serem usadas na regra, os thresholds e as operações lógicas (AND e OR).
 	 */	
 	public void addDefectDetectionButton() {
 		
@@ -606,8 +600,8 @@ public class MainFrame {
 	}
 
 	/**
-	 * Este metodo permite a edicao de DefectDetections e a definicao de regras e thresholds para a detecao de defeitos, permitindo ao Utilizador escolher 
-	 * as metricas a serem usadas na regra, os thresholds e as operacoes logicas (AND e OR).
+	 * Este método permite a edição de DefectDetections e a definição de regras e thresholds para a deteção de defeitos, permitindo ao Utilizador escolher 
+	 * as métricas a serem usadas na regra, os thresholds e as operações lógicas (AND e OR).
 	 */	
 	public void editDefectDetectionButton() {
 		
@@ -824,8 +818,7 @@ public class MainFrame {
 	}
 
 	/**
-	 * Este metodo e feito com o intuito de remover DefectDetections, o botao "Remove" ao ser pressionado faz com que este metodo seja executado 
-	 * automaticamente. 
+	 * Este método é feito com o intuito de remover DefectDetections, o botão "Remove" ao ser pressionado faz com que este método seja executado automáticamente. 
 	 */	
 	@SuppressWarnings("rawtypes")
 	public void removeDefectDetectionButton() {
@@ -846,9 +839,9 @@ public class MainFrame {
 	}
 	
 	/**
-	 * Metodo principal da Aplicacao responsavel por executar a mesma.
+	 * Método principal da Aplicação responsável por executar a mesma.
 	 * 
-	 * @throws IOException sempre que uma operacao de input ou output falha ou e interpretada.
+	 * @throws IOException sempre que uma operação de input ou output falha ou é interpretada.
 	 */	
 	public static void main(String[] args) throws IOException {
 		@SuppressWarnings("unused")

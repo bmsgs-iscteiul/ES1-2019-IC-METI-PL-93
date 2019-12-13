@@ -60,11 +60,11 @@ public class PieChart extends JPanel {
 	
 	/**
 	 * O método createDataset recebe o número da coluna que se pretender ler e tem como finalidade devolver um dataset.
-	 * Primeiramente, é necessario contar o número de linhas e os dados que cada linha apresenta. Esta informação e retirada da coluna escolhida da tableModel passada como argumento no construtor.
-	 * Percorre-se todas as linhas através de um ForEach, em cada linha e criado objecto do valor presente na mesma e onde atraves de casts se transforma o objecto lido num Boolean. 
-	 * O contador previamente criado é inicializado a 0 e incrementado caso o Boolean lido na linha seja True.
-	 * Por fim são criados duas variaveis a serem apresentadas como resultados no gráfico. Atraves do contador e do numero de linhas percorridas é calculado o valor da variável comErros. 
-	 * A segunda variável(semErros) é facilmente calculada com base na primeira. Após se definir os valores das variáveis estes são atualizados no gráfico.
+	 * Primeiramente, é necessario contar o número de linhas e os dados que cada linha apresenta. Esta informação é lida da coluna escolhida da tableModel passada como argumento no construtor.
+	 * Percorre-se todas as linhas através de um ForEach, em cada linha é lido a String  do valor presente na mesma e é feito o cast para Boolean. 
+	 * O contador previamente criado é inicializado a 0 e incrementado caso o Boolean lido na linha seja "True".
+	 * Por fim são criados duas variáveis a serem apresentadas como resultados no gráfico. Através do contador e do numero de linhas percorridas é calculado o valor da variável comErros. 
+	 * A segunda variável (semErros) é facilmente calculada com base na primeira. Após se definir os valores das variáveis estes são atualizados no gráfico.
 
 	 * @param column Número da coluna de onde vão ser lidos os dados.
 	 * @return PieDataSet result, ou seja, os dados a serem apresentados no gráfico provenientes da tableModel.
@@ -97,7 +97,7 @@ public class PieChart extends JPanel {
 	
 	/**
 	 * 
-	 * Este método permite criar o gráfico pieChart e recebe como argumentos o dataset devolvido no metodo anteriormente e uma String que corresponde ao título que o gráfico deve apresentar.
+	 * Este método permite criar o gráfico pieChart e recebe como argumentos o dataset devolvido no método anteriormente é uma String que corresponde ao título que o gráfico deve apresentar.
 	 * 
 	 * 
 	 * @param dataset PieDataSet, ou seja, os dados a serem apresentados no gráfico provenientes da tableModel.

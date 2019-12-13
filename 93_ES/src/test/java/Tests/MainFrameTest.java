@@ -32,7 +32,6 @@ import _ES._ES.MainFrame;
 
 class MainFrameTest {
 
-
 	MainFrame mainFrame;
 	JPanel mainPanel;
 	JPanel westpanel;
@@ -57,9 +56,9 @@ class MainFrameTest {
 			 * 2 - JButton Edit
 			 * 3 - JButton Remove
 			 * 4 - JButton Import Excel
-			 * 5 - JButton Datatable
-			 * 6 - JButton Bar Chart
-			 * 7 - JButton Pie Chart
+			 * 5 - JButton DataTable
+			 * 6 - JButton BarChart
+			 * 7 - JButton PieChart
 			 */
 
 			//////////////////////////////////////
